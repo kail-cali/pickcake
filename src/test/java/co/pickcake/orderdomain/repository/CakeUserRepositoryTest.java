@@ -1,7 +1,6 @@
 package co.pickcake.orderdomain.repository;
 
 import co.pickcake.orderdomain.entity.item.Cake;
-import co.pickcake.orderdomain.entity.item.Item;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -9,14 +8,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 @SpringBootTest
 @Transactional
-class CakeRepositoryTest {
+class CakeUserRepositoryTest {
 
 
-    @Autowired CakeRepository cakeRepository;
+    @Autowired
+    CakeUserRepository cakeRepository;
 
     @Test
     @DisplayName("브랜드 별 조회")

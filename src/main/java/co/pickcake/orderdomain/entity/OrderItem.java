@@ -2,10 +2,13 @@ package co.pickcake.orderdomain.entity;
 
 import co.pickcake.orderdomain.entity.item.Item;
 import jakarta.persistence.*;
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 
 @Entity @Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class OrderItem {
 
     @Id @GeneratedValue
@@ -22,10 +25,47 @@ public class OrderItem {
     private Order order;
 
     private int orderPrice;
+
     private int count;
 
+
+    /* set 메서드 */
     public void setOrder(Order order) {
         this.order = order;
+    }
+
+    public void setItem(Item item) {
+        this.item = item;
+    }
+
+    public void setOrderPrice(int orderPrice) {
+        this.orderPrice = orderPrice;
+    }
+    public void setCount(int count) {
+        this.count = count;
+    }
+
+    /* 생성 메서드 */
+
+
+
+    public static OrderItem createOrderItem(Item item, int orderPrice, int count) {
+        OrderItem orderItem = new OrderItem();
+        orderItem.setItem(item);
+        orderItem.setOrderPrice(orderPrice);
+        orderItem.setCount(count);
+        item.removeStock(count);
+        return orderItem;
+    }
+
+    /* 비즈니스 로직 */
+    public void cancel() {
+        getItem().addStock(count);
+    }
+
+    /* 조회 로직 */
+    public int getTotalPrice() {
+        return getOrderPrice()*getCount();
     }
 
 }

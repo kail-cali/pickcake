@@ -1,8 +1,12 @@
 package co.pickcake.authdomain.entity;
 
 import co.pickcake.common.entity.Address;
+import co.pickcake.recommand.entity.Like;
 import jakarta.persistence.*;
 import lombok.Getter;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Entity @Getter
@@ -27,10 +31,21 @@ public class Member {
     private PrivateInfo privateInfo;
 
 
+
     @Embedded
     private Address address;
 
 //    @OneToMany(mappedBy="member")
 //    private List<Order> orderList = new ArrayList<>();
+
+    /* 수정 메서드 */
+    public void setAddress(Address address) {
+        this.address = address;
+    }
+
+    /* API */
+    /* member 가 좋아요한 리스트 */
+    @OneToMany(mappedBy = "member")
+    private List<Like> likelist = new ArrayList<>();
 
 }
