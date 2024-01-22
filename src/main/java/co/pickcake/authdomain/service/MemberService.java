@@ -1,5 +1,6 @@
 package co.pickcake.authdomain.service;
 
+import co.pickcake.aop.util.ErrorCode;
 import co.pickcake.authdomain.entity.Member;
 import co.pickcake.authdomain.repository.MemberRepository;
 import lombok.AllArgsConstructor;
@@ -28,8 +29,10 @@ public class MemberService {
         /* 중복회원 검증 로직 */
         List<Member> findMembers = memberRepository.findByName(member.getUsername());
         if (! findMembers.isEmpty()) {
-            throw  new IllegalStateException("이미 존재하는 회원입니다.");
+            throw  new IllegalStateException(ErrorCode.DUPLICATED_USER_ALREADY_EXISTS.toString());
         }
+
+
 
     }
 

@@ -1,5 +1,6 @@
 package co.pickcake.authdomain.service;
 
+import co.pickcake.aop.util.ErrorCode;
 import co.pickcake.authdomain.entity.Member;
 import co.pickcake.authdomain.repository.MemberRepository;
 import org.assertj.core.api.Assertions;
@@ -53,7 +54,9 @@ class MemberServiceTest {
                         () -> memberService.join(duplicateMember));
 
         //then
-        Assertions.assertThat(thrownError.getMessage()).isEqualTo("이미 존재하는 회원입니다.");
+        Assertions.assertThat(thrownError.getMessage())
+                .isEqualTo(ErrorCode.DUPLICATED_USER_ALREADY_EXISTS.toString());
+
 
 
     }
