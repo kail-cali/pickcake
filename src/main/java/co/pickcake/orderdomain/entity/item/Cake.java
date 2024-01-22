@@ -12,7 +12,15 @@ import java.util.List;
 @DiscriminatorColumn(name="C")
 public class Cake extends Item {
 
+
+    public void setItemUid(String itemUid) {
+        this.itemUid = itemUid;
+    }
+
     private String brand;
+
+
+
 
     private String itemUid;
 
@@ -21,5 +29,9 @@ public class Cake extends Item {
     @OneToMany
 //    @JoinColumn(name = "category_id")
     private List<CakeCategory> cakeCategoryList = new ArrayList<>();
+
+    public void setBrand(String brand) {
+        this.brand = brand;
+    }
 
 }
