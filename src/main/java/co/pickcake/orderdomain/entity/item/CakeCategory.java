@@ -10,11 +10,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity @Getter
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name="CakeCategory")
-public class CakeCategory extends Category {
+public class CakeCategory {
 
+    @Id @GeneratedValue
+    @Column(name = "category_id")
+    private Long id;
 
+    private String name;
 
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -24,16 +26,28 @@ public class CakeCategory extends Category {
     @OneToMany(mappedBy = "parent")
     private List<CakeCategory> child = new ArrayList<>();
 
+
+    @OneToMany(mappedBy = "cakeCategory", cascade = CascadeType.ALL)
+    private List<EventCakeCategory> cakeList = new ArrayList<>();
+
     public void addChildCategory(CakeCategory ch) {
         this.child.add(ch);
         ch.setParent(this);
     }
 
+
+    public static CakeCategory createCategory(String categoryName) {
+        CakeCategory cakeCategory = new CakeCategory();
+        cakeCategory.setName(categoryName);
+        return cakeCategory;
+    }
+
+
     public void setParent(CakeCategory parent) {
         this.parent = parent;
     }
 
-    public void setChild(List<CakeCategory> child) {
-        this.child = child;
+    public void setName(String name) {
+        this.name = name;
     }
 }
