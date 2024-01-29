@@ -8,6 +8,7 @@ import org.hibernate.annotations.UuidGenerator;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.annotation.Id;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -18,10 +19,7 @@ import java.util.UUID;
 public class Cake extends Item {
 
 
-
-    @Id
     @GeneratedValue(generator = "uuid2")
-    @GenericGenerator(name="uuid2")
     @Column(columnDefinition = "Binary(16)")
     private UUID itemUid;
 
@@ -37,17 +35,12 @@ public class Cake extends Item {
     @JoinColumn(name="shop_id")
     private Shop shop;
 
-
-    @OneToMany
-    private List<CakeCategory> cakeCategoryList = new ArrayList<>();
+    @OneToMany(mappedBy = "cake", cascade = CascadeType.ALL)
+    private List<EventCakeCategory> cakeCategoryList = new ArrayList<>();
 
     /* 수정 메서드 */
     public void setBrand(String brand) {
         this.brand = brand;
-    }
-
-    public void setItemUid(UUID itemUid) {
-        this.itemUid = itemUid;
     }
 
     public void setDescription(String description) {
@@ -58,26 +51,27 @@ public class Cake extends Item {
     }
 
     /* 연관관계 편의 메서드 */
-    public void addCakeCategory(CakeCategory cakeCategory) {
-        cakeCategoryList.add(cakeCategory);
+    public void addCakeCategory(EventCakeCategory eventCakeCategory) {
+        cakeCategoryList.add(eventCakeCategory);
     }
 
     /* 생성 메서드 */
-    public static Cake createCake(String brand, CakeCategory... cakeCategories) {
+
+    public static Cake createCake(String name, String brand, String description,
+                                  int price, int stock, String imagePath) {
         Cake cake = new Cake();
-        for (CakeCategory cakeCategory: cakeCategories) {
-            cake.addCakeCategory(cakeCategory);
-        }
+        cake.setName(name);
+        cake.setPrice(price);
         cake.setBrand(brand);
-        return cake;
-    }
-    public static Cake createCake(String brand, String description, String imagePath) {
-        Cake cake = new Cake();
-        cake.setBrand(brand);
+        cake.setStockQuantity(stock);
         cake.setDescription(description);
+
         cake.setImagePath(imagePath);
 
         return cake;
     }
+
+
+
 
 }

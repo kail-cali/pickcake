@@ -1,15 +1,17 @@
 package co.pickcake.orderdomain.entity.item;
 
-import co.pickcake.aop.util.ErrorCode;
 import co.pickcake.aop.util.exception.NotEnoughStockException;
 import co.pickcake.common.entity.Address;
+import co.pickcake.recommand.entity.Heart;
 import jakarta.persistence.*;
 import lombok.Getter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static co.pickcake.aop.util.ErrorCode.*;
 
-@Entity
-@Getter
+@Entity @Getter
 public abstract class Item {
 
     @Id @GeneratedValue
@@ -23,9 +25,12 @@ public abstract class Item {
 
     private int price;
 
-
-
     private int stockQuantity;
+
+
+    /* api */
+    @OneToMany(mappedBy = "item")
+    private List<Heart> hearts = new ArrayList<>();
 
     /* 수정 메서드 */
     public void setName(String name) {this.name = name;}
@@ -33,8 +38,9 @@ public abstract class Item {
     public void setStockQuantity(int stockQuantity) {
         this.stockQuantity = stockQuantity;
     }
-    /**/
+    public void setId(Long id) {this.id = id;}
 
+    /* */
     public void addStock(int stockQuantity) {
         this.stockQuantity += stockQuantity;
     }
@@ -45,6 +51,5 @@ public abstract class Item {
         }
         this.stockQuantity -= stockQuantity;
     }
-
 
 }

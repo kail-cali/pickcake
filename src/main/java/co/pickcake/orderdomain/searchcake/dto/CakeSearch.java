@@ -1,4 +1,4 @@
-package co.pickcake.orderdomain.repository;
+package co.pickcake.orderdomain.searchcake.dto;
 
 
 import lombok.Getter;
@@ -9,7 +9,6 @@ public class CakeSearch {
 
     private String cakeName;
     private String categoryName;
-    private int price;
     private String brand;
 
 }

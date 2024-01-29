@@ -16,5 +16,8 @@ public abstract class Category {
 
     private String name;
 
+    protected void setName(String categoryName) {
+        this.name =  categoryName;
+    }
 
 }
