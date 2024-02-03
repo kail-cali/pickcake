@@ -15,7 +15,6 @@ public class CakeSearchRepository {
 
     private final EntityManager em;
 
-
     private List<CakeCategorySearch> findCake() {
         return em.createQuery("select new co.pickcake.orderdomain.searchcake.dto.CakeCategorySearch(c.id, c.name,c.imagePath,c.price,c.brand)" +
                         " from Cake c"
@@ -23,9 +22,6 @@ public class CakeSearchRepository {
 
                 .getResultList();
     }
-
-
-
 
     public List<EventCakeCategory> findBySingleCategory(int offset, int limit, String categoryName) {
         return em.createQuery(
@@ -38,4 +34,6 @@ public class CakeSearchRepository {
                 .setMaxResults(limit)
                 .getResultList();
     }
+
+
 }

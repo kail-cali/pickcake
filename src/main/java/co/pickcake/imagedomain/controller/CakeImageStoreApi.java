@@ -6,14 +6,14 @@ import co.pickcake.imagedomain.service.ImageServer;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RequestPart;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.net.MalformedURLException;
 
 @Slf4j
 @RestController
@@ -39,9 +39,6 @@ public class CakeImageStoreApi {
 
         return ResponseEntity.ok(imageSaveResponse);
     }
-
-
-
 
 
 
