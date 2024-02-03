@@ -42,6 +42,8 @@ public class CakeSearchService {
         return collect;
     }
 
+
+
     public List<CakeCategorySearch> findBySingleCategory(int offset, int limit, String categoryName) {
         List<EventCakeCategory> bySingleCategory = cakeSearchRepository.findBySingleCategory(offset, limit, categoryName);
 
@@ -49,6 +51,16 @@ public class CakeSearchService {
                 .map(CakeCategorySearch::new)
                 .collect(Collectors.toList());
     }
+
+    /* TODO 더 정확한 이름 검색 기능 개선, 일반 검색 메서드 refactor */
+    public List<CakeSimpleSearch> findByNameOnLike(int offset, int limit, String cakeName) {
+        List<Cake> byName = cakeUserRepository.findByNameOnLike(offset, limit, cakeName);
+
+        return byName.stream()
+                .map(CakeSimpleSearch::new)
+                .collect(Collectors.toList());
+    }
+
 
 
 }

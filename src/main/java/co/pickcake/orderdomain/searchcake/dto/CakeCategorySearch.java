@@ -34,7 +34,6 @@ public class CakeCategorySearch {
         itemId = e.getId();
         itemName = e.getCake().getName();
         categoryName = e.getCakeCategory().getName();
-        imagePath = e.getCake().getImagePath();
         price = e.getCake().getPrice();
         brand = e.getCake().getBrand();
     }

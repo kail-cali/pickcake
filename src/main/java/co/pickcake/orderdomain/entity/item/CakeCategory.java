@@ -26,8 +26,7 @@ public class CakeCategory {
     @OneToMany(mappedBy = "parent")
     private List<CakeCategory> child = new ArrayList<>();
 
-
-    @OneToMany(mappedBy = "cakeCategory", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "cakeCategory", cascade =  CascadeType.ALL)
     private List<EventCakeCategory> cakeList = new ArrayList<>();
 
     public void addChildCategory(CakeCategory ch) {
@@ -35,6 +34,12 @@ public class CakeCategory {
         ch.setParent(this);
     }
 
+    public void addCakeList(EventCakeCategory cakeCategory) {
+        this.cakeList.add(cakeCategory);
+        cakeCategory.setCakeCategory(this);
+    }
+
+    /* 생성 편의 메서드 */
 
     public static CakeCategory createCategory(String categoryName) {
         CakeCategory cakeCategory = new CakeCategory();
