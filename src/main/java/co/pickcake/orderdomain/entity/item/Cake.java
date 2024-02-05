@@ -1,8 +1,7 @@
 package co.pickcake.orderdomain.entity.item;
 
 import co.pickcake.imagedomain.entity.CakeImages;
-import co.pickcake.orderdomain.searchcake.dto.CakeCategorySearch;
-import co.pickcake.policies.policy.policy.FileNamePolicy;
+import co.pickcake.policies.filename.policy.FileNamePolicy;
 import co.pickcake.shopdomain.entity.Shop;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -23,11 +22,9 @@ public class Cake extends Item {
 //    private UUID itemUid;
 
     @Value("${BRAND_NAME_NOT_FOUND:Default}")
-    private String brand;
+    private String brand;    // -> shop 정보랑 같아야 하며 shop 에서 이름만 미리 가져와서 디비에 저장하도록 함
 
     private String description;
-
-
 
 
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
@@ -53,6 +50,10 @@ public class Cake extends Item {
         this.description = description;
     }
 
+    /* SEE SHOP-CAKES */
+    public void setShop(Shop shop) {
+        this.shop = shop;
+    }
 
     /* 연관관계 편의 메서드 */
     public void addCakeCategory(EventCakeCategory eventCakeCategory) {
