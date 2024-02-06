@@ -1,4 +1,4 @@
-package co.pickcake.orderdomain.searchcake.dto;
+package co.pickcake.reservedomain.searchcake.dto;
 
 
 import lombok.Getter;

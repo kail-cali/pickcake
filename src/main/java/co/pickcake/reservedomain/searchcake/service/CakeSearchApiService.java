@@ -1,13 +1,10 @@
-package co.pickcake.orderdomain.searchcake.service;
+package co.pickcake.reservedomain.searchcake.service;
 
 
 import co.pickcake.aop.apigateway.ApiGatewayConfig;
-import co.pickcake.imagedomain.dto.ImageSaveResponse;
-import co.pickcake.orderdomain.searchcake.dto.CakeSimpleSearch;
+import co.pickcake.reservedomain.searchcake.dto.CakeSimpleSearch;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.util.MultiValueMap;
 import org.springframework.web.reactive.function.client.WebClient;
 
 import java.util.List;

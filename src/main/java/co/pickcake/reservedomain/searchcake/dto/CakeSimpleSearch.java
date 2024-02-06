@@ -1,9 +1,7 @@
-package co.pickcake.orderdomain.searchcake.dto;
+package co.pickcake.reservedomain.searchcake.dto;
 
 
-import co.pickcake.orderdomain.entity.item.Cake;
-import co.pickcake.orderdomain.entity.item.EventCakeCategory;
-import lombok.AllArgsConstructor;
+import co.pickcake.reservedomain.entity.item.Cake;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -21,9 +19,6 @@ public class CakeSimpleSearch {
         brand = c.getBrand();
         price = c.getPrice();
         profile = new CakeProfileImageDto(c.getCakeImages());
-
-
-//        imagePath = c.getCakeImages().getProfileImage().getStoreFileName();
     }
 
 }

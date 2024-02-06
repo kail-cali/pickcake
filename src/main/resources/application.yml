@@ -1,1 +1,1 @@
-spring:  profiles:    active: dev#    active: deploycloud:  profiles:    active: secret
+spring:  profiles:    active: dev#    active: deploycloud:  profiles:    active: secret
