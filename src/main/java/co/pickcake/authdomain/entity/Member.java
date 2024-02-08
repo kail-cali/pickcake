@@ -1,13 +1,10 @@
 package co.pickcake.authdomain.entity;
 
 import co.pickcake.common.entity.Address;
-import co.pickcake.recommand.entity.Heart;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 
-import java.util.ArrayList;
-import java.util.List;
+
 
 
 @Entity @Getter
