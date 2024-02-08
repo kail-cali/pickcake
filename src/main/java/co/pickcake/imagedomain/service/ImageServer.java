@@ -28,16 +28,20 @@ public class ImageServer {
     }
 
     public ImageSaveResponse uploadImage(ImageSaveRequest imageSaveRequest) throws IOException {
-        log.info("check is recive = {}", imageSaveRequest.getStoreName());
         MultipartFile images = imageSaveRequest.getImages();
         String storeName = imageSaveRequest.getStoreName();
         String ext = imageSaveRequest.getExt();
+        ImageSaveResponse imageSaveResponse = new ImageSaveResponse(storeName, ext, HttpStatus.PROCESSING);
 
         images.transferTo(new File(getFullPath(storeName)));
 
         /* TODO 비동기로 이미저 서버에서 파일 저장 시 응답 다르게 저장해서 보낼 것*/
-        return new ImageSaveResponse(storeName, ext, HttpStatus.OK);
+        imageSaveResponse.setStatus(HttpStatus.OK);
+
+        return imageSaveResponse;
     }
+
+
 
 
 

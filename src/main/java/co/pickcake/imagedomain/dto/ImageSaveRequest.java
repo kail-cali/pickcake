@@ -17,4 +17,5 @@ public class ImageSaveRequest {
         this.images = images;
         this.ext = ext;
     }
+
 }
