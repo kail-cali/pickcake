@@ -2,7 +2,7 @@ package co.pickcake.authdomain.service;
 
 import co.pickcake.aop.util.ErrorCode;
 import co.pickcake.authdomain.entity.Member;
-import co.pickcake.authdomain.repository.MemberRepositoryOld;
+import co.pickcake.authdomain.repository.MemberRepository;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -18,7 +18,7 @@ class MemberServiceTest {
 
     @Autowired MemberService memberService;
     @Autowired
-    MemberRepositoryOld memberRepository;
+    MemberRepository memberRepository;
     @Test
     @DisplayName("회원 가입")
     public void signIn() throws Exception {
@@ -33,7 +33,7 @@ class MemberServiceTest {
 
         //then
 
-        Assertions.assertThat(member).isEqualTo(memberRepository.findOne(saveId));
+        Assertions.assertThat(member).isEqualTo(memberRepository.findById(saveId));
     }
 
     @Test
