@@ -1,7 +1,7 @@
 package co.pickcake.imagedomain.entity;
 
 
-import co.pickcake.policies.policy.policy.FileNamePolicy;
+import co.pickcake.policies.filename.policy.FileNamePolicy;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
@@ -58,9 +58,9 @@ public class ImageFile {
         imageFile.setUploadFileName(uploadFileName);
         imageFile.setStoreFileName(fileNamePolicy.concatGenExt(uploadFileName));
         imageFile.setProfileCakeImages(cakeImages);
-
         return imageFile;
     }
+
 
 
 

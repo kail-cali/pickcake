@@ -1,5 +1,6 @@
 package co.pickcake.authdomain.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -15,9 +16,13 @@ public class PrivateInfo {
     @GeneratedValue
     @Column(name = "private_info_id")
     private Long id;
-
     private String password;
-
-
-
+    public void setPassword(String password) {
+        this.password = password;
+    }
+    public static PrivateInfo create(String password) {
+        PrivateInfo privateInfo = new PrivateInfo();
+        privateInfo.setPassword(password);
+        return privateInfo;
+    }
 }

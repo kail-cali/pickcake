@@ -1,5 +1,18 @@
-spring:
+server:
+  address: localhost
+  port: 8080
 
+
+
+#  error:
+#    include-exception: true
+#    include-message: on_param
+#    include-binding-errors: on_param
+#    include-stacktrace: on_param
+
+spring:
+  messages:
+    basename: messages,config.i18n.messages
   servlet:
     multipart:
       max-file-size: 10MB
@@ -27,7 +40,8 @@ logging:
     org.hibernate.type: trace
     org.apache.coyote.http11: debug
 
-
+service:
+  active: dev
 
 
 
