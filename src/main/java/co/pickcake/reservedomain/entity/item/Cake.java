@@ -1,4 +1,4 @@
-package co.pickcake.orderdomain.entity.item;
+package co.pickcake.reservedomain.entity.item;
 
 import co.pickcake.imagedomain.entity.CakeImages;
 import co.pickcake.policies.filename.policy.FileNamePolicy;
@@ -15,23 +15,14 @@ import java.util.List;
 @DiscriminatorColumn(name="CAKE")
 public class Cake extends Item {
 
-
-//    @GeneratedValue(generator = "uuid2")
-//    @GenericGenerator(name="uuid2")
-//    @Column(name = "item_uuid", columnDefinition = "Binary(16)")
-//    private UUID itemUid;
-
     @Value("${BRAND_NAME_NOT_FOUND:Default}")
     private String brand;    // -> shop 정보랑 같아야 하며 shop 에서 이름만 미리 가져와서 디비에 저장하도록 함
 
     private String description;
 
-
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "cake_images_id")
     private CakeImages cakeImages;
-
-
 
     /* TODO SHOP API */
     @ManyToOne(fetch = FetchType.LAZY)
@@ -60,26 +51,20 @@ public class Cake extends Item {
         cakeCategoryList.add(eventCakeCategory);
         eventCakeCategory.setCake(this);
     }
-
     /* SEE CAKE-CAKEIMAGE */
     public void setCakeImages(CakeImages cakeImages) {
         this.cakeImages = cakeImages;
     }
-
-
     /* SEE `GENERATE-DEFAULT-IMAGE-NAME` */
-
     /* 생성 메서드 */
-
     public static Cake createCake(String name, String brand, String description,
                                   int price, int stock) {
         Cake cake = new Cake();
         cake.setName(name);
         cake.setPrice(price);
         cake.setBrand(brand);
-        cake.setStockQuantity(stock);
+//        cake.setStockQuantity(stock);
         cake.setDescription(description);
-
         return cake;
     }
 
@@ -93,10 +78,5 @@ public class Cake extends Item {
         CakeImages.createCakeImages(cake, fileNamePolicy);
         return cake;
     }
-
-
-
-
-
 
 }

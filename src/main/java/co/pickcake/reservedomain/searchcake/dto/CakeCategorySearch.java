@@ -1,31 +1,27 @@
-package co.pickcake.orderdomain.searchcake.dto;
+package co.pickcake.reservedomain.searchcake.dto;
 
 
-import co.pickcake.orderdomain.entity.item.EventCakeCategory;
+import co.pickcake.reservedomain.entity.item.EventCakeCategory;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Data
 public class CakeCategorySearch {
 
+    @JsonIgnore
     private Long itemId;
-
     private String itemName;
     private String categoryName;
-    private String imagePath;
     private int price;
-
     private String brand;
+    private CakeProfileImageDto profile;
 
-
-    private List<CakeCategoryItem> categories;
-
-
-    public CakeCategorySearch(Long itemId, String itemName, String imagePath, int price, String brand) {
+    public CakeCategorySearch(Long itemId, String itemName,  int price, String brand) {
         this.itemId = itemId;
         this.itemName = itemName;
-        this.imagePath = imagePath;
         this.price = price;
         this.brand = brand;
     }
@@ -36,6 +32,6 @@ public class CakeCategorySearch {
         categoryName = e.getCakeCategory().getName();
         price = e.getCake().getPrice();
         brand = e.getCake().getBrand();
+        profile = new CakeProfileImageDto(e.getCake().getCakeImages());
     }
-
 }

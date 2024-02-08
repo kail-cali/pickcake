@@ -77,9 +77,6 @@ class CakeSearchServiceTest {
                 .map(o -> assertThat(o.getBrand()).isNotEmpty())
                 .collect(Collectors.toList());
 
-
-
-
     }
 
     @Test

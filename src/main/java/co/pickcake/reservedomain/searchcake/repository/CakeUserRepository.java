@@ -1,10 +1,10 @@
-package co.pickcake.orderdomain.searchcake.repository;
+package co.pickcake.reservedomain.searchcake.repository;
 
 import co.pickcake.common.entity.QCategory;
 import co.pickcake.imagedomain.entity.QCakeImages;
-import co.pickcake.orderdomain.entity.item.Cake;
-import co.pickcake.orderdomain.entity.item.QCake;
-import co.pickcake.orderdomain.searchcake.dto.CakeSearch;
+import co.pickcake.reservedomain.entity.item.Cake;
+import co.pickcake.reservedomain.entity.item.QCake;
+import co.pickcake.reservedomain.searchcake.dto.CakeSearch;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;

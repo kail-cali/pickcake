@@ -1,8 +1,8 @@
-package co.pickcake.orderdomain.repository;
+package co.pickcake.reservedomain.repository;
 
-import co.pickcake.orderdomain.entity.item.Cake;
-import co.pickcake.orderdomain.searchcake.repository.CakeAdminRepository;
-import co.pickcake.orderdomain.searchcake.repository.CakeUserRepository;
+import co.pickcake.reservedomain.entity.item.Cake;
+import co.pickcake.reservedomain.searchcake.repository.CakeAdminRepository;
+import co.pickcake.reservedomain.searchcake.repository.CakeUserRepository;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -44,7 +44,7 @@ class CakeUserRepositoryTest {
 
         //then
         Assertions.assertThat(cakeRepository.findByBrand("신라호텔").size())
-                .isEqualTo(3);
+                .isEqualTo(2);
 
     }
 

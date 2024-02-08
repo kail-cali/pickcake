@@ -1,4 +1,4 @@
-package co.pickcake.policies.policy.policy;
+package co.pickcake.policies.filename.policy;
 
 import org.springframework.stereotype.Component;
 

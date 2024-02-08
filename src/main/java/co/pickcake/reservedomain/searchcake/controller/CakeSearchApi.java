@@ -1,27 +1,29 @@
 package co.pickcake.reservedomain.searchcake.controller;
 
 
+import co.pickcake.aop.errors.RestErrorDto;
 import co.pickcake.reservedomain.searchcake.dto.CakeCategorySearch;
 import co.pickcake.reservedomain.searchcake.dto.CakeSimpleSearch;
 import co.pickcake.reservedomain.searchcake.service.CakeSearchService;
+import jdk.jshell.spi.ExecutionControl;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.catalina.User;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@Slf4j
 @RestController
 @RequiredArgsConstructor
 public class CakeSearchApi {
 
     private final CakeSearchService cakeSearchService;
 
-//    private final CakeUserRepository cakeUserRepository;
-
     /* TODO validate & null search option 처리 */
-
     @GetMapping("/api/cake")
     public List<CakeSimpleSearch> searchAllCake(
             @Validated @RequestParam(value ="offset", defaultValue = "0") int offset,
@@ -54,10 +56,5 @@ public class CakeSearchApi {
             @Validated @RequestParam(value = "cakeName", defaultValue = "") String cakeName) {
         return cakeSearchService.findByNameOnLike(offset, limit, cakeName);
     }
-
-
-
-
-
 
 }

@@ -1,6 +1,6 @@
-package co.pickcake.orderdomain.searchcake.repository;
+package co.pickcake.reservedomain.searchcake.repository;
 
-import co.pickcake.orderdomain.entity.item.Cake;
+import co.pickcake.reservedomain.entity.item.Cake;
 import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -17,6 +17,10 @@ public class CakeAdminRepository {
         } else {
             em.merge(item);
         }
+    }
+
+    public Cake findById(Long id) {
+        return em.find(Cake.class, id);
     }
 
 

@@ -1,8 +1,7 @@
-package co.pickcake.orderdomain.controller;
+package co.pickcake.reservedomain.depreciated;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.stereotype.Service;
 
 @Getter @Setter
 public class CakeForm {
@@ -13,7 +12,6 @@ public class CakeForm {
     private int stockQuantity;
     private String brand;
     private String description;
-    private String imagePath;
     private String hashtag;
 
 

@@ -1,8 +1,5 @@
-package co.pickcake.orderdomain.entity.item;
+package co.pickcake.reservedomain.entity.item;
 
-import co.pickcake.common.entity.Category;
-import co.pickcake.common.entity.Colors;
-import co.pickcake.common.entity.ItemDate;
 import jakarta.persistence.*;
 import lombok.Getter;
 

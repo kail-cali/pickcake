@@ -1,12 +1,12 @@
-package co.pickcake.orderdomain.searchcake.service;
+package co.pickcake.reservedomain.searchcake.service;
 
 
-import co.pickcake.orderdomain.entity.item.Cake;
-import co.pickcake.orderdomain.entity.item.EventCakeCategory;
-import co.pickcake.orderdomain.searchcake.dto.CakeCategorySearch;
-import co.pickcake.orderdomain.searchcake.dto.CakeSimpleSearch;
-import co.pickcake.orderdomain.searchcake.repository.CakeSearchRepository;
-import co.pickcake.orderdomain.searchcake.repository.CakeUserRepository;
+import co.pickcake.reservedomain.entity.item.Cake;
+import co.pickcake.reservedomain.entity.item.EventCakeCategory;
+import co.pickcake.reservedomain.searchcake.dto.CakeCategorySearch;
+import co.pickcake.reservedomain.searchcake.dto.CakeSimpleSearch;
+import co.pickcake.reservedomain.searchcake.repository.CakeSearchRepository;
+import co.pickcake.reservedomain.searchcake.repository.CakeUserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -31,7 +31,6 @@ public class CakeSearchService {
         return collect;
     }
 
-
     public List<CakeSimpleSearch> findByBrand(int offset, int limit, String brand) {
         List<Cake> cakes = cakeUserRepository.findByBrand(offset, limit, brand);
 
@@ -42,8 +41,7 @@ public class CakeSearchService {
         return collect;
     }
 
-
-
+    /* 메인 화면 filter 전용 api */
     public List<CakeCategorySearch> findBySingleCategory(int offset, int limit, String categoryName) {
         List<EventCakeCategory> bySingleCategory = cakeSearchRepository.findBySingleCategory(offset, limit, categoryName);
 
@@ -52,6 +50,14 @@ public class CakeSearchService {
                 .collect(Collectors.toList());
     }
 
+    /* 추천 검색 시스템 용 api */
+    public List<CakeCategorySearch> findBySingleCategorySim(int offset, int limit, String categoryName) {
+        List<EventCakeCategory> bySingleCategory = cakeSearchRepository.findBySingleCategorySim(offset, limit, categoryName);
+
+        return bySingleCategory.stream()
+                .map(CakeCategorySearch::new)
+                .collect(Collectors.toList());
+    }
     /* TODO 더 정확한 이름 검색 기능 개선, 일반 검색 메서드 refactor */
     public List<CakeSimpleSearch> findByNameOnLike(int offset, int limit, String cakeName) {
         List<Cake> byName = cakeUserRepository.findByNameOnLike(offset, limit, cakeName);
@@ -60,7 +66,4 @@ public class CakeSearchService {
                 .map(CakeSimpleSearch::new)
                 .collect(Collectors.toList());
     }
-
-
-
 }

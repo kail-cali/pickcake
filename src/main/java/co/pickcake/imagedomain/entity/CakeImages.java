@@ -1,8 +1,8 @@
 package co.pickcake.imagedomain.entity;
 
 
-import co.pickcake.policies.policy.policy.FileNamePolicy;
-import co.pickcake.orderdomain.entity.item.Cake;
+import co.pickcake.policies.filename.policy.FileNamePolicy;
+import co.pickcake.reservedomain.entity.item.Cake;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
