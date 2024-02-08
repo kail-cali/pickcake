@@ -1,7 +1,7 @@
-package co.pickcake.orderdomain.service;
+package co.pickcake.reservedomain.depreciated;
 
-import co.pickcake.orderdomain.entity.item.Item;
-import co.pickcake.orderdomain.repository.ItemRepository;
+import co.pickcake.reservedomain.entity.item.Item;
+import co.pickcake.reservedomain.repository.ItemRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,7 +24,17 @@ public class ItemService {
     }
 
     public Item findOne(Long itemId) {
-        return itemRepository.findOne(itemId);
+        return itemRepository.findById(itemId);
     }
+
+    @Transactional
+    public void updateItem(Long itemId, String name, int price ,int stock ) {
+        Item findItem = itemRepository.findById(itemId);
+        findItem.setPrice(price);
+        findItem.setName(name);
+//        findItem.setStockQuantity(stock);
+    }
+
+
 
 }

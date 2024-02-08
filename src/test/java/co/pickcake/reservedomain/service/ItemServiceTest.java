@@ -1,9 +1,9 @@
-package co.pickcake.orderdomain.service;
+package co.pickcake.reservedomain.service;
 
-import co.pickcake.authdomain.entity.Member;
-import co.pickcake.orderdomain.entity.item.Cake;
-import co.pickcake.orderdomain.entity.item.Item;
-import co.pickcake.orderdomain.repository.ItemRepository;
+import co.pickcake.reservedomain.depreciated.ItemService;
+import co.pickcake.reservedomain.entity.item.Cake;
+import co.pickcake.reservedomain.entity.item.Item;
+import co.pickcake.reservedomain.repository.ItemRepository;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -11,13 +11,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 @SpringBootTest
 @Transactional
 class ItemServiceTest {
 
-    @Autowired ItemService itemService;
+    @Autowired
+    ItemService itemService;
     @Autowired ItemRepository itemRepository;
 
 
@@ -33,7 +32,7 @@ class ItemServiceTest {
         Long saveId = itemService.save(item);
 
         //then
-        Assertions.assertThat(item).isEqualTo(itemRepository.findOne(saveId));
+        Assertions.assertThat(item).isEqualTo(itemRepository.findById(saveId));
 
     }
 
