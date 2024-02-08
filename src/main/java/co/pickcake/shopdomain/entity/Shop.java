@@ -1,7 +1,7 @@
 package co.pickcake.shopdomain.entity;
 
 import co.pickcake.common.entity.Address;
-import co.pickcake.orderdomain.entity.item.Cake;
+import co.pickcake.reservedomain.entity.item.Cake;
 import jakarta.persistence.*;
 import lombok.Getter;
 

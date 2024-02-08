@@ -1,8 +1,7 @@
 package co.pickcake.shopdomain.repository;
 
-import co.pickcake.orderdomain.entity.item.Cake;
-import co.pickcake.orderdomain.searchcake.repository.CakeAdminRepository;
-import co.pickcake.policies.filename.policy.FileNamePolicy;
+import co.pickcake.reservedomain.entity.item.Cake;
+import co.pickcake.reservedomain.searchcake.repository.CakeAdminRepository;
 import co.pickcake.policies.filename.policy.FileUuidGeneratePolicy;
 import co.pickcake.shopdomain.entity.Shop;
 import org.assertj.core.api.Assertions;
