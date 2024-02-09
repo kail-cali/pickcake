@@ -13,7 +13,6 @@ public class CakeSimpleSearch {
     private CakeProfileImageDto profile;
     private Integer price;
 
-
     public CakeSimpleSearch(Cake c) {
         name = c.getName();
         brand = c.getBrand();
