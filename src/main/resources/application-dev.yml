@@ -49,3 +49,4 @@ service:
 
 file:
   dir: /Users/george/dev/images/
+  from: /Users/george/dev/raw_images/
