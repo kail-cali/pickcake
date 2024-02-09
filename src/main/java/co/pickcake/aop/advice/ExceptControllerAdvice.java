@@ -1,6 +1,8 @@
 package co.pickcake.aop.advice;
 
 import co.pickcake.aop.errors.RestErrorDto;
+import co.pickcake.aop.util.ErrorCode;
+import co.pickcake.aop.util.exception.NoDataException;
 import jdk.jshell.spi.ExecutionControl;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -13,10 +15,15 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @RestControllerAdvice
 public class ExceptControllerAdvice {
 
+    @ExceptionHandler(NoDataException.class)
+    public ResponseEntity<RestErrorDto> noDataExHandler(NoDataException e) {
+        log.error("[exceptionHandler] ex", e);
+        RestErrorDto errorDto = new RestErrorDto(ErrorCode.NO_DATA_EXISTS.toString(), e.getMessage());
+        return new ResponseEntity<>(errorDto, HttpStatus.OK);
+    }
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(IllegalArgumentException.class)
     public RestErrorDto illegalExHandler(IllegalArgumentException e) {
-        log.error("[exceptionHandler] ex", e);
         return new RestErrorDto("BAD", e.getMessage());
     }
 
@@ -26,17 +33,5 @@ public class ExceptControllerAdvice {
         log.error("[exceptionHandler] ex", e);
         return new RestErrorDto("ACCESS_DNEIED", e.getMessage());
     }
-
-    
-
-
-
-    @ExceptionHandler
-    public ResponseEntity<RestErrorDto> userExHandler(ExecutionControl.UserException e) {
-        log.error("[exceptionHandler] ex", e);
-        RestErrorDto errorDto = new RestErrorDto("USER-EX", e.getMessage());
-        return new ResponseEntity<>(errorDto, HttpStatus.BAD_REQUEST);
-    }
-
 
 }

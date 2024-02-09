@@ -2,16 +2,12 @@ package co.pickcake.reservedomain.searchcake.service;
 
 import co.pickcake.aop.apigateway.ApiGatewayConfig;
 import co.pickcake.policies.filename.policy.FileUuidGeneratePolicy;
-import co.pickcake.reservedomain.entity.item.Cake;
-import co.pickcake.reservedomain.searchcake.dto.CakeProfileImageDto;
 import co.pickcake.reservedomain.searchcake.dto.CakeSimpleSearch;
 import co.pickcake.reservedomain.searchcake.repository.CakeAdminRepository;
-import lombok.RequiredArgsConstructor;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -21,12 +17,12 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
 @Transactional
-class CakeSearchApiServiceTest {
+class CakeSearchApiRequestServiceTest {
     @Autowired
     private ApiGatewayConfig apiGatewayConfig;
 
     @Autowired
-    private CakeSearchApiService cakeSearchApiService;
+    private CakeSearchApiRequestService cakeSearchApiService;
 
 
 

@@ -1,85 +1,139 @@
 package co.pickcake.reservedomain.searchcake.service;
 
-import co.pickcake.InitDb;
+import co.pickcake.aop.util.exception.NoDataException;
+import co.pickcake.reservedomain.entity.item.Cake;
 import co.pickcake.reservedomain.searchcake.dto.CakeCategorySearch;
-import co.pickcake.testconfig.InitCreate;
-import jakarta.persistence.Access;
-import lombok.RequiredArgsConstructor;
-import org.aspectj.lang.annotation.Before;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
+
+import co.pickcake.reservedomain.searchcake.dto.CakeSimpleSearch;
+import co.pickcake.testconfig.TestDataItem;
+import co.pickcake.testconfig.TestDataSize;
+
+import co.pickcake.util.TestInitDB;
+
+import org.assertj.core.api.AbstractThrowableAssert;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.event.annotation.BeforeTestMethod;
+
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.HashMap;
+
 import java.util.List;
-import java.util.Map;
+
+
 import java.util.stream.Collectors;
 
-import static co.pickcake.testconfig.InitCreate.DBINITWITHIMAGEITEM;
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.assertj.core.api.Assertions.*;
 
 
 @SpringBootTest
+@Transactional
 class CakeSearchServiceTest {
 
     @Autowired
     private CakeSearchService cakeSearchService;
 
     @Autowired
-    private InitDb initDb;
-
-    private Map<InitCreate , Integer> mp;
-
-    /* NEEDTOFIX 현재 test 용 클래스가 운영서버에 들어가 있는 상황이라 이러한 방식으로 매핑을 하였음 */
-
-    public void setCreateConfig() {
-        if (mp == null){
-            mp = new HashMap<>();
-            mp.put(DBINITWITHIMAGEITEM,1);
-            mp.put(InitCreate.DBINITWITHORDER,2);
-            mp.put(InitCreate.DBINITWITHITEM,3);
-        }
-
-    }
+    public TestInitDB testInitDB;
 
     @Test
     void findAll() {
     }
 
     @Test
-    void findByBrand() {
+    @DisplayName("데이터 검증[success]: 브랜드 이름으로 조회 시 상품이 제대로 출력되어야 한다.")
+    void findByBrandSuccess() {
+        //given
+        TestDataSize testDataSize = testInitDB.dbInitWithItems();
+        //when
+        List<CakeSimpleSearch> byBrand = cakeSearchService.findByBrand(0, 10, "신라호텔");
+        //then
+        // 아이템 숫자가 일치해야 하며
+        assertThat(byBrand.size()).isEqualTo(2);
     }
 
     @Test
-    @DisplayName("데이터 검증: 카테고리 별 조회 되는지 테스트")
+    @DisplayName("데이터 검증[fail]: 없는 브랜드 이름으로 조회 시 테스트")
+    void findByBrandFail() {
+        //given
+        TestDataSize testDataSize = testInitDB.dbInitWithItems();
+        //when
+        List<CakeSimpleSearch> byBrand = cakeSearchService.findByBrand(0, 10, "없는 브랜드");
+        //then
+        // 아이템 숫자가 일치해야 하며
+        assertThat(byBrand.size()).isEqualTo(0);
+    }
+
+    @Test
+    @DisplayName("데이터 검증[success]: 카테고리 별 조회 되는지 테스트")
     void findBySingleCategory() {
 
         //given
-        setCreateConfig();
-        Integer testCaseSize = initDb.initForTest(mp.get(DBINITWITHIMAGEITEM));
-
-
+        TestDataSize testDataSize = testInitDB.dbInitWithItems();
         //when
         List<CakeCategorySearch> bySingleCategory = cakeSearchService.findBySingleCategory(0, 10, "23 시즌 크리스마스");
-
-
         //then
-
-        assertThat(bySingleCategory.size()).isEqualTo(4);
-
+        // 아이템 숫자가 일치해야 하며
+        assertThat(bySingleCategory.size()).isEqualTo(testDataSize.getSize());
+        // 데이터 null 체크 검정
         bySingleCategory.stream()
                 .map(o -> assertThat(o.getBrand()).isNotEmpty())
                 .collect(Collectors.toList());
+    }
+
+    @Test
+    @DisplayName("데이터 검증[fail]: 존재하지 않는 카테고리로 조회 시 결과가 나오지 않는 지 테스트")
+    void findBySingleCategoryFail() {
+        //given
+        TestDataSize testDataSize = testInitDB.dbInitWithItems();
+        String noExistsCategory = "없는 카테고라";
+        //when
+        List<CakeCategorySearch> bySingleCategory = cakeSearchService.findBySingleCategory(0, 10, noExistsCategory);
+        //then
+        // 아이템 숫자가 일치해야 하며
+        assertThat(bySingleCategory.size()).isEqualTo(0);
+
+//        bySingleCategory.stream()
+//                .map(o -> assertThat(o.getBrand()).isEmpty())
+//                .collect(Collectors.toList());
 
     }
 
     @Test
     void findByNameOnLike() {
     }
+
+    @Test
+    void findBySingleCategorySim() {
+    }
+
+    @Test
+    @DisplayName("데이터 검증[success]: 단건 조회, 존재하는 아이디로 조회 시 데이터를 가져오는 지 테스트")
+    void findByIdSuccess() {
+        //given
+        TestDataItem testDataItem = testInitDB.dbInitWithSingleItem();
+        //when
+        CakeSimpleSearch byId = cakeSearchService.findById(testDataItem.getItemId());
+        Cake orig = (Cake) testDataItem.getSingleItem();
+
+        //then
+        assertThat(byId.getBrand()).isEqualTo(orig.getBrand());
+        assertThat(byId.getName()).isEqualTo(orig.getName());
+        assertThat(byId.getPrice()).isEqualTo(orig.getPrice());
+    }
+    @Test
+    @DisplayName("데이터 검증[fail]: 단건 조회, 존재하지 않는 아이디로 조회 시 커스텀 에러 발생하는 지 테스트")
+    void findByIdFail()  {
+        //given
+        Long noExistId = 10101L;
+        TestDataItem testDataItem = testInitDB.dbInitWithSingleItem();
+        //when
+        AbstractThrowableAssert<?, ? extends Throwable> result = assertThatThrownBy(() -> cakeSearchService.findById(noExistId));
+        //then
+        result.isInstanceOf(NoDataException.class);
+
+    }
+
+
 }
