@@ -31,18 +31,6 @@ public class CakeUserRepository {
     public Cake findById(Long id) {
         return em.find(Cake.class, id);
     }
-
-    public List<Cake> findAll() {
-        return em.createQuery(
-                "select c from Cake c" +
-                        " join fetch c.cakeImages ci"
-
-                        , Cake.class)
-                .getResultList();
-    }
-
-
-
     public List<Cake> findAll(int offset, int limit) {
         return em.createQuery(
                          "select c from Cake c" +
@@ -53,7 +41,6 @@ public class CakeUserRepository {
                 .setMaxResults(limit)
                 .getResultList();
     }
-
     public List<Cake> findByBrand(String brand) {
         return em.createQuery(
                              "select c from Cake c" +
@@ -63,7 +50,6 @@ public class CakeUserRepository {
                 .setParameter("brand", brand)
                 .getResultList();
     }
-
     public List<Cake> findByBrand(int offset,int limit, String brand) {
         return em.createQuery(
                      "select c from Cake c " +
@@ -103,22 +89,4 @@ public class CakeUserRepository {
                 .setMaxResults(limit)
                 .getResultList();
     }
-
-
-//    private BooleanExpression
-
-//    public List<Cake> findAll(CakeSearch cakeSearch) {
-//        QCake cake = QCake.cake;
-//        QCategory qCategory = QCategory.category;
-//
-//        JPAQueryFactory query = new JPAQueryFactory(em);
-//        query
-//                .select(cake)
-//                .from(cake)
-//
-//
-//    }
-
-
-
 }

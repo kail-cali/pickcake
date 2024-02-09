@@ -11,7 +11,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class CakeSearchApiService {
+public class CakeSearchApiRequestService {
 
     private final ApiGatewayConfig apiGatewayConfig;
 

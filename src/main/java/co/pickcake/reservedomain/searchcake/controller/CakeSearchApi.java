@@ -4,13 +4,17 @@ package co.pickcake.reservedomain.searchcake.controller;
 import co.pickcake.aop.errors.RestErrorDto;
 import co.pickcake.reservedomain.searchcake.dto.CakeCategorySearch;
 import co.pickcake.reservedomain.searchcake.dto.CakeSimpleSearch;
+import co.pickcake.reservedomain.searchcake.dto.CakeSimpleSearchRequest;
 import co.pickcake.reservedomain.searchcake.service.CakeSearchService;
+import jakarta.validation.Valid;
 import jdk.jshell.spi.ExecutionControl;
 import lombok.RequiredArgsConstructor;
+import lombok.Value;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.catalina.User;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,13 +26,16 @@ import java.util.List;
 public class CakeSearchApi {
 
     private final CakeSearchService cakeSearchService;
-
-    /* TODO validate & null search option 처리 */
     @GetMapping("/api/cake")
     public List<CakeSimpleSearch> searchAllCake(
             @Validated @RequestParam(value ="offset", defaultValue = "0") int offset,
             @Validated @RequestParam(value ="limit", defaultValue = "10") int limit) {
         return cakeSearchService.findAll(offset, limit);
+    }
+    /* session 처리를 위해 미리 추가해둔 메서드 */
+    @GetMapping("/api/cake/call")
+    public List<CakeSimpleSearch> searchCakeCall(@RequestBody @Valid CakeSimpleSearchRequest request) {
+        return cakeSearchService.findAll(request.getOffset(), request.getLimit());
     }
 
     @GetMapping("/api/cake/brand")

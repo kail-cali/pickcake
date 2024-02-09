@@ -11,7 +11,7 @@ public class CakeSimpleSearch {
     private String name;
     private String brand; // -> shop info
     private CakeProfileImageDto profile;
-    private int price;
+    private Integer price;
 
 
     public CakeSimpleSearch(Cake c) {

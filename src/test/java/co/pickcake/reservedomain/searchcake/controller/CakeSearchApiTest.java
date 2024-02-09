@@ -14,6 +14,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.MediaType;
 import org.springframework.test.web.client.MockRestServiceServer;
 import org.springframework.test.web.client.match.MockRestRequestMatchers;
 import org.springframework.test.web.client.response.MockRestResponseCreators;
@@ -21,6 +22,7 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 
@@ -39,43 +41,54 @@ class CakeSearchApiTest {
     private  CakeSearchRepository cakeSearchRepository;
 
     @Test
-    @DisplayName("api 검정: ")
+    @DisplayName("api 검증: 전체 상품을 조회 테스트 ")
     void searchAllCakeTest() throws Exception {
+        //given
 
-//        server.expect(MockRestRequestMatchers
-//                .requestTo("/api/cake"))
-//                .andRespond(MockRestResponseCreators.withSu);
+        //when
 
-//        Assertions.assertThatThrownBy(
-//        ()-> mockMvc.perform(
-//                get("http://localhost:8080/api/cake")
-////                        .param("offset", String.valueOf(0))
-////                        .param("limit", String.valueOf(10))
-//        )
-//                .andDo(print())
-//                .andExpect(status().isOk())
-//                .andExpect()
-//        );
-
-
+        //then
+            mockMvc.perform(get("/api/cake")
+                        .contentType(MediaType.APPLICATION_JSON)
+                                    .param("offset", String.valueOf(0))
+                                    .param("limit", String.valueOf(2))
+//                        .content()
+                    )
+                    .andExpect(status().isOk())
+//                    .andExpect()
+                    .andDo(print());
     }
 
     @Test
+    @DisplayName("api 검증: 이름으로 상품 조회 ")
     void searchByBrand() {
+        //given
+
+        //when
+
+        //then
+
+
     }
 
     @Test
-    @DisplayName("api 검정: 존재하는 필터로 조회 시 응답 확인")
+    @DisplayName("api 검정: 존재하는 카테고리로 api 조회 시 결과")
     void searchBySingleCategory() {
+        //given
 
-//        mockMvc.perform(
-//
-//                )
-//                .andExpect(status().isOk());
+        //when
 
+        //then
     }
 
     @Test
-    void searchByName() {
+    @DisplayName("api 검정: 존재하지 않는 카테고리로 api 조회 시 결과")
+    void searchBySingleCategoryNull() {
+        //given
+
+        //when
+
+        //then
     }
+
 }
