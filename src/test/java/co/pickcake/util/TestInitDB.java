@@ -1,6 +1,7 @@
 package co.pickcake.util;
 
 import co.pickcake.testconfig.InitCreate;
+import co.pickcake.testconfig.TestDataItem;
 import co.pickcake.testconfig.TestDataSize;
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.PostConstruct;
@@ -46,8 +47,13 @@ public class TestInitDB implements TestInit{
     }
 
     @Override
-    public TestDataSize dbInitWithItem() {
-        return initService.dbInitWithItem();
+    public TestDataSize dbInitWithItems() {
+        return initService.dbInitWithItems();
+    }
+
+    @Override
+    public TestDataItem dbInitWithSingleItem() {
+        return initService.dbInitWithSingleItem();
     }
 
 }

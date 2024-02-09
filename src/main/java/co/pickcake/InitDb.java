@@ -29,8 +29,9 @@ import java.io.IOException;
 import java.util.List;
 
 /*
-*  test 용 data dump 코드인데 운영 중에도 호출 가능하므로 조심해서 사용
-*  TODO 운영중에는 사용할 수 없도록 프로파일 수정 반드시 필요
+*  현재 해당 버전은 운영을 위해 미리 데이터를 업데이트 하는 용도로 사용하고 있으며
+*  deploy 이후 사용할 수 없도록 수정 예정 메인 수정 시 해당 부분과 TestDbInitService 도 수정 필요
+*
 * */
 
 @Component
@@ -46,23 +47,11 @@ public class InitDb {
     @PostConstruct
     public void init() {
 
-        if (service != "test") {
+        if (!service.equals("test")) {
             initService.dbInitWithImageItem();
             initService.dbInitWithMember();
-
         }
     }
-
-    public int initForTest(Integer type) {
-
-        if (service == "test") {
-            if (type.equals(1)) {
-                return initService.dbInitWithImageItem();
-            }
-        }
-        return 0;
-    }
-
     @Component
     @Transactional
     @RequiredArgsConstructor
@@ -72,7 +61,7 @@ public class InitDb {
         private final ImageStoreService imageStoreService;
         private final FileUuidGeneratePolicy fileUuidGeneratePolicy;
 
-        @Value("/Users/george/dev/raw_images/")
+        @Value("${file.from}")
         private String root;
 
         public void dbInitWithItem() {
@@ -98,7 +87,6 @@ public class InitDb {
             List<EventCakeCategory> cakeCategories = EventCakeCategory.addCakeCategories(cake1,
                                                                         cakeCategory1, cakeCategory2, cakeCategory3);
             em.persist(cake1);
-
 
         }
 
@@ -193,7 +181,6 @@ public class InitDb {
                 String fullPath = imageStoreService.getFullPath(imageFile.getStoreFileName());
                 fileInputStream.transferTo(new FileOutputStream(fullPath));
             } catch (IOException e) {
-
 
             }
 
