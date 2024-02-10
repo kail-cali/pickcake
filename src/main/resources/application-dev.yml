@@ -12,7 +12,8 @@ server:
 
 spring:
   messages:
-    basename: messages,config.i18n.messages
+    basename: messages
+
   servlet:
     multipart:
       max-file-size: 10MB

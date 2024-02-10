@@ -3,12 +3,16 @@ package co.pickcake.authdomain.service;
 import co.pickcake.aop.util.ErrorCode;
 import co.pickcake.authdomain.entity.Member;
 import co.pickcake.authdomain.repository.MemberRepository;
+import co.pickcake.testconfig.TestDataSize;
+import co.pickcake.util.TestInitDB;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -17,23 +21,19 @@ import static org.junit.jupiter.api.Assertions.*;
 class MemberServiceTest {
 
     @Autowired MemberService memberService;
-    @Autowired
-    MemberRepository memberRepository;
+    @Autowired private MemberRepository memberRepository;
+    @Autowired private TestInitDB testInitDB;
+
     @Test
-    @DisplayName("회원 가입")
+    @DisplayName("데이터 검증[success]: 회원 가입")
     public void signIn() throws Exception {
         //given
-        Member member = new Member();
-        member.setUsername("newKim");
-
+        TestDataSize testDataSize = testInitDB.dbInitWithMember();
         //when
-
-        Long saveId = memberService.join(member);
-
-
+        List<Member> members = memberService.findMembers();
         //then
+        Assertions.assertThat(members.size()).isEqualTo(testDataSize.getSize());
 
-        Assertions.assertThat(member).isEqualTo(memberRepository.findById(saveId));
     }
 
     @Test

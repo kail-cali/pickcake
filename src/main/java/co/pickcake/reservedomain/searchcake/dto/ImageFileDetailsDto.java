@@ -8,7 +8,7 @@ public class ImageFileDetailsDto {
 
     private String storePath;
 
-    private int seq;
+    private Integer seq;
     public ImageFileDetailsDto(ImageFile imageFile) {
         storePath = imageFile.getStoreFileName();
     }

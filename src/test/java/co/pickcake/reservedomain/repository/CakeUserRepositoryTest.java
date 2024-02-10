@@ -3,12 +3,15 @@ package co.pickcake.reservedomain.repository;
 import co.pickcake.reservedomain.entity.item.Cake;
 import co.pickcake.reservedomain.searchcake.repository.CakeAdminRepository;
 import co.pickcake.reservedomain.searchcake.repository.CakeUserRepository;
+import co.pickcake.util.TestInitDB;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @SpringBootTest
 @Transactional
@@ -21,29 +24,19 @@ class CakeUserRepositoryTest {
     @Autowired
     CakeAdminRepository cakeAdminRepository;
 
+    @Autowired
+    private TestInitDB testInitDB;
+
     @Test
-    @DisplayName("브랜드 별 조회")
+    @DisplayName("데이터 검증[success]: 브랜드 별 조회")
     @Transactional
     public void findByBrand() {
-        Cake item = new Cake();
-        item.setName("red velvet cake");
-        item.setBrand("신라호텔");
-
-        Cake item2 = new Cake();
-        item2.setName("strawberry whit cream cake");
-        item2.setBrand("시그니엘");
-
-        Cake item3 = new Cake();
-        item3.setName("choco cake");
-        item3.setBrand("신라호텔");
-
+        //given
+        testInitDB.dbInitWithItems();
         //when
-        cakeAdminRepository.save(item);
-        cakeAdminRepository.save(item2);
-        cakeAdminRepository.save(item3);
-
+        List<Cake> byBrand = cakeRepository.findByBrand("신라호텔");
         //then
-        Assertions.assertThat(cakeRepository.findByBrand("신라호텔").size())
+        Assertions.assertThat(byBrand.size())
                 .isEqualTo(2);
 
     }

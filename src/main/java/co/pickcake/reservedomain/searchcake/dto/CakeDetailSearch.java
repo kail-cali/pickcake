@@ -2,6 +2,7 @@ package co.pickcake.reservedomain.searchcake.dto;
 
 
 import co.pickcake.reservedomain.entity.item.EventCakeCategory;
+import jakarta.persistence.criteria.CriteriaBuilder;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -11,11 +12,11 @@ import java.util.List;
 public class CakeDetailSearch {
 
     private String name;
-    private String brand; // -> shop info
+    private String brand;
     private String imagePath;
-    private int price;
-    private int lowerPrice;
-    private int upperPrice;
-    private List<CakeCategoryItem> cakeCategories; //  PS -> OrderItemQueryDto
+    private Integer price;
+    private Integer lowerPrice;
+    private Integer upperPrice;
+    private List<CakeCategoryItem> cakeCategories;
 
 }

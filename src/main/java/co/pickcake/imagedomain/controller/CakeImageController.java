@@ -2,8 +2,6 @@ package co.pickcake.imagedomain.controller;
 
 
 import co.pickcake.imagedomain.entity.CakeImages;
-import co.pickcake.imagedomain.repository.CakeImageRepository;
-import co.pickcake.imagedomain.repository.ImageFileRepository;
 import co.pickcake.imagedomain.service.ImageStoreService;
 import com.amazonaws.util.IOUtils;
 import lombok.RequiredArgsConstructor;

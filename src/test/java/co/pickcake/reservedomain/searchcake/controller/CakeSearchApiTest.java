@@ -21,6 +21,7 @@ import org.springframework.test.web.client.match.MockRestRequestMatchers;
 import org.springframework.test.web.client.response.MockRestResponseCreators;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
+import org.springframework.test.web.servlet.result.ContentResultMatchers;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -99,12 +100,12 @@ class CakeSearchApiTest {
                 .andDo(print());
     }
     @Test
-    @DisplayName("api 검증[fail]: Not Empty 이름으로 상품 조회 ")
+    @DisplayName("api 검증[fail]: Blank 이름으로 상품 조회 ")
     void searchByBrandFailName() throws Exception {
         //given
         ResultActions result = mockMvc.perform(get("/api/cake/brand")
                 .contentType(MediaType.APPLICATION_JSON)
-                .param("brand", ""));
+                .param("brand", " "));
         //when
         //then
         result.andExpect(status().isBadRequest())
@@ -148,6 +149,36 @@ class CakeSearchApiTest {
         response.andExpect(status().isBadRequest())
                 .andDo(print());
     }
-
-
+    @Test
+    @DisplayName("api 검증[success]: requestBody 로 요청을 보낼 시 http status 확인")
+    void searchBySingleCategoryCallSuccess() throws Exception {
+        //given
+        String  requestBody =  "{\"categoryName\": \"생일\", \"offset\": 0 }";
+        //when
+        ResultActions response = mockMvc.perform(
+                get("/api/cake/category/call")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(requestBody)
+        );
+        //then
+        response.andExpect(status().isOk())
+                .andDo(print());
+    }
+    @Test
+    @DisplayName("api 검증[fail]: requestBody validate 동작 테스트 ")
+    void searchBySingleCategoryCallFail() throws Exception {
+        //given
+        String  requestBody =  "{\"categoryName\": \"생일\", \"offset\": -1, \"limit\":100 }";
+        //when
+        ResultActions response = mockMvc.perform(
+                get("/api/cake/category/call")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(requestBody)
+        );
+        //then
+        // 응답이 bad request 로 파라미터의 validation 검사 시 실패해야 한다.
+        response.andExpect(status().isBadRequest())
+                .andExpect(jsonPath("code").value(ErrorCode.METHOD_ARGUMENT_NOT_VALID.toString()))
+                .andDo(print());
+    }
 }
