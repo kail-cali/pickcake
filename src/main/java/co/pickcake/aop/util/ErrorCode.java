@@ -11,5 +11,6 @@ public enum ErrorCode {
     NO_DATA_EXISTS,
     BAD_REQUEST,
     BAD_GATEWAY,
+    METHOD_ARGUMENT_NOT_VALID,
 
 }

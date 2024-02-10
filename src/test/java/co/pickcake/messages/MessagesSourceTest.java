@@ -1,18 +1,16 @@
 package co.pickcake.messages;
 
-import lombok.RequiredArgsConstructor;
+
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.MessageSource;
 import org.springframework.context.NoSuchMessageException;
-import org.springframework.stereotype.Repository;
 
 import java.util.Locale;
 
 @SpringBootTest
-
 public class MessagesSourceTest {
 
     @Autowired

@@ -13,13 +13,10 @@ public class CakeSimpleSearchRequest {
 
 
     private String name = "케이크";
-
     @PositiveOrZero
     private Integer offset= 0;
-
     @Range(min=1, max = 20)
     private Integer limit = 10;
-
     @NotBlank
     private String categoryName = "파티";
 

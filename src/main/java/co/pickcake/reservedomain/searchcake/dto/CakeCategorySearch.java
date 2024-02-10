@@ -3,6 +3,7 @@ package co.pickcake.reservedomain.searchcake.dto;
 
 import co.pickcake.reservedomain.entity.item.EventCakeCategory;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 
 import java.util.List;
@@ -14,8 +15,9 @@ public class CakeCategorySearch {
     @JsonIgnore
     private Long itemId;
     private String itemName;
+    @NotBlank
     private String categoryName;
-    private int price;
+    private Integer price;
     private String brand;
     private CakeProfileImageDto profile;
 

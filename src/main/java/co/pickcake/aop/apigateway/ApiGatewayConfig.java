@@ -11,19 +11,11 @@ import org.springframework.stereotype.Component;
 public class ApiGatewayConfig {
 
     private String httpPortocol = "http://";
-
-//    private String imageServerGateWay = "http://localhost:8080/";
-
     @Value("http://${server.address}:${server.port}/")
     private String imageServerGateWay;
-
     private String uploadApi = "api/image/store";
-
-//    private String searchCakeGateWay = "http://localhost:8080/";
-
     @Value("http://${server.address}:${server.port}/")
     private String searchCakeGateWay;
-
     private String searchCakeApi = "api/cake";
 
 }
