@@ -6,9 +6,6 @@ import co.pickcake.authdomain.entity.Member;
 
 import co.pickcake.imagedomain.entity.ImageFile;
 import co.pickcake.imagedomain.service.ImageStoreService;
-import co.pickcake.reservedomain.entity.Delivery;
-import co.pickcake.reservedomain.entity.Order;
-import co.pickcake.reservedomain.entity.OrderItem;
 import co.pickcake.reservedomain.entity.item.Cake;
 import co.pickcake.reservedomain.entity.item.CakeCategory;
 import co.pickcake.reservedomain.entity.item.EventCakeCategory;
