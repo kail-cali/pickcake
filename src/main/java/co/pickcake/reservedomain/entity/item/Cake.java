@@ -12,23 +12,18 @@ import java.util.List;
 
 @Entity @Getter
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name="CAKE")
+@DiscriminatorColumn(name="cake")
 public class Cake extends Item {
 
-    @Value("${BRAND_NAME_NOT_FOUND:Default}")
     private String brand;    // -> shop 정보랑 같아야 하며 shop 에서 이름만 미리 가져와서 디비에 저장하도록 함
-
     private String description;
-
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "cake_images_id")
     private CakeImages cakeImages;
-
     /* TODO SHOP API */
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="shop_id")
     private Shop shop;
-
     @OneToMany(mappedBy = "cake", cascade = CascadeType.ALL)
     private List<EventCakeCategory> cakeCategoryList = new ArrayList<>();
 
@@ -63,7 +58,6 @@ public class Cake extends Item {
         cake.setName(name);
         cake.setPrice(price);
         cake.setBrand(brand);
-//        cake.setStockQuantity(stock);
         cake.setDescription(description);
         return cake;
     }

@@ -1,6 +1,7 @@
 package co.pickcake.reservedomain.searchcake.controller;
 
 import co.pickcake.reservedomain.searchcake.dto.CakeCategorySearch;
+import co.pickcake.reservedomain.searchcake.dto.CakeDetailSearch;
 import co.pickcake.reservedomain.searchcake.dto.CakeSimpleSearch;
 import co.pickcake.reservedomain.searchcake.dto.CakeSimpleSearchRequest;
 import co.pickcake.reservedomain.searchcake.service.CakeSearchService;
@@ -56,6 +57,14 @@ public class CakeSearchApi {
             @Validated @RequestParam(value = "limit", defaultValue = "10") @Range(min=1, max=20) int limit,
             @Validated @RequestParam(value = "cakeName", defaultValue = "케이크") @NotBlank String cakeName) {
         return cakeSearchService.findByNameOnLike(offset, limit, cakeName);
+    }
+    /* 캐스팅 및 변환이 필요한 경우 requestParam 은 검증이 제대로 동작하지 않는 문제가 있음 */
+    @GetMapping("/api/cake/details")
+    public CakeDetailSearch searchByItemDetails(
+            @Validated @RequestParam(value= "itemId") @NotEmpty String itemId) {
+
+        return cakeSearchService.findBySingleDetail(Long.valueOf(itemId));
+
     }
 
 }

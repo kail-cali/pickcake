@@ -181,4 +181,58 @@ class CakeSearchApiTest {
                 .andExpect(jsonPath("code").value(ErrorCode.METHOD_ARGUMENT_NOT_VALID.toString()))
                 .andDo(print());
     }
+
+    @Test
+    @DisplayName("api 검증[success]: 상세 아이템 조회 api 테스트")
+    public void searchCakeDetails() throws Exception{
+        //given
+        //when
+        ResultActions response = mockMvc.perform(
+                get("/api/cake/details")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .param("itemId", "1")
+        );
+        //then
+        response.andExpect(status().isOk())
+                .andDo(print());
+    }
+    @Test
+    @DisplayName("api 검증[fail]: 빈 아이템 아이디로 상세 아이템 조회 api 테스트")
+    public void searchCakeDetailsFail1() throws Exception{
+        //given
+        //when
+        ResultActions response = mockMvc.perform(
+                get("/api/cake/details")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .param("itemId", "")
+        );
+        //then
+        response.andExpect(status().isBadRequest())
+//                .andExpect(re)
+//                .andExpect(jsonPath("code").value(ErrorCode.METHOD_ARGUMENT_NOT_VALID.toString()))
+                .andDo(print());
+    }
+
+    @Test
+    @DisplayName("api 검증[fail]: 공백의 아이템 아이디값으로 상세 아이템 조회 api 테스트")
+    public void searchCakeDetailsFail2() throws Exception{
+        //given
+        //when
+        ResultActions response = mockMvc.perform(
+                get("/api/cake/details")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .param("itemId", " ")
+        );
+        //then
+        response.andExpect(status().isBadRequest())
+//                .andExpect(re)
+//                .andExpect(jsonPath("code").value(ErrorCode.METHOD_ARGUMENT_NOT_VALID.toString()))
+                .andDo(print());
+        //Resolved Exception:
+        //             Type = java.lang.NumberFormatException
+    }
+
+
+
+
 }

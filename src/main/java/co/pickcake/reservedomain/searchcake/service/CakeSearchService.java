@@ -5,6 +5,7 @@ import co.pickcake.aop.util.exception.NoDataException;
 import co.pickcake.reservedomain.entity.item.Cake;
 import co.pickcake.reservedomain.entity.item.EventCakeCategory;
 import co.pickcake.reservedomain.searchcake.dto.CakeCategorySearch;
+import co.pickcake.reservedomain.searchcake.dto.CakeDetailSearch;
 import co.pickcake.reservedomain.searchcake.dto.CakeSimpleSearch;
 import co.pickcake.reservedomain.searchcake.repository.CakeSearchRepository;
 import co.pickcake.reservedomain.searchcake.repository.CakeUserRepository;
@@ -29,6 +30,10 @@ public class CakeSearchService {
     public CakeSimpleSearch findById(Long id) {
         Optional<Cake> byId = Optional.ofNullable(cakeUserRepository.findById(id));
         return byId.map(CakeSimpleSearch::new).orElseThrow(NoDataException::new);
+    }
+    public CakeDetailSearch findBySingleDetail(Long id) {
+        Optional<Cake> byId = Optional.ofNullable(cakeUserRepository.findByIdDetails(id));
+        return byId.map(CakeDetailSearch:: new).orElseThrow(NoDataException::new);
     }
     public List<CakeSimpleSearch> findAll(int offset, int limit) {
         List<Cake> cakeList = cakeUserRepository.findAll(offset, limit);

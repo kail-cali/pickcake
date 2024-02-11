@@ -30,7 +30,7 @@ public class CakeImages {
 
     private String imageName;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "image_file_id")
     private ImageFile profileImage;
 

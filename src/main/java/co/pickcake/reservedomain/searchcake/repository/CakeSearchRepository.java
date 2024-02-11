@@ -27,6 +27,7 @@ public class CakeSearchRepository {
         return em.createQuery(
                 "select distinct e from EventCakeCategory e" +
                         " join fetch e.cake c" +
+                        " join fetch c.cakeImages ci" +
                         " join fetch e.cakeCategory cc" +
                         " where cc.name = :name", EventCakeCategory.class)
                 .setParameter("name", categoryName)
@@ -39,6 +40,7 @@ public class CakeSearchRepository {
         return em.createQuery(
                         "select distinct e from EventCakeCategory e" +
                                 " join fetch e.cake c" +
+                                " join fetch c.cakeImages ci" +
                                 " join fetch e.cakeCategory cc" +
                                 " where cc.name " +
                                 " like concat('%', :name, '%')", EventCakeCategory.class)

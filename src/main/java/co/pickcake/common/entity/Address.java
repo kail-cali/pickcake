@@ -23,9 +23,6 @@ public class Address {
         this.zipcode = zipcode;
     }
 
-
-
-
     public static Address createAddress(String city, String street, String zipcode) {
         Address address = new Address();
         address.setCity(city);

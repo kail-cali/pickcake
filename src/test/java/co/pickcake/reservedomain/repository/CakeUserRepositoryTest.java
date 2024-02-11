@@ -14,7 +14,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @SpringBootTest
-@Transactional
 class CakeUserRepositoryTest {
 
 
@@ -38,7 +37,6 @@ class CakeUserRepositoryTest {
         //then
         Assertions.assertThat(byBrand.size())
                 .isEqualTo(2);
-
     }
 
 
