@@ -36,7 +36,7 @@ class CakeImageStoreApiTest {
     private ImageServer imageServer;
 
     @Test
-    @DisplayName("파일을 특정 uuid 이름으로 매핑하여 서버에 저장하는 api 호출 테스트")
+    @DisplayName("api 검증[success]: 파일을 특정 uuid 이름으로 매핑하여 서버에 저장하는 api 호출 테스트")
     public void uploadWithApiTest() throws Exception {
         String fileName = "s_x1";
         String ext = "png";
@@ -61,7 +61,7 @@ class CakeImageStoreApiTest {
     }
 
     @Test
-    @DisplayName("잘못된 파라미터 네임으로 요청 보냈을 때 실패 처리")
+    @DisplayName("api 검증[fail]: 잘못된 파라미터 네임으로 요청 보냈을 때 실패 처리")
     public void uploadWithApiTestNotValid() throws Exception {
         String fileName = "s_x1";
         String ext = "png";

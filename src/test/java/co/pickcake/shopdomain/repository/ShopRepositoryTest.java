@@ -4,6 +4,7 @@ import co.pickcake.reservedomain.entity.item.Cake;
 import co.pickcake.reservedomain.searchcake.repository.CakeAdminRepository;
 import co.pickcake.policies.filename.policy.FileUuidGeneratePolicy;
 import co.pickcake.shopdomain.entity.Shop;
+import lombok.RequiredArgsConstructor;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -12,27 +13,23 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+import java.util.Optional;
 
-@SpringBootTest
 @Transactional
+@SpringBootTest
 class ShopRepositoryTest {
-
-
     @Autowired
-    private  ShopRepository shopRepository;
-
+    private ShopRepository shopRepository;
     @Autowired
     private CakeAdminRepository cakeAdminRepository;
-
-    private MockMvc mockMvc;
-
-    @Autowired private FileUuidGeneratePolicy fileNamePolicy;
-
+    @Autowired
+    private FileUuidGeneratePolicy fileNamePolicy;
 
     @Test
     @DisplayName("데이터 검정: shop 정보가 db에 잘 넣어지는 지 테스트")
     void findById() {
-        Shop shop = Shop.createShop("신라 호텔", "http://shinrahotel.com", "seoul", "중구", "01123");
+        Shop shop = Shop.createShop("신라 호텔", "http://shinrahotel.com", "02-302-1111","seoul", "중구", "01123");
         shopRepository.save(shop);
         Assertions.assertThat(shop).isEqualTo(shopRepository.findById(shop.getId()));
     }
@@ -40,23 +37,23 @@ class ShopRepositoryTest {
     @Test
     @DisplayName("데이터 검정: 이름으로 검색 시 아이템을 찾을 수 있는 지 테스트")
     void findByName() {
-
         // given
-        Shop shop = Shop.createShop("신라 호텔", "http://shinrahotel.com", "seoul", "중구", "01123");
+        Shop shop = Shop.createShop("신라 호텔", "http://shinrahotel.com", "02-302-1111","seoul", "중구", "01123");
         shopRepository.save(shop);
-        // when
 
-        Shop getFirst = shopRepository.findByName("신라 호텔").getFirst();
+        // when
+        List<Shop> items = shopRepository.findByName("신라 호텔");
 
         // then
-        Assertions.assertThat(shop).isEqualTo(getFirst);
+
+        Assertions.assertThat(items.getFirst()).isEqualTo(shop);
     }
 
     @Test
     @DisplayName("데이터 검정: 가게 정보에 상품을 추가할 때 db에서 잘 저장되는 지 테스트")
     public void addCakeItemTest() {
         //given
-        Shop shop = Shop.createShop("신라 호텔", "http://shinrahotel.com", "seoul", "중구", "01123");
+        Shop shop = Shop.createShop("신라 호텔", "http://shinrahotel.com", "02-302-1111","seoul", "중구", "01123");
         shopRepository.save(shop);
 
 
@@ -83,7 +80,7 @@ class ShopRepositoryTest {
     @DisplayName("데이터 검정: 가게 정보에 다중 상품을 추가할 때 db에서 잘 저장되는 지 테스트")
     public void addCakeItemsTest() {
         //given
-        Shop shop = Shop.createShop("신라 호텔", "http://shinrahotel.com", "seoul", "중구", "01123");
+        Shop shop = Shop.createShop("신라 호텔", "http://shinrahotel.com", "02-302-1111","seoul", "중구", "01123");
 
 
 

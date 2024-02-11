@@ -9,6 +9,7 @@ import lombok.Data;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/* 카테고리 조회용 Dto, 컨트롤러와 서비스 계층에서 사용하고 있음 */
 @Data
 public class CakeCategorySearch {
 

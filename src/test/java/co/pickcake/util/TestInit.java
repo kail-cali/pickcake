@@ -10,8 +10,6 @@ public interface TestInit {
     public TestDataSize dbInitWithDynamic();
     public TestDataSize dbInitWithMember();
     public TestDataSize dbInitWithItems();
-
     public TestDataItem dbInitWithSingleItem();
-
 
 }

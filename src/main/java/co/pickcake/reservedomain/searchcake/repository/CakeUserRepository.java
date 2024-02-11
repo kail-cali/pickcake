@@ -2,9 +2,12 @@ package co.pickcake.reservedomain.searchcake.repository;
 
 import co.pickcake.common.entity.QCategory;
 import co.pickcake.imagedomain.entity.QCakeImages;
+import co.pickcake.imagedomain.entity.QImageFile;
+import co.pickcake.reservedomain.entity.QReserveInfo;
 import co.pickcake.reservedomain.entity.item.Cake;
 import co.pickcake.reservedomain.entity.item.QCake;
 import co.pickcake.reservedomain.searchcake.dto.CakeSearch;
+import co.pickcake.shopdomain.entity.QShop;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
@@ -31,6 +34,21 @@ public class CakeUserRepository {
     public Cake findById(Long id) {
         return em.find(Cake.class, id);
     }
+    public Cake findByIdDetails(Long id) {
+//        return em.find(Cake.class, id);
+
+        return em.createQuery(
+                "select c from Cake c" +
+                        " join fetch c.cakeImages ci" +
+                        " join fetch ci.profileImage p" +
+                        " join fetch c.shop s" +
+                        " join fetch s.reserveInfo ri" +
+                        " join fetch s.naver sn" +
+                        " join fetch s.instagram sii" +
+                        " where c.id = :itemId", Cake.class)
+                .setParameter("itemId", id).getSingleResult();
+
+    }
     public List<Cake> findAll(int offset, int limit) {
         return em.createQuery(
                          "select c from Cake c" +
@@ -45,7 +63,6 @@ public class CakeUserRepository {
         return em.createQuery(
                              "select c from Cake c" +
                                 " join fetch c.cakeImages ci" +
-
                                 " where c.brand = :brand", Cake.class)
                 .setParameter("brand", brand)
                 .getResultList();
@@ -54,14 +71,12 @@ public class CakeUserRepository {
         return em.createQuery(
                      "select c from Cake c " +
                         " join fetch c.cakeImages ci" +
-
                         " where c.brand = :brand", Cake.class)
                 .setParameter("brand", brand)
                 .setFirstResult(offset)
                 .setMaxResults(limit)
                 .getResultList();
     }
-
     /* NEEDLEPOINT & TODO
     * entity 조회이긴 한데 화면 종속적인 파라미터 서치가 있어서 refactoring 추후 필요 */
     public List<Cake> findByCategory(CakeSearch cakeSearch) {
@@ -77,7 +92,6 @@ public class CakeUserRepository {
                 .limit(1000)
                 .fetch();
     }
-
     public List<Cake> findByNameOnLike(int offset, int limit, String cakeName) {
         return em.createQuery(
                      "select c from Cake c" +
@@ -89,4 +103,5 @@ public class CakeUserRepository {
                 .setMaxResults(limit)
                 .getResultList();
     }
+
 }
