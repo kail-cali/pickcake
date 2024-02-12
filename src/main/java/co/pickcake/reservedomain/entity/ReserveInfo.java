@@ -8,8 +8,6 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-
-import java.sql.Time;
 import java.time.LocalTime;
 
 @Entity @Getter
@@ -37,9 +35,12 @@ public class ReserveInfo {
         if (onSiteSaleOnly) {
             reserveInfo.needReservation = false;
             reserveInfo.needReservationBeforeDay = 0;
-        } else {
-            reserveInfo.needReservation = needReservation;
+        } else if (needReservation) {
+            reserveInfo.needReservation = true;
             reserveInfo.needReservationBeforeDay = needReservationBeforeDay;
+        } else {
+            reserveInfo.needReservation = false;
+            reserveInfo.needReservationBeforeDay = 0;
         }
 
         reserveInfo.setOnSiteSaleOnly(onSiteSaleOnly);
