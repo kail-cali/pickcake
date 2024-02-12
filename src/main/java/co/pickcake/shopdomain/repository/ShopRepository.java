@@ -7,7 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
-import java.util.Optional;
+
 
 @Repository
 @RequiredArgsConstructor
@@ -18,7 +18,6 @@ public class ShopRepository {
     public void save(Shop shop) {
         em.persist(shop);
     }
-
     public Shop findById(Long id) {
         return em.find(Shop.class, id);
     }
@@ -28,6 +27,16 @@ public class ShopRepository {
                         "select s from Shop s" +
                                 " where s.shopName = : shopName", Shop.class)
                 .setParameter("shopName", shopName)
+                .getResultList();
+    }
+    public List<Shop> findAll(int offset, int limit) {
+        return em.createQuery(
+                "select s from Shop s" +
+                        " join fetch s.reserveInfo sr" +
+                        " join fetch s.naver n"
+                        , Shop.class)
+                .setFirstResult(offset)
+                .setMaxResults(limit)
                 .getResultList();
     }
     public Shop findByIdWithDetail(Long id) {
