@@ -37,7 +37,7 @@ class MemberServiceTest {
     }
 
     @Test
-    @DisplayName("중복 회원 예외 처리")
+    @DisplayName("데이터 검증[fail]: 중복 회원 예외 처리")
     public void signInDuplicate() throws Exception {
         //given
         Member origMember = new Member();
