@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 @Data
 public class CakeCategorySearch {
 
-    @JsonIgnore
+//    @JsonIgnore
     private Long itemId;
     private String itemName;
     @NotBlank
