@@ -46,8 +46,8 @@ public class CakeSearchFormController {
             Model model
     ) {
         CakeDetailSearch detail = cakeSearchService.findBySingleDetail(itemId);
-        model.addAttribute("item", detail);
-        return "fragments/bodyCard";
+        model.addAttribute("items", detail);
+        return "item-details";
 
     }
 

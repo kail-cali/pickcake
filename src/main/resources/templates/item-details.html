@@ -15,15 +15,6 @@
     <link href="../static/css/styles.css" rel="stylesheet" />
 
 </head>
-<style>
-    .fieldError {
-        border-color: #bd2130;
-    }
-
-    .brand-name-2 {
-        color : #6236FF;
-    }
-</style>
 <body>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
@@ -31,6 +22,7 @@
 <!-- Navigation-->
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container px-4 px-lg-5">
+
         <a class="navbar-brand" href="/" th:text="#{label.appNamePrefix} + @{ 🍰 } + #{label.appNameSuffix}" >Pick Cake</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -50,7 +42,7 @@
             <form class="d-flex">
                 <button class="btn btn-outline-dark" type="submit">
                     <i class="bi-cart-fill me-1"></i>
-                    Cart
+                    Reserve
                     <span class="badge bg-dark text-white ms-1 rounded-pill">0</span>
                 </button>
             </form>
@@ -58,50 +50,6 @@
     </div>
 </nav>
 
-
-
-<div class="nav-scroller py-1 mb-3 border-bottom">
-    <nav class="nav nav-underline justify-content-between">
-        <li class="nav-item">
-            <p th:if="${categoryFilter}==#{label.category.rank.default}">
-                <a class="nav-link active"  href="/cakes"   aria-current="page"  th:text="#{label.category.rank.default}" >전체</a>
-            </p>
-            <p th:unless="${categoryFilter}==#{label.category.rank.default}">
-                <a class="nav-link"  href="/cakes"   aria-current="page"  th:text="#{label.category.rank.default}" >전체</a>
-            </p>
-        </li>
-
-        <li class="nav-item">
-            <p th:if="${categoryFilter}==#{label.category.rank.two}">
-                <a class="nav-link active" href="/cakes/category?categoryName=발렌타인데이" th:text="#{label.category.rank.two}">발렌타인데이</a>
-            </p>
-            <p th:unless="${categoryFilter}==#{label.category.rank.two}">
-                <a class="nav-link" href="/cakes/category?categoryName=발렌타인데이" th:text="#{label.category.rank.two}">발렌타인데이</a>
-            </p>
-        </li>
-
-        <li class="nav-item">
-            <p th:if="${categoryFilter}==#{label.category.rank.three}">
-                <a class="nav-link active" href="/cakes/category?categoryName=기념일" th:text="#{label.category.rank.three}">기념일</a>
-            </p>
-            <p th:unless="${categoryFilter}==#{label.category.rank.three}">
-                <a class="nav-link" href="/cakes/category?categoryName=기념일" th:text="#{label.category.rank.three}">기념일</a>
-            </p>
-
-        </li>
-
-        <li class="nav-item">
-            <p th:if="${categoryFilter}==#{label.category.rank.four}">
-                <a class="nav-link active" href="/cakes/category?categoryName=생일" th:text="#{label.category.rank.four}">생일</a>
-            </p>
-            <p th:unless="${categoryFilter}==#{label.category.rank.four}">
-                <a class="nav-link" href="/cakes/category?categoryName=생일" th:text="#{label.category.rank.four}">생일</a>
-            </p>
-
-        </li>
-
-    </nav>
-</div>
 
 <!-- Header-->
 <!--<header class="bg-dark py-5">-->
@@ -127,30 +75,32 @@
     <div class="container px-1 px-lg-5 mt-5">
         <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
             <tr th:each="item : ${items}">
-                <div class="col mb-5">
-                    <div class="card h-100">
-                        <!--                        <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem" th:text="#{label.hot}">Hot</div>-->
-                        <!-- Product image-->
-                        <img class="card-img-top" th:src="|/images/${item.profile.storePath}|" width="200" height="150" alt="..." />
+            <div class="col mb-5">
+                <div class="card h-100">
+                    <!--                        <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem" th:text="#{label.hot}">Hot</div>-->
+                    <!-- Product image-->
+                    <img class="card-img-top" th:src="|/images/${item.profile.storePath}|" width="200" height="150" alt="..." />
 
-                        <!-- Product details-->
-                        <div class="card-body p-4">
-                            <div class="text-center">
-                                <!-- Product name-->
-                                <h6 class="brand-name-2" th:text="${item.brand}" ></h6>
+                    <!-- Product details-->
+                    <div class="card-body p-4">
+                        <div class="text-center">
+                            <!-- Product name-->
+                            <td class="brand-name" th:text="${item.brand}" ></td>
 
-                                <h6 class="fw-bolder" th:text="${item.itemName}"> </h6>
+                            <h6 class="fw-bolder" th:text="${item.itemName}"> </h6>
 
-                                <!-- Product price-->
-                                <td th:text="${item.price} + #{label.priceUnit}" ></td>
+                            <!-- Product price-->
+                            <td th:text="${item.price} + #{label.priceUnit}" ></td>
 
-                            </div>
                         </div>
-                        <!-- Product actions-->
-                        <!--                        <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">-->
-                        <!--                            <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">View options</a></div>-->
-                        <!--                        </div>-->
                     </div>
+
+                    </div>
+
+                    <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                        <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">View options</a></div>
+                    </div>
+
                 </div>
             </tr>
 
