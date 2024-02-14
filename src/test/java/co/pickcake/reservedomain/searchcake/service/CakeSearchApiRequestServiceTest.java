@@ -1,39 +1,41 @@
 package co.pickcake.reservedomain.searchcake.service;
 
 import co.pickcake.aop.apigateway.ApiGatewayConfig;
-import co.pickcake.policies.filename.policy.FileUuidGeneratePolicy;
-import co.pickcake.reservedomain.searchcake.dto.CakeSimpleSearch;
-import co.pickcake.reservedomain.searchcake.repository.CakeAdminRepository;
+import co.pickcake.config.FileSystemConfig;
+
 import org.assertj.core.api.AbstractThrowableAssert;
-import org.junit.jupiter.api.Assertions;
+
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
+
 import java.util.Optional;
 
-import static org.assertj.core.api.Assertions.assertThat;
+
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 /* 외부 api 요청 테스트는 웹계층에서 테스트하면 되지만
 * 내부 api 를 서비스 콜이 아닌 http 요청으로 할 경우, 테스트 방식에 대한 고민이 필요 */
 @SpringBootTest
 @Transactional
+@WithMockUser(roles = "USER")
 class CakeSearchApiRequestServiceTest {
     @Autowired
     private ApiGatewayConfig apiGatewayConfig;
 
     @Autowired
     private CakeSearchApiRequestService cakeSearchApiService;
-
     @Autowired
-    private FileUuidGeneratePolicy fileNamePolicy;
+    private FileSystemConfig fileSystemConfig;
+
 
     @Test
     @DisplayName("api call 테스트[success]: 케이크 상품 아이템이 api 를 통해 정상 조회되는 지 테스트")
+    @WithMockUser(roles = "USER")
     public void apiCallRequestForCakeSearchAll() throws Exception {
         // given
         Optional<AbstractThrowableAssert> result = Optional.of(assertThatThrownBy(() -> cakeSearchApiService.searchCakes(0, 10)));

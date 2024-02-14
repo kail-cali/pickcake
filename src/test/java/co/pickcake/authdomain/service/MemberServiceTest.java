@@ -21,7 +21,6 @@ import static org.junit.jupiter.api.Assertions.*;
 class MemberServiceTest {
 
     @Autowired MemberService memberService;
-    @Autowired private MemberRepository memberRepository;
     @Autowired private TestInitDB testInitDB;
 
     @Test
@@ -55,8 +54,6 @@ class MemberServiceTest {
         //then
         Assertions.assertThat(thrownError.getMessage())
                 .isEqualTo(ErrorCode.DUPLICATED_USER_ALREADY_EXISTS.toString());
-
-
 
     }
 

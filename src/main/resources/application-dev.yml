@@ -45,9 +45,15 @@ service:
   active: dev
 
 
+google:
+  api:
+    map:
+      key: ${google.api.map.key.1}
 
 
 
 file:
-  dir: /Users/george/dev/images/
-  from: /Users/george/dev/raw_images/
+#  dir: /Users/george/dev/images/
+  dir: ${imageserver.file.dir}
+#  from: /Users/george/dev/raw_images/
+  from: ${imageserver.file.from}

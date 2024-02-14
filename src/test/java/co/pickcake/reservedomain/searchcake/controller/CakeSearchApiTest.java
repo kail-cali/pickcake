@@ -16,6 +16,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.client.MockRestServiceServer;
 import org.springframework.test.web.client.match.MockRestRequestMatchers;
 import org.springframework.test.web.client.response.MockRestResponseCreators;
@@ -30,6 +31,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 /* 정책 테스트는 항상 변경 될 때마다 테스트 반드시 확인할 것 */
 /* response 에 대한 api 데이터 검증은 통합테스트 확인 */
 @WebMvcTest(CakeSearchApi.class)
+@WithMockUser(roles = "USER")
 class CakeSearchApiTest {
 
     @Autowired
