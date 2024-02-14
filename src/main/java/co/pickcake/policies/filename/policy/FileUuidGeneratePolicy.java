@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 import java.util.UUID;
 
 @Component
-@Primary
+//@Primary
 public class FileUuidGeneratePolicy implements FileNamePolicy{
 
 

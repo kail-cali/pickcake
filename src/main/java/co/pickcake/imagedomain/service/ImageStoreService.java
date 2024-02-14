@@ -3,11 +3,11 @@ package co.pickcake.imagedomain.service;
 
 
 import co.pickcake.aop.apigateway.ApiGatewayConfig;
+import co.pickcake.config.FileSystemConfig;
 import co.pickcake.imagedomain.dto.ImageSaveRequest;
 import co.pickcake.imagedomain.dto.ImageSaveResponse;
 import co.pickcake.imagedomain.entity.CakeImages;
 import co.pickcake.imagedomain.entity.ImageFile;
-import co.pickcake.policies.filename.policy.FileNamePolicy;
 import co.pickcake.imagedomain.repository.CakeImageRepository;
 import co.pickcake.imagedomain.repository.ImageFileRepository;
 import lombok.RequiredArgsConstructor;
@@ -34,8 +34,7 @@ public class ImageStoreService { // -> service 계층 ??
 
     @Value("${file.dir}")
     private String fileDir;
-
-    private final FileNamePolicy fileNamePolicy;
+    private final FileSystemConfig fileSystemConfig;
     private final CakeImageRepository cakeImageRepository; /* NEEDEDTOFIX  Cake 생성 시 미리 만들기*/
     private final ImageFileRepository imageFileRepository;
     private final ApiGatewayConfig apiGatewayConfig;
@@ -80,7 +79,7 @@ public class ImageStoreService { // -> service 계층 ??
             return null;
         }
         String originalFilename = multipartFile.getOriginalFilename();
-        ImageFile imageFile = ImageFile.createImageFile(originalFilename, fileNamePolicy);
+        ImageFile imageFile = ImageFile.createImageFile(originalFilename, fileSystemConfig.fileNamePolicy());
         imageFileRepository.save(imageFile);
 
         /* TODO 미리 아이디와 패스를 생성하고 실제 저장은  image server 에서 할 수 있도록 변경*/

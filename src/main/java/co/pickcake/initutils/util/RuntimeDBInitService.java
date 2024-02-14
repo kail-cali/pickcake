@@ -1,9 +1,11 @@
 package co.pickcake.initutils.util;
 
 import co.pickcake.authdomain.entity.Member;
+import co.pickcake.config.FileSystemConfig;
 import co.pickcake.imagedomain.entity.ImageFile;
 import co.pickcake.imagedomain.service.ImageStoreService;
-import co.pickcake.policies.filename.policy.FileUuidGeneratePolicy;
+import co.pickcake.policies.filename.policy.FileNamePolicy;
+
 import co.pickcake.reservedomain.entity.item.Cake;
 import co.pickcake.reservedomain.entity.item.CakeCategory;
 import co.pickcake.reservedomain.entity.item.EventCakeCategory;
@@ -38,13 +40,15 @@ public class RuntimeDBInitService implements RuntimeInit{
     @Value("${service.active}")
     private String serviceName;
 
+    private final FileSystemConfig fileSystemConfig;
+
     private final EntityManager em;
     private final ImageStoreService imageStoreService;
-    private final FileUuidGeneratePolicy fileUuidGeneratePolicy;
 
     @Transactional
     @Override
     public void preinit() {
+        dbInitWithMember();
         dbInitWithItems();
     }
     @Transactional
@@ -90,26 +94,26 @@ public class RuntimeDBInitService implements RuntimeInit{
 
         Cake cake1 = Cake.createCakeWithImage("화이트 홀리데이 케이크", "신라호텔",
                 "화이트 크리스마스 케이크",
-                150000, fileUuidGeneratePolicy);
+                150000, fileSystemConfig.fileNamePolicy());
 
         List<EventCakeCategory> cakeCategories = EventCakeCategory.addCakeCategories(cake1,
                 cakeCategory6, cakeCategory3, cakeCategory5);
         em.persist(cake1);
 
         // set cake profile
-        ImageFile imageFile1 = ImageFile.createImageFile("s_x1.png", fileUuidGeneratePolicy);
+        ImageFile imageFile1 = ImageFile.createImageFile("s_x1.png", fileSystemConfig.fileNamePolicy());
         imageFile1.setProfileCakeImages(cake1.getCakeImages());
         em.persist(imageFile1);
         uploadDirect(imageFile1);
 
         Cake cake2 = Cake.createCakeWithImage("얼루어링 원터 케이크", "신라호텔",
                 "빨간 장미 케이크",
-                240000, fileUuidGeneratePolicy);
+                240000, fileSystemConfig.fileNamePolicy());
         EventCakeCategory.addCakeCategories(cake2,
                 cakeCategory6, cakeCategory3, cakeCategory4, cakeCategory5);
         em.persist(cake2);
         // set cake profile
-        ImageFile imageFile2 = ImageFile.createImageFile("s_x2.png", fileUuidGeneratePolicy);
+        ImageFile imageFile2 = ImageFile.createImageFile("s_x2.png", fileSystemConfig.fileNamePolicy());
 
 
         imageFile2.setProfileCakeImages(cake2.getCakeImages());
@@ -118,14 +122,14 @@ public class RuntimeDBInitService implements RuntimeInit{
 
         Cake cake3 = Cake.createCakeWithImage("레드 크리스마스 케이크", "포시즌스호텔",
                 "오렌지 무스 초코 케이크",
-                250000, fileUuidGeneratePolicy);
+                250000, fileSystemConfig.fileNamePolicy());
 
         EventCakeCategory.addCakeCategories(cake3,
                 cakeCategory6, cakeCategory3, cakeCategory5);
         em.persist(cake3);
 
         // set cake profile
-        ImageFile imageFile3 = ImageFile.createImageFile("s_x3.png", fileUuidGeneratePolicy);
+        ImageFile imageFile3 = ImageFile.createImageFile("s_x3.png", fileSystemConfig.fileNamePolicy());
 
 
         imageFile3.setProfileCakeImages(cake3.getCakeImages());
@@ -134,14 +138,14 @@ public class RuntimeDBInitService implements RuntimeInit{
 
         Cake cake4 = Cake.createCakeWithImage("화이트 크리스마스 케이크", "포시즌스호텔",
                 "우유 생크림 케이크",
-                189000, fileUuidGeneratePolicy);
+                189000, fileSystemConfig.fileNamePolicy());
 
         EventCakeCategory.addCakeCategories(cake4,
                 cakeCategory6, cakeCategory5);
         em.persist(cake4);
 
         // set cake profile
-        ImageFile imageFile4 = ImageFile.createImageFile("s_x4.png", fileUuidGeneratePolicy);
+        ImageFile imageFile4 = ImageFile.createImageFile("s_x4.png", fileSystemConfig.fileNamePolicy());
 
         imageFile4.setProfileCakeImages(cake4.getCakeImages());
         em.persist(imageFile4);
@@ -182,7 +186,7 @@ public class RuntimeDBInitService implements RuntimeInit{
 
         Cake cake1 = Cake.createCakeWithImage("화이트 홀리데이 케이크", "신라호텔",
                 "화이트 크리스마스 케이크",
-                150000, fileUuidGeneratePolicy);
+                150000, fileSystemConfig.fileNamePolicy());
 
         List<EventCakeCategory> cakeCategories = EventCakeCategory.addCakeCategories(cake1,
                 cakeCategory6, cakeCategory3, cakeCategory5);
@@ -190,7 +194,7 @@ public class RuntimeDBInitService implements RuntimeInit{
         shop1.addCake(cake1);
         em.persist(cake1);
         // set cake profile
-        ImageFile imageFile1 = ImageFile.createImageFile("s_x1.png", fileUuidGeneratePolicy);
+        ImageFile imageFile1 = ImageFile.createImageFile("s_x1.png", fileSystemConfig.fileNamePolicy());
 
         imageFile1.setProfileCakeImages(cake1.getCakeImages());
         em.persist(imageFile1);
