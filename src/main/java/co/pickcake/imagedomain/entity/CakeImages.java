@@ -17,12 +17,11 @@ import java.util.List;
 public class CakeImages {
 
     /* 상품 이미지 메타 정보의 형상 역할을 하는 프록시 엔티티
-    *  TODO  상품 정보를 미리 등록하고 실제 이미지 저장은 이미지 서버에게 맡기는 지연 로딩 방식 구현 */
+    *  TODO 상품 정보를 미리 등록하고 실제 이미지 저장은 이미지 서버에게 맡기는 지연 로딩 방식 구현 */
 
     @Id @GeneratedValue
     @Column(name = "cake_images_id")
     private Long id;
-
 
     @JsonIgnore
     @OneToOne(mappedBy = "cakeImages", fetch = FetchType.LAZY)

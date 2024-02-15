@@ -1,5 +1,6 @@
 package co.pickcake.shopdomain.repository;
 
+import co.pickcake.policies.filename.policy.FileNamePolicy;
 import co.pickcake.reservedomain.entity.ReserveInfo;
 import co.pickcake.reservedomain.entity.item.Cake;
 import co.pickcake.reservedomain.searchcake.repository.CakeAdminRepository;
@@ -29,7 +30,7 @@ class ShopRepositoryTest {
     @Autowired
     private CakeAdminRepository cakeAdminRepository;
     @Autowired
-    private FileUuidGeneratePolicy fileNamePolicy;
+    private FileNamePolicy fileNamePolicy;
     @Autowired
     private TestInitDB testInitDB;
 
