@@ -3,18 +3,19 @@ package co.pickcake.reservedomain.searchcake.controller;
 import co.pickcake.reservedomain.searchcake.dto.CakeCategorySearch;
 import co.pickcake.reservedomain.searchcake.dto.CakeDetailSearch;
 import co.pickcake.reservedomain.searchcake.dto.CakeSimpleSearch;
-import co.pickcake.reservedomain.searchcake.dto.CakeSimpleSearchRequest;
+
 import co.pickcake.reservedomain.searchcake.service.CakeSearchService;
-import jakarta.validation.Valid;
+
 import jakarta.validation.constraints.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.validator.constraints.Range;
-import org.springframework.security.access.prepost.PreAuthorize;
+
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
+/* 해당 api 는 로그인 없이 조회할 수 있는 api */
 @Slf4j
 @RestController
 @RequiredArgsConstructor
@@ -27,9 +28,6 @@ public class CakeSearchApi {
             @Validated @RequestParam(value ="limit", defaultValue = "10") @Range(min = 0, max = 20) int limit) {
         return cakeSearchService.findAll(offset, limit);
     }
-    /* session 처리를 위해 미리 추가해둔 메서드 */
-
-//    @PreAuthorize("hasRole('ROLE_USER')")
     @GetMapping("/api/cake/brand")
     public List<CakeSimpleSearch> searchByBrand(
             @Validated @RequestParam(value = "offset", defaultValue = "0") @PositiveOrZero int offset,

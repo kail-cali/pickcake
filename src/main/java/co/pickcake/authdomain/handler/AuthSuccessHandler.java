@@ -28,7 +28,5 @@ public class AuthSuccessHandler implements AuthenticationSuccessHandler {
         response.setContentType(APPLICATION_JSON_VALUE);
         response.setCharacterEncoding(UTF_8.name());
         response.setStatus(SC_OK);
-
-
     }
 }

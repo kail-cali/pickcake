@@ -11,9 +11,9 @@ public class Member {
     @Id @GeneratedValue
     @Column(name = "member_id")
     private Long id;
-    private String userId; // 우선 email 로 통일 소셜 로그인 때 수정 예정
-    private String username;
-    private String password;
+    private String userId; // 우선 email 로 통일,  소셜 로그인 때 수정 예정
+    private String username; // user name 으로 필드로만 사용하고 있음
+    private String password; // encoded password, 정책은 WebSecurityConfig 확인
 
     @Embedded
     private Address address;
@@ -27,8 +27,6 @@ public class Member {
     public void setUserID(String userId) {
         this.userId = userId;
     }
-
-
     public void setPassword(String password) {
         this.password = password;
     }
@@ -42,6 +40,7 @@ public class Member {
      * private List<Heart> hearts = new ArrayList<>();
     * */
     /* 연관 관계 편의 메서드 */
+
     /* 생성 편의 메서드 */
     public static Member createMember(String username, String userId, String password, String city, String street, String zipcode) {
         Member member = new Member();
@@ -55,8 +54,18 @@ public class Member {
         member.setAddress(Address.createAddress(city, street, zipcode));
         return member;
     }
-    /* TODO 비즈니스 로직 , 추후 추가 예정 */
-    public boolean changePassword() {
-        return true;
+    public static Member createMember(String username, String userId, String password) {
+        Member member = new Member();
+        member.setPassword(password);
+        if ( username == null) {
+            member.setUsername(userId);
+        } else {
+            member.setUsername(username);
+        }
+        member.setUserID(userId);
+        return member;
+    }
+    public void changePassword(String newPassword) {
+        password = newPassword;
     }
 }

@@ -1,5 +1,6 @@
 package co.pickcake;
 
+import co.pickcake.authdomain.entity.Member;
 import co.pickcake.reservedomain.entity.ReserveInfo;
 import co.pickcake.reservedomain.entity.item.Cake;
 import co.pickcake.shopdomain.entity.Shop;
@@ -8,7 +9,10 @@ import org.assertj.core.api.AbstractThrowableAssert;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalTime;
@@ -17,14 +21,17 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 /* entity 에 대한 생성 편의 메서드 테스트 모음 */
 @SpringBootTest
-@Transactional(readOnly = true)
+@AutoConfigureMockMvc
 public class StaticCreateEntityTest {
 
-    /* NO BEAN ! Just for test list */
+    @Autowired private MockMvc mockMvc;
+
+    /* test example */
     private Shop shop;
         private SNS sns; // -> naver, instar
         private ReserveInfo reserveInfo;
     private Cake cake;
+    private Member member;
 
     @Test
     @DisplayName("생성자 테스트: 가게 예약 정보 static 으로 생성")
@@ -35,7 +42,6 @@ public class StaticCreateEntityTest {
         //when
         ReserveInfo reserveInfo = ReserveInfo.create(false,false, 2, open, close);
         //then
-
     }
 
     @Test
@@ -57,8 +63,11 @@ public class StaticCreateEntityTest {
                 "https://search.naver.com/search.naver?where=nexearch&sm=top_hty&fbm=0&ie=utf8&query=%EC%8B%A0%EB%9D%BC%ED%98%B8%ED%85%94", "https://www.instagram.com/shillahotels/"
         );
         System.out.println("shop1 = " + shop1);
-
-
-
     }
+    @Test
+    @DisplayName("생성자 테스트: 멤버 서비스 고유 기능으로 생성 ")
+    public void memberCreate1() {
+        Member member = Member.createMember("hail-test", "hail@gmail.com", "12345" ,"서울", "연세로", "31122");
+    }
+
 }

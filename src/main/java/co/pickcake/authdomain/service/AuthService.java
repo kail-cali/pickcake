@@ -25,9 +25,15 @@ public class AuthService {
         /* need to fix */
         validateDuplicatedMember(request.getUserId());
         String encoded = passwordEncoder.encode(request.getPassword());
-        Member member = Member.createMember(request.getUserName(), request.getUserId(), encoded,
-                request.getAddress().getCity(), request.getAddress().getStreet(), request.getAddress().getZipcode());
+        Member member;
+        if (request.getAddress() == null) {
+            member = Member.createMember(request.getUserName(), request.getUserId(), encoded,
+                    request.getAddress().getCity(), request.getAddress().getStreet(), request.getAddress().getZipcode());
+        } else {
+            member = Member.createMember(request.getUserName(), request.getUserId(), encoded);
+        }
         memberRepository.save(member);
+
     }
     private void validateDuplicatedMember(String userId) {
         /* 중복회원 검증 로직 */

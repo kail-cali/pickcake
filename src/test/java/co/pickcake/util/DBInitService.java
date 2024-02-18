@@ -2,6 +2,7 @@ package co.pickcake.util;
 
 import co.pickcake.authdomain.entity.Member;
 import co.pickcake.config.FileSystemConfig;
+import co.pickcake.config.WebSecurityConfig;
 import co.pickcake.imagedomain.entity.ImageFile;
 import co.pickcake.imagedomain.service.ImageStoreService;
 
@@ -37,7 +38,7 @@ public class DBInitService implements TestInit{
     private final FileSystemConfig fileSystemConfig;
     private final EntityManager em;
     private final ImageStoreService imageStoreService;
-
+    private final WebSecurityConfig securityConfig;
     @Override
     public void preinit(InitCreate initCreate) {
 
@@ -50,7 +51,9 @@ public class DBInitService implements TestInit{
 
     @Override
     public TestDataSize dbInitWithMember() {
-        Member member = Member.createMember("hail1", "cali", "hhh111" ,"서울", "연세로", "31122");
+        Member member = Member.createMember("hail-cali", "hail@gmail.com", "123456" ,"서울", "연세로", "31122");
+        String encoded = securityConfig.passwordEncoder().encode(member.getPassword());
+        member.setPassword(encoded);
         em.persist(member);
         return new TestDataSize(1,1,1L,1L);
     }

@@ -14,7 +14,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
-import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -63,13 +63,14 @@ public class WebSecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests((requests) -> requests
-                        .requestMatchers("/").permitAll()
-                        .requestMatchers("*?error").permitAll()
-                        .requestMatchers("/auth/signup").permitAll()
-                        .requestMatchers( "/auth/signin").permitAll()
-                        .requestMatchers("/images/**").permitAll()
+//                        .requestMatchers("/").permitAll()
+//                        .requestMatchers("*?error").permitAll()
+//                        .requestMatchers("/auth/signup").permitAll()
+//                        .requestMatchers( "/auth/signin").permitAll()
+//                        .requestMatchers("/images/**").permitAll()
 //                        .requestMatchers( "/api","/api/cake", "/cakes","/cakes/category**","/images/**").hasRole("USER")
-                        .anyRequest().authenticated()
+//                        .anyRequest().authenticated()
+                        .anyRequest().permitAll()
                 )
                 .addFilterBefore(usernamePasswordAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class)
 //                .formLogin((form) -> form
