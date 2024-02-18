@@ -11,11 +11,11 @@ import org.springframework.stereotype.Component;
 public class ApiGatewayConfig {
 
     private String httpPortocol = "http://";
-    @Value("http://${server.address}:${server.port}/")
+    @Value("http://${server.address}:${server.port}")
     private String imageServerGateWay;
-    private String uploadApi = "api/image/store";
-    @Value("http://${server.address}:${server.port}/")
+    private String uploadApi = "/api/image/store";
+    @Value("http://${server.address}:${server.port}")
     private String searchCakeGateWay;
-    private String searchCakeApi = "api/cake";
+    private String searchCakeApi = "/openapi/cake";
 
 }

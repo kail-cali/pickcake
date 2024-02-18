@@ -2,6 +2,7 @@ package co.pickcake.aop.advice;
 
 import co.pickcake.aop.errors.RestErrorDto;
 import co.pickcake.aop.util.ErrorCode;
+import co.pickcake.aop.util.exception.AlreadyExistUserException;
 import co.pickcake.aop.util.exception.NoDataException;
 import jdk.jshell.spi.ExecutionControl;
 import lombok.extern.slf4j.Slf4j;
@@ -22,6 +23,13 @@ public class ExceptControllerAdvice {
         RestErrorDto errorDto = new RestErrorDto(ErrorCode.NO_DATA_EXISTS.toString(), e.getMessage());
         return new ResponseEntity<>(errorDto, HttpStatus.OK);
     }
+    @ExceptionHandler(AlreadyExistUserException.class)
+    public ResponseEntity<RestErrorDto> alreadyExistUserHandler(AlreadyExistUserException e) {
+        log.info("[exceptionHandler] ex", e);
+        RestErrorDto errorDto = new RestErrorDto(ErrorCode.DUPLICATED_USER_ALREADY_EXISTS.toString(), e.getMessage());
+        return new ResponseEntity<>(errorDto, HttpStatus.BAD_REQUEST);
+    }
+
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(IllegalArgumentException.class)
     public RestErrorDto illegalExHandler(IllegalArgumentException e) {
