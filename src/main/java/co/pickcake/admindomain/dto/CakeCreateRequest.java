@@ -31,6 +31,7 @@ public class CakeCreateRequest {
         CakeCreateRequest cakeCreateRequest = new CakeCreateRequest();
         cakeCreateRequest.setCakeName(cakeName);
         cakeCreateRequest.setBrand(brand);
+        cakeCreateRequest.setDescription(description);
         cakeCreateRequest.setPrice(price);
         return cakeCreateRequest;
     }

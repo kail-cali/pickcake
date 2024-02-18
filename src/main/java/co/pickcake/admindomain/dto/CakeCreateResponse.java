@@ -9,7 +9,6 @@ import java.util.List;
 public class CakeCreateResponse {
 
     private int status;
-    /* NEEDTOFIX  error dto 필요 */
     private List<ObjectError> errors;
 
 }

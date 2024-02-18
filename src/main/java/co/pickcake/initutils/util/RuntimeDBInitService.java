@@ -2,6 +2,7 @@ package co.pickcake.initutils.util;
 
 import co.pickcake.authdomain.entity.Member;
 import co.pickcake.config.FileSystemConfig;
+import co.pickcake.config.WebSecurityConfig;
 import co.pickcake.imagedomain.entity.ImageFile;
 import co.pickcake.imagedomain.service.ImageStoreService;
 import co.pickcake.policies.filename.policy.FileNamePolicy;
@@ -45,6 +46,8 @@ public class RuntimeDBInitService implements RuntimeInit{
     private final EntityManager em;
     private final ImageStoreService imageStoreService;
 
+    private final WebSecurityConfig securityConfig;
+
     @Transactional
     @Override
     public void preinit() {
@@ -59,7 +62,9 @@ public class RuntimeDBInitService implements RuntimeInit{
     @Transactional
     @Override
     public RuntimeTestDataSize dbInitWithMember() {
-        Member member = Member.createMember("hail1", "cali", "hhh111" ,"서울", "연세로", "31122");
+        Member member = Member.createMember("hail-cali", "hail@gmail.com", "123456" ,"서울", "연세로", "31122");
+        String encoded = securityConfig.passwordEncoder().encode(member.getPassword());
+        member.setPassword(encoded);
         em.persist(member);
         return new RuntimeTestDataSize(1,1,1L,1L);
     }

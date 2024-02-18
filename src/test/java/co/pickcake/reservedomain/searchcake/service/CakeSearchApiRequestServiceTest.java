@@ -1,79 +1,41 @@
 package co.pickcake.reservedomain.searchcake.service;
 
+
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+
 import co.pickcake.aop.apigateway.ApiGatewayConfig;
-import co.pickcake.config.FileSystemConfig;
-
-import org.assertj.core.api.AbstractThrowableAssert;
-
-import org.junit.jupiter.api.DisplayName;
+import co.pickcake.reservedomain.searchcake.dto.ResultDto;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.security.test.context.support.WithMockUser;
-import org.springframework.transaction.annotation.Transactional;
+import org.springframework.test.web.servlet.MockMvc;
 
-
-import java.util.Optional;
-
-
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
-
-/* 외부 api 요청 테스트는 웹계층에서 테스트하면 되지만
-* 내부 api 를 서비스 콜이 아닌 http 요청으로 할 경우, 테스트 방식에 대한 고민이 필요 */
+import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest
-@Transactional
 @WithMockUser(roles = "USER")
 class CakeSearchApiRequestServiceTest {
-    @Autowired
-    private ApiGatewayConfig apiGatewayConfig;
 
     @Autowired
-    private CakeSearchApiRequestService cakeSearchApiService;
-    @Autowired
-    private FileSystemConfig fileSystemConfig;
+    private  CakeSearchApiRequestService apiRequestService;
 
+    @BeforeEach
+    void setUp() {
+    }
 
-    @Test
-    @DisplayName("api call 테스트[success]: 케이크 상품 아이템이 api 를 통해 정상 조회되는 지 테스트")
-    @WithMockUser(roles = "USER")
-    public void apiCallRequestForCakeSearchAll() throws Exception {
-        // given
-        Optional<AbstractThrowableAssert> result = Optional.of(assertThatThrownBy(() -> cakeSearchApiService.searchCakes(0, 10)));
-        // when
-
-        System.out.println("result = " + result);
-
-        // then
-
+    @AfterEach
+    void tearDown() {
     }
 
     @Test
-    @DisplayName("데이터 검증 : 필터 조회 테스트, 브랜드로 상품이 조회 되는지 테스트 ")
-    public void findByBrandValidate() {
+    void searchCakesRequestTest() {
+
+        ResultDto resultDto = apiRequestService.searchCakes(0, 10);
+
 
     }
-
-
-    @Test
-    @DisplayName("데이터 검증: 필터 조회 테스트, 카테고리별 상품이 조회 되는지 테스트")
-    public void findByCategory() {
-
-    }
-
-    /*  api 인증 관련 테스트   */
-    @Test
-    @DisplayName("인증 : api 조회 시 인증 절차에 따라 보호되는지 테스트")
-    public void checkValidateToken() {
-
-    }
-
-
-    /* api 부하 테스트 */
-    @Test
-    @DisplayName("부하 테스트: api 조회 시 한번에 traffic이 몰릴 떄 부하 테스트")
-    public void apiCallHeavy() {
-
-    }
-
-
 }
