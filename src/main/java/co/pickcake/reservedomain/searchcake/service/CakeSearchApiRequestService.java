@@ -2,7 +2,9 @@ package co.pickcake.reservedomain.searchcake.service;
 
 
 import co.pickcake.aop.apigateway.ApiGatewayConfig;
+import co.pickcake.apiutil.WebClientUtil;
 import co.pickcake.reservedomain.searchcake.dto.CakeSimpleSearch;
+import co.pickcake.reservedomain.searchcake.dto.ResultDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -14,6 +16,8 @@ import java.util.List;
 public class CakeSearchApiRequestService {
 
     private final ApiGatewayConfig apiGatewayConfig;
+
+//    private final WebClientUtil webClientUtil;
     /* api 요청의 경우, 요청에 대한 응답을 받은 이후 시점에서 예외처리를 해야하기 때문에 더 상세한 고민이 필요
     * 혹시라도 nob-block 을 쓰거나 async로 소켓 통신하게 되면 반드시 후속 처리를 헤야한다.
     * TODO 다음과 같은 api call 예외처리 추가 예정
@@ -23,7 +27,7 @@ public class CakeSearchApiRequestService {
     *  - non-block 으로 아직 응답 요청을 받지 못한 체 컨트롤러에서 처리해야할 경우
     *
     * */
-    public List<CakeSimpleSearch> searchCakes(int offset, int limit) {
+    public ResultDto searchCakes(int offset, int limit) {
         WebClient uploadApi = WebClient.builder()
                 .baseUrl(apiGatewayConfig.getSearchCakeGateWay())
                 .build();
@@ -32,8 +36,12 @@ public class CakeSearchApiRequestService {
         return uploadApi.get()
                 .uri(apiGatewayConfig.getSearchCakeApi())
                 .retrieve()
-                .bodyToMono(List.class)
+                .bodyToMono(ResultDto.class)
                 .block();
     }
+
+
+
+
 
 }
