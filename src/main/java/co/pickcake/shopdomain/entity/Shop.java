@@ -1,5 +1,6 @@
 package co.pickcake.shopdomain.entity;
 
+import co.pickcake.authdomain.entity.Member;
 import co.pickcake.common.entity.Address;
 import co.pickcake.reservedomain.entity.ReserveInfo;
 import co.pickcake.reservedomain.entity.item.Cake;
@@ -23,6 +24,10 @@ public class Shop {
     private Long id;
 
     private String shopName;
+    /* 역할과 권한 분리 때문에 추가하였으나 괸리 측면에서 고민이 필요 , 특히 Cascade 적용하지 않을 수 있기 때문에 양방향 연관관계가 필요한 지 검토 */
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="member_id")
+    private Member member;
 
     @OneToMany(mappedBy = "shop", cascade = CascadeType.ALL)
     private List<Cake> cakeList = new ArrayList<>();

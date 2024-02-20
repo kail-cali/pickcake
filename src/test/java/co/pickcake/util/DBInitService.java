@@ -158,6 +158,10 @@ public class DBInitService implements TestInit{
     @Override
     public TestDataItem dbInitWithSingleItem() {
 
+        Member member = Member.createMember("hail-cali", "hail@gmail.com", "123456" ,"서울", "연세로", "31122");
+        member.setPassword(securityConfig.passwordEncoder().encode(member.getPassword()));
+        em.persist(member);
+
         Shop shop1 = Shop.createShop("신라호텔", "https://www.shillahotels.com/membership/inquires/aboutShilla/memSeoulHotel.do",
                 "02-301-1111", "seoul", "중구", "3000",
                 false, true, 2,
@@ -201,6 +205,7 @@ public class DBInitService implements TestInit{
         HashMap<String, Object> items = new HashMap<>();
         items.put("cake1", cake1);
         items.put("shop1", shop1);
+        items.put("member1", member);
 
         TestDataItem testDataItem = new TestDataItem(cake1.getId(), items);
         return testDataItem;

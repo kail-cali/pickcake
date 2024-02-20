@@ -4,9 +4,9 @@ POST http://localhost:8080/auth/signup
 Content-Type: application/json
 
 {
-  "userId": "hail@gmail.com",
+  "userId": "hail09@gmail.com",
   "password": "1234",
-  "userName": "test-me",
+  "userName": "hail-test",
   "address": {
     "city": "seoul",
     "street": "yonsei",
@@ -19,8 +19,7 @@ POST http://localhost:8080/auth/login
 Content-Type: application/json
 
 {
-
-  "email": "hail@gmail.com",
+  "email": "hail09@gmail.com",
   "password": "1234"
 }
 

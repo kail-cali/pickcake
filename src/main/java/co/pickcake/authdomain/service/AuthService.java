@@ -1,9 +1,13 @@
 package co.pickcake.authdomain.service;
 
+import co.pickcake.aop.util.exception.AbnormalUserAccessException;
 import co.pickcake.aop.util.exception.AlreadyExistUserException;
+import co.pickcake.aop.util.exception.UserNotFoundException;
+import co.pickcake.authdomain.dto.MemberUpdateRequest;
 import co.pickcake.authdomain.dto.SignupRequest;
 import co.pickcake.authdomain.entity.Member;
 import co.pickcake.authdomain.repository.MemberRepository;
+import co.pickcake.config.UserPrincipal;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -42,6 +46,32 @@ public class AuthService {
             throw new AlreadyExistUserException();
         }
     }
+    @Transactional
+    public void update(UserPrincipal principal, MemberUpdateRequest request) {
+        Member member = memberRepository.findById(principal.getUserId())
+                .orElseThrow(UserNotFoundException::new);
+        if (principal.getUserId().equals(member.getId())) {
+            member.setPassword(request.getNewPassword());
+            member.setUsername(request.getUserName());
+            if (request.getAddress() != null) {
+                member.setAddress(request.getAddress());
+            }
+            memberRepository.save(member);
+        } else {
+            throw new AbnormalUserAccessException(); /* 정상적이지 않는 접근, Toke 탈취 혹은 유저의 url 강제 수정 */
+        }
+    }
 
+    @Transactional
+    public void delete(UserPrincipal principal, Long id) {
+
+        Member member = memberRepository.findById(id)
+                .orElseThrow(UserNotFoundException::new);
+        if (principal.getUserId().equals(member.getId())) {
+            memberRepository.delete(member);
+        } else {
+            throw new AbnormalUserAccessException();
+        }
+    }
 
 }

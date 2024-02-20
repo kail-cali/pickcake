@@ -1,6 +1,7 @@
 package co.pickcake.authdomain.entity;
 
 import co.pickcake.common.entity.Address;
+import co.pickcake.shopdomain.entity.Shop;
 import jakarta.persistence.*;
 import lombok.Getter;
 
@@ -14,6 +15,9 @@ public class Member {
     private String userId; // 우선 email 로 통일,  소셜 로그인 때 수정 예정
     private String username; // user name 으로 필드로만 사용하고 있음
     private String password; // encoded password, 정책은 WebSecurityConfig 확인
+
+    @OneToOne(fetch = FetchType.LAZY, mappedBy = "member")
+    private Shop shop;
 
     @Embedded
     private Address address;
