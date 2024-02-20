@@ -89,4 +89,10 @@ class AuthApiControllerTest {
                 .andDo(print());
     }
 
+    @Test
+    @DisplayName("통합 기능 테스트[success]: 회원 로그인 후, 회원 탈퇴 시 정상 동작 확인 ")
+    void withDrawlSelf() throws Exception {
+
+    }
+
 }

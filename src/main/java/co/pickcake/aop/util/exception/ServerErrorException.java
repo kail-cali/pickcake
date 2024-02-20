@@ -1,4 +1,5 @@
 package co.pickcake.aop.util.exception;
 
-public class ServerErrorException extends Exception {
+public class ServerErrorException extends RuntimeException {
+
 }
