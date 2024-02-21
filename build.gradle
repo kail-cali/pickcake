@@ -74,6 +74,9 @@ dependencies {
     implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6'
     testImplementation 'org.springframework.security:spring-security-test'
 
+    // oauth2
+    implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
+
 }
 
 def querydslSrcDir = 'src/main/generated'
@@ -83,4 +86,8 @@ clean {
 
 tasks.named('test') {
     useJUnitPlatform()
+}
+
+tasks.named("bootJar") {
+    archiveFileName = 'app.jar'
 }

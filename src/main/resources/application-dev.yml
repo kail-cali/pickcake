@@ -47,6 +47,20 @@ spring:
       initialize-schema: always
     timeout: 3600
 
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: ${google.api.oauth2.id.key}
+            client-secret: ${google.api.oauth2.secret.key}
+            scope:
+              - email
+              - profile
+#        provider:
+
+
+
 
 
 logging:
