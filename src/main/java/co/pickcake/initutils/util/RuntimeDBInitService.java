@@ -38,7 +38,7 @@ public class RuntimeDBInitService implements RuntimeInit{
     @Value("${file.from}")  // application.yml 에서 파일 설정 필요
     private String root;
 
-    @Value("${service.active}")
+    @Value("${deploy.service.active}")
     private String serviceName;
 
     private final FileSystemConfig fileSystemConfig;

@@ -20,7 +20,7 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class TestInitDB implements TestInit{
 
-    @Value("${service.active}")
+    @Value("${deploy.service.active}")
     private String serviceName;
 
     private final DBInitService initService;  // -> TestInitDB 구현체는 수정하지 말고  서비스를 customize 해서 사용할 것

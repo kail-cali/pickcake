@@ -24,7 +24,7 @@ import java.util.Objects;
 @RequiredArgsConstructor
 public class RuntimeInitDB implements RuntimeInit{
 
-    @Value("${service.active}")
+    @Value("${deploy.service.active}")
     private String serviceName;
 
     private final RuntimeDBInitService initService;  // -> TestInitDB 구현체는 수정하지 말고  서비스를 customize 해서 사용할 것
