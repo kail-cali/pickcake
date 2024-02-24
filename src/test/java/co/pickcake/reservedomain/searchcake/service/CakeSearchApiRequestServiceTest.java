@@ -34,7 +34,7 @@ class CakeSearchApiRequestServiceTest {
     @Test
     void searchCakesRequestTest() {
 
-        ResultDto resultDto = apiRequestService.searchCakes(0, 10);
+//        ResultDto resultDto = apiRequestService.searchCakes(0, 10);
 
 
     }

@@ -3,6 +3,7 @@ plugins {
     id 'java'
     id 'org.springframework.boot' version '3.2.1'
     id 'io.spring.dependency-management' version '1.1.4'
+    id 'groovy'
 }
 
 group = 'co'
@@ -32,6 +33,10 @@ dependencies {
     implementation 'nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
+
+    // redis
+    implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+
     //validate
     implementation 'org.springframework.boot:spring-boot-starter-validation'
 
@@ -40,6 +45,10 @@ dependencies {
 
     // hibernate
     implementation group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-hibernate6'
+
+    // spock
+    implementation group: 'org.spockframework', name: 'spock-spring', version: '2.4-M1-groovy-4.0'
+
 
     runtimeOnly 'com.h2database:h2'
 
@@ -51,7 +60,6 @@ dependencies {
 
 
     // dev tools only
-//    compileOnly 'org.springframework.boot:spring-boot-starter-devtools'
     compileOnly "org.springframework.boot:spring-boot-devtools"
 
     implementation 'com.querydsl:querydsl-jpa:5.0.0:jakarta'
@@ -70,9 +78,11 @@ dependencies {
     //secure - jdbc session
     implementation 'org.springframework.session:spring-session-jdbc'
 
-//    implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6:3.1.1.RELEASE'
     implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6'
     testImplementation 'org.springframework.security:spring-security-test'
+
+    // oauth2
+    implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
 
 }
 
@@ -83,4 +93,8 @@ clean {
 
 tasks.named('test') {
     useJUnitPlatform()
+}
+
+tasks.named("bootJar") {
+    archiveFileName = 'app.jar'
 }

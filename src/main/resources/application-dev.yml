@@ -1,20 +1,8 @@
-server:
-  address: localhost
-  port: 8080
-
-  servlet:
-    session:
-      cookie:
-        max-age: 7200
-
-
-#  error:
-#    include-exception: true
-#    include-message: on_param
-#    include-binding-errors: on_param
-#    include-stacktrace: on_param
-
 spring:
+  config:
+    activate:
+      on-profile: dev
+
   messages:
     basename: messages
 
@@ -31,6 +19,14 @@ spring:
     username: sa
     password:
     driver-class-name: org.h2.Driver
+#    url: jdbc:mariadb://localhost:3306/pickcake  // -> maria db 변경 예정
+#    driver-class-name: org.mariadb.jdbc.Driver
+#    username: ${MARIA.SPRING.DATASOURCE.USERNAME}
+#    password: ${MARIA.SPRING.DATASOURCE.PASSWORD}
+  data:
+    redis:
+      host: localhost
+      port: 6379
 
   jpa:
     hibernate:
@@ -41,13 +37,32 @@ spring:
         format_sql: true
         default_batch_fetch_size: 100
         open_in_view: false
+
   session:
     store-type: jdbc
     jdbc:
       initialize-schema: always
     timeout: 3600
 
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: ${GOOGLE.API.OAUTH2.ID.KEY}
+            client-secret: ${GOOGLE.API.OAUTH2.SECRET.KEY}
+            scope:
+              - email
+              - profile
+#        provider:
+server:
+  address: localhost
+  port: 8080
 
+  servlet:
+    session:
+      cookie:
+        max-age: 7200
 
 logging:
   level:
@@ -55,20 +70,32 @@ logging:
     org.hibernate.type: trace
     org.apache.coyote.http11: debug
 
-service:
-  active: dev
-
+deploy:
+  service:
+    active: dev
 
 google:
   api:
     map:
-      key: ${google.api.map.key.1}
+      key: ${GOOGLE.API.MAP.KEY.1}
 
+kakao:
+  rest:
+    api:
+      key: ${KAKAO.REST.API.KEY}
 
+naver:
+  rest:
+    api:
+      id: ${NAVER.REST.API.ID}
+      key: ${NAVER.REST.API.KEY}
 
 file:
-#  dir: /Users/george/dev/images/
-  dir: ${imageserver.file.dir}
-#  from: /Users/george/dev/raw_images/
-  from: ${imageserver.file.from}
+  dir: ${IMAGESERVER.FILE.DIR}
+  from: ${IMAGESERVER.FILE.FROM}
 
+#  error:
+#    include-exception: true
+#    include-message: on_param
+#    include-binding-errors: on_param
+#    include-stacktrace: on_param

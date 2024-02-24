@@ -65,6 +65,7 @@ public class WebSecurityConfig {
                         .anyRequest().permitAll()
                 )
                 .addFilterBefore(usernamePasswordAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class)
+
 //                .formLogin((form) -> form
 //                        .loginPage("/auth/signin")
 //                        .loginProcessingUrl("/auth/signin")
