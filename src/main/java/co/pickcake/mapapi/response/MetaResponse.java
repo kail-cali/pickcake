@@ -5,6 +5,12 @@ import lombok.Data;
 
 @Data
 public class MetaResponse {
-    @JsonProperty("total_count")
+    @JsonProperty("totalCount")
     private Integer totalCount;
+
+    @JsonProperty("page")
+    private Integer page;
+
+    @JsonProperty("count")
+    private Integer count;
 }

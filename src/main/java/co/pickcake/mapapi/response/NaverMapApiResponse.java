@@ -7,11 +7,16 @@ import org.springframework.http.HttpStatus;
 import java.util.List;
 
 @Data
-public class KaKaoMapApiResponse {
+public class NaverMapApiResponse {
+
     @JsonProperty("status")
     private HttpStatus status;
+
     @JsonProperty("meta")
     private MetaResponse metaResponse;
-    @JsonProperty("documents")
-    private List<DocumentResponse> documentResponses;
+
+    @JsonProperty("addresses")
+    private List<NaverMapDocumentResponse> documentResponses;
+
+
 }
