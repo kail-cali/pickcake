@@ -11,7 +11,7 @@ public class KaKaoMapApiResponse {
     @JsonProperty("status")
     private HttpStatus status;
     @JsonProperty("meta")
-    private MetaResponse metaResponse;
+    private KaKaoMetaResponse metaResponse;
     @JsonProperty("documents")
-    private List<DocumentResponse> documentResponses;
+    private List<KaKaoDocumentResponse> documentResponses;
 }

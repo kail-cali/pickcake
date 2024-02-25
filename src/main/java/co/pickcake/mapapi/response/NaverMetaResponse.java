@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 @Data
-public class MetaResponse {
+public class NaverMetaResponse {
     @JsonProperty("totalCount")
     private Integer totalCount;
 

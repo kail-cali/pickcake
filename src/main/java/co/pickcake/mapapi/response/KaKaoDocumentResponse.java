@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 @Data
-public class DocumentResponse {
+public class KaKaoDocumentResponse {
 
     @JsonProperty("place_name")
     private String placeName;
