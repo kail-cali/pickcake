@@ -2,21 +2,41 @@ package co.pickcake.apiutil;
 
 import co.pickcake.config.WebClientConfig;
 import lombok.RequiredArgsConstructor;
-import org.apache.coyote.BadRequestException;
-import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
-import org.springframework.web.client.HttpClientErrorException;
-import org.springframework.web.client.HttpServerErrorException;
-import org.springframework.web.reactive.function.client.WebClientResponseException;
-import org.springframework.web.server.ServerErrorException;
-import reactor.core.publisher.Mono;
+import org.springframework.util.MultiValueMap;
+
+import java.net.URI;
+import java.util.Collections;
+
+import static java.nio.charset.StandardCharsets.UTF_8;
 
 @Component
 @RequiredArgsConstructor
 public class WebClientUtil {
 
     private final WebClientConfig webClientConfig;
+
+    public <T> T get(URI uri, Class<T> responseDto, MultiValueMap<String, String> headers) {
+        return webClientConfig.webClient().get()
+                .uri(uri)
+                .headers(request -> {
+                    request.setContentType(MediaType.APPLICATION_JSON);
+                    request.setAcceptCharset(Collections.singletonList(UTF_8));
+                    request.addAll(headers);
+                })
+                .retrieve()
+                .onStatus(
+                        HttpStatus.INTERNAL_SERVER_ERROR::equals,
+                        response -> response.bodyToMono(String.class).map(Exception::new))
+                .onStatus(
+                        HttpStatus.BAD_REQUEST::equals,
+                        response -> response.bodyToMono(String.class).map(Exception::new))
+                .bodyToMono(responseDto)
+                .block();
+
+    }
 
     public <T> T get(String url, Class<T> responseDto) {
         return webClientConfig.webClient().get()
