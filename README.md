@@ -41,8 +41,6 @@
 5. 컨테이너 환경 서비스 배포
 
 
-
-
 ----
 
 [추후 개선 사항]
@@ -51,4 +49,14 @@
 - 추천 시스템 관련 기능 개발 건                     [X] : pending
 - 이미지 서버 api 관련 추가 기능 개선 건             [X] : pending
 
+
+----
+[서비스 화면]
+
+<img align="left" src="readme-src/pickcake-main.png" width="278" height="585" />
+<img align="center" src="readme-src/pickcake-cat.png" width="278" height="585" />
+<br clear="right"/>
+
+<img align="left" src="readme-src/pickcake-detail.png" width="284" height="884" />
+<br clear="right"/>
 

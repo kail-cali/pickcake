@@ -1,5 +1,7 @@
 package co.pickcake.reservedomain.searchcake.controller;
 
+import co.pickcake.mapapi.response.KaKaoMapApiResponse;
+import co.pickcake.mapapi.service.MapSearchApiService;
 import co.pickcake.reservedomain.searchcake.dto.CakeCategorySearch;
 import co.pickcake.reservedomain.searchcake.dto.CakeDetailSearch;
 import co.pickcake.reservedomain.searchcake.dto.CakeSimpleSearch;
@@ -22,6 +24,7 @@ import java.util.List;
 public class CakeSearchApi {
 
     private final CakeSearchService cakeSearchService;
+    private final MapSearchApiService mapSearchApiService;
     @GetMapping("/api/cake")
     public List<CakeSimpleSearch> searchAllCake(
             @Validated @RequestParam(value ="offset", defaultValue = "0") @PositiveOrZero int offset,
@@ -55,6 +58,18 @@ public class CakeSearchApi {
     public CakeDetailSearch searchByItemDetails(
             @Validated @RequestParam(value= "itemId") @NotEmpty String itemId) {
         return cakeSearchService.findBySingleDetail(Long.valueOf(itemId));
+    }
+
+    @GetMapping("/api/cake/deatils/o")
+    public CakeDetailSearch searchByItemDetailsWithAPi(
+            @Validated @RequestParam(value= "itemId") @NotEmpty String itemId) {
+
+        CakeDetailSearch reselt = cakeSearchService.findBySingleDetail(Long.valueOf(itemId));
+
+        // get 3rd party api call
+        KaKaoMapApiResponse response = mapSearchApiService.searchGeoWithWebClientAddOnKAKAO(reselt.getShop().getAddress());
+
+        return null;
     }
 
 }

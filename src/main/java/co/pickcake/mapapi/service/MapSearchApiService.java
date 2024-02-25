@@ -1,6 +1,7 @@
 package co.pickcake.mapapi.service;
 
 import co.pickcake.aop.util.exception.BadApiRequestException;
+import co.pickcake.apiutil.WebClientUtil;
 import co.pickcake.common.entity.Address;
 import co.pickcake.mapapi.response.KaKaoMapApiResponse;
 import co.pickcake.mapapi.response.NaverMapApiResponse;
@@ -9,11 +10,13 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.*;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.reactive.function.client.WebClient;
 import java.net.URI;
 import java.util.Collections;
+
 
 import static java.nio.charset.StandardCharsets.UTF_8;
 
@@ -30,6 +33,7 @@ public class MapSearchApiService {
     private final NaverUriBuilderService naverUriBuilderService;
     private final KaKaoUriBuilderService kaKaoUriBuilderService;
     private final WebClient webClient; // config 따로 만들어서 주입받아 사용하고 있습니다.
+    private final WebClientUtil webClientUtil;
 
     @Value("${naver.rest.api.id}")
     private String naverRestApiId;
@@ -40,11 +44,14 @@ public class MapSearchApiService {
     @Value("${kakao.rest.api.key}")
     private String kakaoRestApiKey;
 
-    /* RestTemplate */
-    public KaKaoMapApiResponse v1kakao(Address address) {
+    public void addressValidationByThrowable(Address address) {
         if (ObjectUtils.isEmpty(address)) {
             throw new BadApiRequestException();
         }
+    }
+    /* RestTemplate */
+    public KaKaoMapApiResponse searchGeoWithRestTemplateNativeOnKAKAO(Address address) {
+        addressValidationByThrowable(address);
         URI uri = kaKaoUriBuilderService.builderUrlByAddress(address);
         HttpHeaders headers = new HttpHeaders();
         headers.set(HttpHeaders.AUTHORIZATION, "KakaoAK " + kakaoRestApiKey);
@@ -53,7 +60,8 @@ public class MapSearchApiService {
     }
     /* RestTemplate with Interceptor */
 
-    public KaKaoMapApiResponse v2kakao(Address address) {
+    public KaKaoMapApiResponse searchGeoWithRestTemplateInterceptOnKAKAO(Address address) {
+        addressValidationByThrowable(address);
         URI uri = kaKaoUriBuilderService.builderUrlByAddress(address);
         restTemplate.getInterceptors().add((request, body, execution) -> {
             request.getHeaders().set("User-Agent", "hail-mac");//Set the header for each request
@@ -62,10 +70,8 @@ public class MapSearchApiService {
         });
         return restTemplate.getForEntity(uri, KaKaoMapApiResponse.class).getBody();
     }
-    public NaverMapApiResponse searchGeoWithRestTemplateNaverTune(Address address) {
-        if (ObjectUtils.isEmpty(address)) {
-            throw new BadApiRequestException();
-        }
+    public NaverMapApiResponse searchGeoWithRestTemplateInterceptOnNAVER(Address address) {
+        addressValidationByThrowable(address);
         URI uri = naverUriBuilderService.builderUrlByAddress(address);
 
         //Add a ClientHttpRequestInterceptor to the RestTemplate
@@ -79,16 +85,34 @@ public class MapSearchApiService {
     }
 
 
-
     /* WebClient :: IMPORTANT 외부 api 제공 및 내부에서 연동 api 로 사용하기 위해 따로 생성하였으며 추후 분리 예정 */
-    public KaKaoMapApiResponse searchGeoWithWebClientKakaoNative(Address address) {
+    public KaKaoMapApiResponse searchGeoOnKAKAO(Address address) {
+        addressValidationByThrowable(address);
+        URI uri = kaKaoUriBuilderService.builderUrlByAddress(address);
+        LinkedMultiValueMap<String, String> map = new LinkedMultiValueMap<>();
+        map.add(HttpHeaders.AUTHORIZATION, "KakaoAK " + kakaoRestApiKey);
+        return webClientUtil.get(uri, KaKaoMapApiResponse.class, map);
+    }
+
+    public NaverMapApiResponse searchGeoOnNAVER(Address address) {
+        addressValidationByThrowable(address);
+        URI uri = naverUriBuilderService.builderUrlByAddress(address);
+        LinkedMultiValueMap<String, String> map = new LinkedMultiValueMap<>();
+        map.add("X-NCP-APIGW-API-KEY-ID", naverRestApiId);
+        map.add("X-NCP-APIGW-API-KEY", naverRestApiKey);
+        return webClientUtil.get(uri, NaverMapApiResponse.class, map);
+    }
+
+    public KaKaoMapApiResponse searchGeoWithWebClientNativeOnKAKAO(Address address) {
+        addressValidationByThrowable(address);
         URI uri = kaKaoUriBuilderService.builderUrlByAddress(address);
         return webClient.get().uri(uri)
                 .header(HttpHeaders.AUTHORIZATION,"KakaoAK " + kakaoRestApiKey)
                 .retrieve().bodyToMono(KaKaoMapApiResponse.class)
                 .block();
     }
-    public KaKaoMapApiResponse searchGeoWithWebClientKakaoTune(Address address) {
+    public KaKaoMapApiResponse searchGeoWithWebClientAddOnKAKAO(Address address) {
+        addressValidationByThrowable(address);
         URI uri = kaKaoUriBuilderService.builderUrlByAddress(address);
         return webClient.get().uri(uri)
                 .headers(request -> {
@@ -99,8 +123,8 @@ public class MapSearchApiService {
                 .retrieve().bodyToMono(KaKaoMapApiResponse.class)
                 .block();
     }
-
-    public NaverMapApiResponse searchGeoWithWebClientNaverNative(Address address) {
+    public NaverMapApiResponse searchGeoWithWebClientNativeOnNAVER(Address address) {
+        addressValidationByThrowable(address);
         URI uri = naverUriBuilderService.builderUrlByAddress(address);
 
         return webClient.get().uri(uri)
@@ -108,14 +132,6 @@ public class MapSearchApiService {
                 .header("X-NCP-APIGW-API-KEY", naverRestApiKey)
                 .retrieve().bodyToMono(NaverMapApiResponse.class)
                 .block();
-    }
-
-
-
-
-
-    public KaKaoMapApiResponse requestAddressWithWebClient(Address address) {
-        throw new BadApiRequestException();
     }
 
 }

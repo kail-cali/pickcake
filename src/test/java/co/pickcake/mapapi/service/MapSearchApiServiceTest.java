@@ -50,7 +50,7 @@ class MapSearchApiServiceTest {
         Address address = Address.createAddress("서울", "동호로 249", "");
 
         //when
-        KaKaoMapApiResponse response = mapSearchApiService.v1kakao(address);
+        KaKaoMapApiResponse response = mapSearchApiService.searchGeoWithRestTemplateNativeOnKAKAO(address);
         List<KaKaoDocumentResponse> documents = response.getDocumentResponses();
         KaKaoMetaResponse meta = response.getMetaResponse();
 
@@ -72,7 +72,7 @@ class MapSearchApiServiceTest {
         Address address = Address.createAddress("서울", "동호로 249", "");
 
         //when
-        KaKaoMapApiResponse response = mapSearchApiService.v2kakao(address);
+        KaKaoMapApiResponse response = mapSearchApiService.searchGeoWithRestTemplateInterceptOnKAKAO(address);
         List<KaKaoDocumentResponse> documents = response.getDocumentResponses();
         KaKaoMetaResponse meta = response.getMetaResponse();
 
@@ -95,7 +95,7 @@ class MapSearchApiServiceTest {
         //given
         Address address = Address.createAddress("서울", "동호로 249", "03342");
         //when
-        KaKaoMapApiResponse response = mapSearchApiService.searchGeoWithWebClientKakaoNative(address);
+        KaKaoMapApiResponse response = mapSearchApiService.searchGeoWithWebClientNativeOnKAKAO(address);
         KaKaoMetaResponse meta = response.getMetaResponse();
         List<KaKaoDocumentResponse> documents = response.getDocumentResponses();
 
@@ -116,7 +116,7 @@ class MapSearchApiServiceTest {
         //given
         Address address = Address.createAddress("서울", "동호로 249", "03342");
         //when
-        KaKaoMapApiResponse response = mapSearchApiService.searchGeoWithWebClientKakaoTune(address);
+        KaKaoMapApiResponse response = mapSearchApiService.searchGeoWithWebClientAddOnKAKAO(address);
         KaKaoMetaResponse meta = response.getMetaResponse();
         List<KaKaoDocumentResponse> documents = response.getDocumentResponses();
 
@@ -138,7 +138,7 @@ class MapSearchApiServiceTest {
         Address address = Address.createAddress("서울", "동호로 249", "");
 
         //when
-        NaverMapApiResponse response = mapSearchApiService.searchGeoWithRestTemplateNaverTune(address);
+        NaverMapApiResponse response = mapSearchApiService.searchGeoWithRestTemplateInterceptOnNAVER(address);
         List<NaverMapDocumentResponse> documents = response.getDocumentResponses();
         NaverMetaResponse meta = response.getMetaResponse();
 
@@ -160,7 +160,7 @@ class MapSearchApiServiceTest {
         // given
         Address address = Address.createAddress("서울", "동호로 249", "03344");
         // when
-        NaverMapApiResponse response = mapSearchApiService.searchGeoWithWebClientNaverNative(address);
+        NaverMapApiResponse response = mapSearchApiService.searchGeoWithWebClientNativeOnNAVER(address);
         List<NaverMapDocumentResponse> documents = response.getDocumentResponses();
         NaverMetaResponse meta = response.getMetaResponse();
 
@@ -174,6 +174,52 @@ class MapSearchApiServiceTest {
 
         Assertions.assertThat(meta.getTotalCount()).isEqualTo(1);
     }
+
+    @Test
+    @DisplayName("currently used api[success]: 카카오 WebClient tune map geo search")
+    public void searchGeoWithPreDefined() {
+        // given
+        Address address = Address.createAddress("서울", "동호로 249", "03344");
+        // when
+        KaKaoMapApiResponse response = mapSearchApiService.searchGeoOnKAKAO(address);
+        KaKaoMetaResponse meta = response.getMetaResponse();
+        List<KaKaoDocumentResponse> documents = response.getDocumentResponses();
+
+        for (KaKaoDocumentResponse document: documents) {
+            System.out.println("document = " + document);
+        }
+        //then
+        Assertions.assertThat(documents).isNotNull();
+        Assertions.assertThat(meta).isNotNull();
+
+        Assertions.assertThat(meta.getTotalCount()).isEqualTo(1);
+        Assertions.assertThat(documents.getFirst().getLatitude()).isNotEqualTo(0.0);
+        Assertions.assertThat(documents.getFirst().getLongitude()).isNotEqualTo(0.0);
+    }
+    @Test
+    @DisplayName("Currently used api[success]: 네이버 WebClient native map geo search")
+    void searchGeoWithWebClientNaver() {
+        // given
+        Address address = Address.createAddress("서울", "동호로 249", "03344");
+        // when
+        NaverMapApiResponse response = mapSearchApiService.searchGeoOnNAVER(address);
+        List<NaverMapDocumentResponse> documents = response.getDocumentResponses();
+        NaverMetaResponse meta = response.getMetaResponse();
+
+        for (NaverMapDocumentResponse items: documents) {
+            System.out.println("items = " + items);
+        }
+
+        //then
+        Assertions.assertThat(documents).isNotNull();
+        Assertions.assertThat(meta).isNotNull();
+
+        Assertions.assertThat(meta.getTotalCount()).isEqualTo(1);
+    }
+
+
+
+
 
 
 }
