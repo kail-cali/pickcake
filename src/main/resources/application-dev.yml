@@ -55,9 +55,10 @@ spring:
               - email
               - profile
 #        provider:
+
 server:
-  address: localhost
-  port: 8080
+  address: ${PICKCAKE.SERVER.MAIN.HOST}
+  port: ${PICKCAKE.SERVER.MAIN.PORT}
 
   servlet:
     session:
@@ -91,8 +92,8 @@ naver:
       key: ${NAVER.REST.API.KEY}
 
 file:
-  dir: ${IMAGESERVER.FILE.DIR}
-  from: ${IMAGESERVER.FILE.FROM}
+  dir: ${DEV.IMAGESERVER.FILE.DIR}
+  from: ${DEV.IMAGESERVER.FILE.FROM}
 
 #  error:
 #    include-exception: true

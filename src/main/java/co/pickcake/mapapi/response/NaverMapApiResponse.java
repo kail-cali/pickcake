@@ -13,7 +13,7 @@ public class NaverMapApiResponse {
     private HttpStatus status;
 
     @JsonProperty("meta")
-    private MetaResponse metaResponse;
+    private NaverMetaResponse metaResponse;
 
     @JsonProperty("addresses")
     private List<NaverMapDocumentResponse> documentResponses;
