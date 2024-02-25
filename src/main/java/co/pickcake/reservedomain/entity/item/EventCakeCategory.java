@@ -1,6 +1,7 @@
 package co.pickcake.reservedomain.entity.item;
 
 
+import co.pickcake.aop.datetime.AuditOnTime;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -13,7 +14,7 @@ import java.util.List;
 
 @Entity @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class EventCakeCategory {
+public class EventCakeCategory extends AuditOnTime {
 
     @Id
     @GeneratedValue

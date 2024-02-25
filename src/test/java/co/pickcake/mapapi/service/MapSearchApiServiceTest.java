@@ -197,6 +197,15 @@ class MapSearchApiServiceTest {
         Assertions.assertThat(documents.getFirst().getLongitude()).isNotEqualTo(0.0);
     }
     @Test
+    @DisplayName("api 예외처리 [fail]: address 값이 null 로 들어갔을 떄")
+    public void searchGeoWithPreDefinedFail() {
+        // given
+        // when
+        //then
+        Assertions.assertThatThrownBy(()-> mapSearchApiService.searchGeoOnKAKAO(null)).isInstanceOf(RuntimeException.class);
+    }
+
+    @Test
     @DisplayName("Currently used api[success]: 네이버 WebClient native map geo search")
     void searchGeoWithWebClientNaver() {
         // given
@@ -216,6 +225,8 @@ class MapSearchApiServiceTest {
 
         Assertions.assertThat(meta.getTotalCount()).isEqualTo(1);
     }
+
+
 
 
 

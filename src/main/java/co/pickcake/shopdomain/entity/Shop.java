@@ -1,5 +1,6 @@
 package co.pickcake.shopdomain.entity;
 
+import co.pickcake.aop.datetime.AuditOnTime;
 import co.pickcake.authdomain.entity.Member;
 import co.pickcake.common.entity.Address;
 import co.pickcake.reservedomain.entity.ReserveInfo;
@@ -10,14 +11,13 @@ import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Shop {
+public class Shop extends AuditOnTime {
 
     @Id @GeneratedValue
     @Column(name = "shop_id")
@@ -48,6 +48,9 @@ public class Shop {
 
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Instagram instagram;
+
+
+
 
     /* 수정 메서드 */
     public void setSiteUrl(String siteUrl) {

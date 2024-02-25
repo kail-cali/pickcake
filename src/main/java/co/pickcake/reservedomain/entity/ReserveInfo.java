@@ -1,5 +1,6 @@
 package co.pickcake.reservedomain.entity;
 
+import co.pickcake.aop.datetime.AuditOnTime;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -7,12 +8,15 @@ import jakarta.persistence.Id;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 @Entity @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class ReserveInfo {
+public class ReserveInfo extends AuditOnTime {
 
     @Id
     @GeneratedValue
