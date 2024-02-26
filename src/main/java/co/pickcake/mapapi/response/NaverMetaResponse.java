@@ -13,4 +13,11 @@ public class NaverMetaResponse {
 
     @JsonProperty("count")
     private Integer count;
+    public static NaverMetaResponse create(Integer totalCount, Integer page, Integer count) {
+        NaverMetaResponse meta = new NaverMetaResponse();
+        meta.totalCount = totalCount;
+        meta.page = page;
+        meta.count = count;
+        return meta;
+    }
 }

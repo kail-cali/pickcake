@@ -12,11 +12,12 @@ import java.net.URI;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class KaKaoUriBuilderService {
+public class KaKaoUriBuilderService implements BaseUriBuilder  {
 
     /* TODO api url 관리 방법 고민, 지금은 서비스 규모가 크지 않아 static final 로 관리 */
     private static final String KAKAO_LOCAL_SEARCH_ADDRESS_URL = "https://dapi.kakao.com/v2/local/search/address.json";
 
+    @Override
     public URI builderUrlByAddress(Address address) {
         UriComponentsBuilder uriBuilder = UriComponentsBuilder.fromHttpUrl(KAKAO_LOCAL_SEARCH_ADDRESS_URL);
         uriBuilder.queryParam("query", address.toSimpleString());

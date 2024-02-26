@@ -9,11 +9,18 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.*;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.retry.annotation.Backoff;
+import org.springframework.retry.annotation.EnableRetry;
+import org.springframework.retry.annotation.Recover;
+import org.springframework.retry.annotation.Retryable;
+import org.springframework.retry.support.RetryTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.reactive.function.client.WebClient;
+
+import java.io.IOException;
 import java.net.URI;
 import java.util.Collections;
 
@@ -50,6 +57,11 @@ public class MapSearchApiService {
         }
     }
     /* RestTemplate */
+    @Retryable(
+            retryFor = RuntimeException.class,
+            maxAttempts = 2,
+            backoff = @Backoff(delay = 100)
+    )
     public KaKaoMapApiResponse searchGeoWithRestTemplateNativeOnKAKAO(Address address) {
         addressValidationByThrowable(address);
         URI uri = kaKaoUriBuilderService.builderUrlByAddress(address);
@@ -58,8 +70,26 @@ public class MapSearchApiService {
         HttpEntity<Object> entity = new HttpEntity<>(headers);
         return restTemplate.exchange(uri, HttpMethod.GET, entity, KaKaoMapApiResponse.class).getBody();
     }
+    @Retryable(
+            retryFor = RuntimeException.class,
+            maxAttempts = 2,
+            backoff = @Backoff(delay = 100)
+    )
+    public NaverMapApiResponse searchGeoWithRestTemplateNativeOnNAVER(Address address) {
+        addressValidationByThrowable(address);
+        URI uri = naverUriBuilderService.builderUrlByAddress(address);
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("X-NCP-APIGW-API-KEY-ID", naverRestApiId);
+        headers.add("X-NCP-APIGW-API-KEY", naverRestApiKey);
+        HttpEntity<Object> entity = new HttpEntity<>(headers);
+        return restTemplate.exchange(uri, HttpMethod.GET, entity, NaverMapApiResponse.class).getBody();
+    }
     /* RestTemplate with Interceptor */
-
+    @Retryable(
+            retryFor = RuntimeException.class,
+            maxAttempts = 2,
+            backoff = @Backoff(delay = 100)
+    )
     public KaKaoMapApiResponse searchGeoWithRestTemplateInterceptOnKAKAO(Address address) {
         addressValidationByThrowable(address);
         URI uri = kaKaoUriBuilderService.builderUrlByAddress(address);
@@ -70,6 +100,11 @@ public class MapSearchApiService {
         });
         return restTemplate.getForEntity(uri, KaKaoMapApiResponse.class).getBody();
     }
+    @Retryable(
+            retryFor = RuntimeException.class,
+            maxAttempts = 2,
+            backoff = @Backoff(delay = 100)
+    )
     public NaverMapApiResponse searchGeoWithRestTemplateInterceptOnNAVER(Address address) {
         addressValidationByThrowable(address);
         URI uri = naverUriBuilderService.builderUrlByAddress(address);
@@ -83,9 +118,20 @@ public class MapSearchApiService {
         });
         return restTemplate.getForEntity(uri, NaverMapApiResponse.class).getBody();
     }
+    @Recover
+    public KaKaoMapApiResponse recover1(RuntimeException e, Address address) {
+        log.error("[api request failed] check kakao api address: {} ", address);
+        return null;
+    }
+    @Recover
+    public NaverMapApiResponse recover2(RuntimeException e, Address address) {
+        log.error("[api request failed] check naver api address: {} ", address);
+        return null;
+    }
 
 
     /* WebClient :: IMPORTANT 외부 api 제공 및 내부에서 연동 api 로 사용하기 위해 따로 생성하였으며 추후 분리 예정 */
+
     public KaKaoMapApiResponse searchGeoOnKAKAO(Address address) {
         addressValidationByThrowable(address);
         URI uri = kaKaoUriBuilderService.builderUrlByAddress(address);

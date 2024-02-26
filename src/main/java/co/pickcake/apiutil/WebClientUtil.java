@@ -29,7 +29,12 @@ public class WebClientUtil {
                 .retrieve()
                 .onStatus(
                         HttpStatus.INTERNAL_SERVER_ERROR::equals,
-                        response -> response.bodyToMono(String.class).map(Exception::new))
+                        response -> response.bodyToMono(String.class).map(Exception::new)
+                )
+                .onStatus(
+                        HttpStatus.GATEWAY_TIMEOUT::equals,
+                        response -> response.bodyToMono(String.class).map(Exception::new)
+                )
                 .onStatus(
                         HttpStatus.BAD_REQUEST::equals,
                         response -> response.bodyToMono(String.class).map(Exception::new))
