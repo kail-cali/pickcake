@@ -17,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
 
@@ -162,12 +163,42 @@ class ShopRepositoryTest {
     @DisplayName("데이터 검증[success]: 가게 정보에 상품에 대한 이미지까지 붙였을 때 잘 조회되는 지 테스트 ")
     @Transactional
     public void addCakeImageFileWithShopTest() {
+        //given
         TestDataSize testDataSize = testInitDB.dbInitWithItems();
         //when
         List<Shop> all = shopRepository.findAll(0, 10);
         //then
         Assertions.assertThat(all.size()).isEqualTo(2);
+    }
+    @Test
+    @DisplayName("필드 검증[success]: 가게 정보 생성, 수정 날짜에 대한 검증")
+    @Transactional
+    public void createNewShopWithDate() {
+        //given
+        LocalDateTime now = LocalDateTime.now();
+        TestDataItem testDataItem = testInitDB.dbInitWithSingleItem();
+        //when
+        Shop shop1 = (Shop) testDataItem.getItems().get("shop1");
+        String phoneNumber = shop1.getPhoneNumber();
 
+        //then
+        Assertions.assertThat(shop1.getCreateAt()).isAfter(now);
+
+    }
+    @Test
+    @DisplayName("필드 검증[success]: 가게의 예약 안내사항 정보 entity 대한 생성 , 수정 날짜에 대한 검증")
+    @Transactional
+    public void createNewShopAndReservationInfoWithDate() {
+        //given
+        LocalDateTime now = LocalDateTime.now();
+        TestDataItem testDataItem = testInitDB.dbInitWithSingleItem();
+        //when
+        Shop shop1 = (Shop) testDataItem.getItems().get("shop1");
+        ReserveInfo reserveInfo = shop1.getReserveInfo();
+
+        //then
+        Assertions.assertThat(shop1.getCreateAt()).isAfter(now);
+        Assertions.assertThat(reserveInfo.getCreateAt().getMinute()).isEqualTo(now.getMinute());
     }
     @Test
     @DisplayName("비즈니스 로직 검증[success]: 상품 예약 관련, 현장 판매일 경우 다른 옵션들이 디폴트값으로 세팅되어 있는지 테스트")

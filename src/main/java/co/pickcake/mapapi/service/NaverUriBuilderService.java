@@ -11,8 +11,10 @@ import java.net.URI;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class NaverUriBuilderService {
+public class NaverUriBuilderService implements BaseUriBuilder {
     private static final String NAVER_LOCAL_SEARCH_ADDRESS_URL = "https://naveropenapi.apigw.ntruss.com/map-geocode/v2/geocode";
+
+    @Override
     public URI builderUrlByAddress(Address address) {
         UriComponentsBuilder uriBuilder = UriComponentsBuilder.fromHttpUrl(NAVER_LOCAL_SEARCH_ADDRESS_URL);
         uriBuilder.queryParam("query", address.toSimpleString());
