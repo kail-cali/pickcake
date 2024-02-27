@@ -44,6 +44,20 @@ class CakeSearchOpenApiTest {
     }
 
     @Test
+    @DisplayName("api 검증[success]: 페이징 테스트")
+    void searchCake() throws  Exception {
+        //given
+        ResultActions response = mockMvc.perform(
+                get("/openapi/cake")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("{\"offset\": 0, \"limit\": 10 }")
+        );
+
+        //then
+        response.andExpect(status().isOk()).andDo(print());
+    }
+
+    @Test
     @DisplayName("api 검증[success]: 전체 상품을 조회 테스트 ")
     void searchAllCakeTestBody() throws Exception {
         //given

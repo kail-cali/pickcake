@@ -32,7 +32,7 @@ public class WebClientConfig {
     public ConnectionProvider connectionProvider() {
         return ConnectionProvider.builder("http-pool")
                 .maxConnections(100)
-                .pendingAcquireTimeout(Duration.ofMillis(0))
+                .pendingAcquireTimeout(Duration.ofMillis(100))
                 .pendingAcquireMaxCount(2)
                 .maxIdleTime(Duration.ofMillis(1000L))
                 .build();

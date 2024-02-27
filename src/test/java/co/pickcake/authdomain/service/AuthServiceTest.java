@@ -11,6 +11,7 @@ import co.pickcake.testconfig.TestDataItem;
 import co.pickcake.testconfig.TestDataSize;
 import co.pickcake.util.TestInitDB;
 import jakarta.persistence.TransactionRequiredException;
+import net.bytebuddy.asm.Advice;
 import org.assertj.core.api.Assertions;
 import org.assertj.core.api.ThrowableAssert;
 import org.junit.jupiter.api.DisplayName;
@@ -22,8 +23,9 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import java.time.LocalDateTime;
+
+import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
@@ -61,6 +63,37 @@ class AuthServiceTest {
         assertThat(oldUserName).isNotEqualTo(updateMember.getUsername());
         assertThat(oldAddress).isNotEqualTo(updateMember.getAddress());
     }
+
+    @Test
+    @DisplayName("기능테스트[success]: 회원 정보 수정 시 createAt 확인 ")
+    @Transactional
+    public void updateTestWithDate() {
+        //given
+        LocalDateTime start = LocalDateTime.now();
+        TestDataItem testDataItem = testInitDB.dbInitWithSingleItem();
+        Member member1 = (Member) testDataItem.getItems().get("member1");
+
+                String oldPassword = member1.getPassword();
+        String oldUserName = member1.getUsername();
+        Address oldAddress = member1.getAddress();
+        MemberUpdateRequest request = MemberUpdateRequest.create("new@email.com", "new1234",
+                "new-Hail", Address.createAddress("seoul"," yonseiro", "33333"));
+        UserPrincipal principal = new UserPrincipal(member1);
+        //when
+
+        authService.update(principal, request);
+        Member updateMember = memberRepository.findById(member1.getId()).orElseThrow(UserNotFoundException::new);
+        //then
+        assertThat(member1.getId()).isEqualTo(updateMember.getId());
+        assertThat(updateMember.getPassword()).isNotEmpty();
+        assertThat(oldPassword).isNotEqualTo(updateMember.getPassword());
+        assertThat(oldUserName).isNotEqualTo(updateMember.getUsername());
+        assertThat(oldAddress).isNotEqualTo(updateMember.getAddress());
+
+        assertThat(member1.getCreateAt()).isAfter(start);
+
+    }
+
 
     @Test
     @DisplayName("기능테스트[success]: 회원 정보 삭제 시 정상 동작 확인")
