@@ -42,7 +42,7 @@ class CakeImageStoreApiTest {
     private MockMvc mockMvc;
     @MockBean
     private ImageServer imageServer;
-    @MockBean // 확인 필요
+    @MockBean
     private MemberRepository memberRepository;
     @AfterEach
     void clean() {
@@ -67,8 +67,6 @@ class CakeImageStoreApiTest {
         mockMvc.perform(
                 multipart("/api/image/store")
                         .file(storedImage)
-//                        .param("title", "제목1")
-//                        .param("description", "설명설명")
                         .param("storeName", storeName)
         ).andExpect(status().isOk());
 
@@ -92,8 +90,6 @@ class CakeImageStoreApiTest {
         mockMvc.perform(
                 multipart("/api/image/store")
                         .file(storedImage)
-//                        .param("title", "제목1")
-//                        .param("description", "설명설명")
                         .param("storeName", storeName)
         ).andExpect(status().isBadRequest());
 

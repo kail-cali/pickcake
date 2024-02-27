@@ -10,17 +10,13 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.*;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.retry.annotation.Backoff;
-import org.springframework.retry.annotation.EnableRetry;
 import org.springframework.retry.annotation.Recover;
 import org.springframework.retry.annotation.Retryable;
-import org.springframework.retry.support.RetryTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.reactive.function.client.WebClient;
-
-import java.io.IOException;
 import java.net.URI;
 import java.util.Collections;
 
@@ -128,7 +124,6 @@ public class MapSearchApiService {
         log.error("[api request failed] check naver api address: {} ", address);
         return null;
     }
-
 
     /* WebClient :: IMPORTANT 외부 api 제공 및 내부에서 연동 api 로 사용하기 위해 따로 생성하였으며 추후 분리 예정 */
 

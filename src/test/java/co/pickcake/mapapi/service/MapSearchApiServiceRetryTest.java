@@ -56,7 +56,7 @@ public class MapSearchApiServiceRetryTest {
         HttpUrl url = mockWebServer.url("/");
         System.out.println("url = " + url);
         mockWebUriBuilder = new MockWebUriBuilder(); /* 별도로 쿼리 생성해야한다면 이 부분 반드시 바꿀 것 */
-        mockWebUriBuilder.LOCAL_REQEUST_GATE_WAY = mockWebServer.url("/").uri().toString();
+        mockWebUriBuilder.LOCAL_REQUEST_GATE_WAY = mockWebServer.url("/").uri().toString();
     }
     @AfterEach
     void tearDown() {
@@ -72,13 +72,18 @@ public class MapSearchApiServiceRetryTest {
     *   생각했던 것 보다 코드 양이 자꾸 늘어나서 더 최적화된 보일러 플레이트 코드 필요 */
     /* SEE MockWebUriBuilder at BeforeEach */
     public static class MockWebUriBuilder implements BaseUriBuilder  {
-        public String LOCAL_REQEUST_GATE_WAY = "http://localhost";
+        public String LOCAL_REQUEST_GATE_WAY = "http://localhost";
         @Override
         public URI builderUrlByAddress(Address address) {
-            UriComponentsBuilder uriBuilder = UriComponentsBuilder.fromHttpUrl(LOCAL_REQEUST_GATE_WAY);
+            UriComponentsBuilder uriBuilder = UriComponentsBuilder.fromHttpUrl(LOCAL_REQUEST_GATE_WAY);
             uriBuilder.queryParam("query", address.toSimpleString());
             URI uri = uriBuilder.build().encode().toUri();
             return uri;
+        }
+
+        @Override
+        public URI builderUrlByKeyWord(Double longitude, Double latitude, Double radius, String keyword) {
+            return null;
         }
     }
     public static class MockWebResponseBuilder {

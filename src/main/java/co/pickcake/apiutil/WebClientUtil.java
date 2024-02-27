@@ -2,12 +2,15 @@ package co.pickcake.apiutil;
 
 import co.pickcake.config.WebClientConfig;
 import lombok.RequiredArgsConstructor;
+import org.hibernate.service.spi.ServiceException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 import org.springframework.util.MultiValueMap;
+import reactor.util.retry.Retry;
 
 import java.net.URI;
+import java.time.Duration;
 import java.util.Collections;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
@@ -18,7 +21,7 @@ public class WebClientUtil {
 
     private final WebClientConfig webClientConfig;
 
-    public <T> T get(URI uri, Class<T> responseDto, MultiValueMap<String, String> headers) {
+    public <T> T getWithNoRetry(URI uri, Class<T> responseDto, MultiValueMap<String, String> headers) {
         return webClientConfig.webClient().get()
                 .uri(uri)
                 .headers(request -> {
@@ -40,6 +43,29 @@ public class WebClientUtil {
                         response -> response.bodyToMono(String.class).map(Exception::new))
                 .bodyToMono(responseDto)
                 .block();
+    }
+
+    public <T> T get(URI uri, Class<T> responseDto, MultiValueMap<String, String> headers) {
+        return webClientConfig.webClient().get()
+                .uri(uri)
+                .headers(request -> {
+                    request.setContentType(MediaType.APPLICATION_JSON);
+                    request.setAcceptCharset(Collections.singletonList(UTF_8));
+                    request.addAll(headers);
+                })
+                .retrieve()
+                .onStatus(
+                        HttpStatus.INTERNAL_SERVER_ERROR::equals,
+                        response -> response.bodyToMono(String.class).map(Exception::new)
+                )
+                .onStatus(
+                        HttpStatus.BAD_REQUEST::equals,
+                        response -> response.bodyToMono(String.class).map(Exception::new))
+                .bodyToMono(responseDto)
+                .retryWhen(Retry.backoff(2, Duration.ofMillis(1000)))
+//                .filter(throwable -> throwable instanceof ServiceException)
+                .block();
+
 
     }
 
