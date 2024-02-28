@@ -61,13 +61,13 @@ public class DBInitService implements TestInit{
     @Override
     public TestDataSize dbInitWithItems() {
         Shop shop1 = Shop.createShop("신라호텔", "https://www.shillahotels.com/membership/inquires/aboutShilla/memSeoulHotel.do",
-                "02-301-1111", "seoul", "중구", "3000",
+                "02-301-1111", "서울", "동호로 249", "04605",
                 false, true, 2,
                 LocalTime.of(10, 0), LocalTime.of(16, 0),
                 "https://search.naver.com/search.naver?where=nexearch&sm=top_hty&fbm=0&ie=utf8&query=%EC%8B%A0%EB%9D%BC%ED%98%B8%ED%85%94", "https://www.instagram.com/shillahotels/"
         );
         Shop shop2 = Shop.createShop("포시즌스호텔", "www.fourseasons.com",
-                "02-301-1111", "seoul", "중구", "3000",
+                "02-301-1111", "서울", "새문안로 97", "03183",
                 false, true, 2,
                 LocalTime.of(10, 0), LocalTime.of(16, 0),
                 "https://search.naver.com/search.naver?sm=tab_hty.top&where=nexearch&ssc=tab.nx.all&query=%ED%8F%AC%EC%8B%9C%EC%A6%8C%EC%8A%A4%ED%98%B8%ED%85%94&oquery=%EC%8B%A0%EB%9D%BC%ED%98%B8%ED%85%94&tqi=iNmhhlqpts0ssM42V5RsssssstC-523492","https://www.instagram.com/fourseasons/"
@@ -163,7 +163,7 @@ public class DBInitService implements TestInit{
         em.persist(member);
 
         Shop shop1 = Shop.createShop("신라호텔", "https://www.shillahotels.com/membership/inquires/aboutShilla/memSeoulHotel.do",
-                "02-301-1111", "seoul", "중구", "3000",
+                "02-301-1111", "서울", "동호로 249", "04605",
                 false, true, 2,
                 LocalTime.of(10, 0), LocalTime.of(16, 0),
                 "https://search.naver.com/search.naver?where=nexearch&sm=top_hty&fbm=0&ie=utf8&query=%EC%8B%A0%EB%9D%BC%ED%98%B8%ED%85%94", "https://www.instagram.com/shillahotels/"

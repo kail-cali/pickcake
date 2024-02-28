@@ -35,8 +35,6 @@ public class CakeUserRepository {
         return em.find(Cake.class, id);
     }
     public Cake findByIdDetails(Long id) {
-//        return em.find(Cake.class, id);
-
         return em.createQuery(
                 "select c from Cake c" +
                         " join fetch c.cakeImages ci" +
@@ -47,7 +45,6 @@ public class CakeUserRepository {
                         " join fetch s.instagram sii" +
                         " where c.id = :itemId", Cake.class)
                 .setParameter("itemId", id).getSingleResult();
-
     }
     public List<Cake> findAll(int offset, int limit) {
         return em.createQuery(
