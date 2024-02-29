@@ -3,7 +3,7 @@ package co.pickcake.reservedomain.searchcake.controller;
 import co.pickcake.reservedomain.searchcake.dto.CakeCategorySearch;
 import co.pickcake.reservedomain.searchcake.dto.CakeSimpleSearch;
 import co.pickcake.reservedomain.searchcake.dto.CakeSimpleSearchRequest;
-import co.pickcake.reservedomain.searchcake.dto.ResultDto;
+import co.pickcake.reservedomain.searchcake.dto.ResponseDto;
 import co.pickcake.reservedomain.searchcake.response.PickCakeApiResponse;
 import co.pickcake.reservedomain.searchcake.response.PickCakeDocumentResponse;
 import co.pickcake.reservedomain.searchcake.response.PickCakeMetaResponse;
@@ -39,14 +39,14 @@ public class CakeSearchOpenApi {
 
     }
     @GetMapping("/cake/call")
-    public ResultDto searchCakeCall(@RequestBody @Valid CakeSimpleSearchRequest request) {
+    public ResponseDto<Object> searchCakeCall(@RequestBody @Valid CakeSimpleSearchRequest request) {
         List<CakeSimpleSearch> all = cakeSearchService.findAll(request.getOffset(), request.getLimit());
-        return new ResultDto(all.size(), all);
+        return new ResponseDto<>(all.size(), all);
     }
     @GetMapping("/cake/category/call")
-    public ResultDto searchBySingleCategoryCall(
+    public ResponseDto<Object> searchBySingleCategoryCall(
             @Valid @RequestBody CakeSimpleSearchRequest request) {
         List<CakeCategorySearch> bySingleCategory = cakeSearchService.findBySingleCategory(request.getOffset(), request.getLimit(), request.getCategoryName());
-        return new ResultDto(bySingleCategory.size(), bySingleCategory);
+        return new ResponseDto<>(bySingleCategory.size(), bySingleCategory);
     }
 }

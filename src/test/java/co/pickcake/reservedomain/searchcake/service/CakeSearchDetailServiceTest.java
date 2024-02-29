@@ -5,7 +5,6 @@ import co.pickcake.reservedomain.searchcake.response.CakeDetailSearchWithFeature
 import co.pickcake.shopdomain.entity.Shop;
 import co.pickcake.testconfig.TestDataItem;
 import co.pickcake.util.TestInitDB;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +32,7 @@ class CakeSearchDetailServiceTest {
         CakeDetailSearchWithFeature response = cakeSearchDetailService.findBySingleDetailWithMap(cake1.getId());
 //        //then
         System.out.println("response = " + response);
-        org.assertj.core.api.Assertions.assertThat(response.getName()).isEqualTo(shop1.getShopName());
+        org.assertj.core.api.Assertions.assertThat(response.getName()).isEqualTo(cake1.getName());
     }
 
 }
