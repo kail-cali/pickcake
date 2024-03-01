@@ -1,6 +1,6 @@
 package co.pickcake.config;
 
-import co.pickcake.authdomain.dto.SignupRequest;
+
 import co.pickcake.authdomain.entity.Member;
 import co.pickcake.authdomain.repository.MemberRepository;
 import co.pickcake.authdomain.service.AuthService;
@@ -12,7 +12,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.test.context.support.WithSecurityContextFactory;
 
 import java.util.List;
-import java.util.Optional;
+
 
 @RequiredArgsConstructor
 public class TestMockSecurityContext implements WithSecurityContextFactory<TestMockUser> {
