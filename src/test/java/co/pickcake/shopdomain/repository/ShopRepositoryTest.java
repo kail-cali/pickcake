@@ -20,6 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
+import java.util.Optional;
 
 
 import static org.assertj.core.api.Assertions.*;
@@ -125,14 +126,16 @@ class ShopRepositoryTest {
         cakeAdminRepository.save(cake1);
         //when
         shop.addCake(cake1);
+        Optional<Cake> expectedCake = cakeAdminRepository.findById(cake1.getId());
         //then
+        Assertions.assertThat(expectedCake.isPresent()).isTrue();
+        Cake dirtyCake = expectedCake.get();
         // 하나 추가했을 때 결과가 같아야 하며
         Assertions.assertThat(shop.getCakeList().size()).isEqualTo(1);
         // 첫번쨰 아이템의 클래스 해시가 같아야 하며
         Assertions.assertThat(shop.getCakeList().getFirst()).isEqualTo(cake1);
         // 다시 디비를 통회 조회해서 가져온 아이템도 같아야 한다
-        Assertions.assertThat(shop.getCakeList().getFirst()).isEqualTo(cakeAdminRepository.findById(cake1.getId()));
-        System.out.println("cake1.getCakeImages().getImageName() = " + cake1.getCakeImages().getImageName());
+        Assertions.assertThat(shop.getCakeList().getFirst()).isEqualTo(dirtyCake);
         Assertions.assertThat(cake1.getCakeImages().getImageName()).isNotEmpty();
     }
     @Test
@@ -150,14 +153,18 @@ class ShopRepositoryTest {
         //when
         shop.addCake(cake1);
         shop.addCake(cake2);
-        shopRepository.save(shop); // -> CASACADE 전파 ALL 인 경우 해당 테스트를 사용할 수 있도록 표시 필요
+        shopRepository.save(shop);
+        Optional<Cake> expectedCake = cakeAdminRepository.findById(cake1.getId());
         //then
+        Assertions.assertThat(expectedCake.isPresent()).isTrue();
+        Cake dirtyCake = expectedCake.get();
+
         // 하나 추가했을 때 결과가 같아야 하며
         Assertions.assertThat(shop.getCakeList().size()).isEqualTo(2);
         // 첫번쨰 아이템의 클래스 해시가 같아야 하며
         Assertions.assertThat(shop.getCakeList().getFirst()).isEqualTo(cake1);
         // 다시 디비를 통회 조회해서 가져온 아이템도 같아야 한다
-        Assertions.assertThat(shop.getCakeList().getFirst()).isEqualTo(cakeAdminRepository.findById(cake1.getId()));
+        Assertions.assertThat(shop.getCakeList().getFirst()).isEqualTo(dirtyCake);
     }
     @Test
     @DisplayName("데이터 검증[success]: 가게 정보에 상품에 대한 이미지까지 붙였을 때 잘 조회되는 지 테스트 ")

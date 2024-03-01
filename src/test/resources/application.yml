@@ -1,1 +1,1 @@
-spring:  profiles:    active: test    group:      local:        - common      test:        - common      testdeploy:        - common
+spring:  profiles:    active: container    group:      local:        - common      test:        - common      container:        - common

@@ -12,11 +12,17 @@ public class ShopSearch {
 
     private Long shopId;
     private Address address;
+    private Double latitude;
+    private Double longitude;
+
     private String phone;
     private String siteUrl;
+
     private SnsItem naver;
     private SnsItem instargram;
+
     private ReserveInfoItem reserveInfoItem;
+
 
     public ShopSearch(Shop s) {
         shopId= s.getId();
@@ -32,6 +38,10 @@ public class ShopSearch {
         }
         if (s.getReserveInfo() != null) {
             reserveInfoItem = new ReserveInfoItem(s.getReserveInfo());
+        }
+        if (s.getGeoCode() != null) {
+            latitude = s.getGeoCode().getLatitude();
+            longitude = s.getGeoCode().getLongitude();
         }
     }
 }

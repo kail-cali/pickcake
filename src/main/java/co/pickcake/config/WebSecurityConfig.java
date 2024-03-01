@@ -38,9 +38,7 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
 import org.springframework.session.security.web.authentication.SpringSessionRememberMeServices;
-
-
-import static org.springframework.boot.autoconfigure.security.servlet.PathRequest.toH2Console;
+//import static org.springframework.boot.autoconfigure.security.servlet.PathRequest.toH2Console;
 
 @Slf4j
 @Configuration
@@ -55,7 +53,7 @@ public class WebSecurityConfig {
         return web -> web.ignoring()
 //                .requestMatchers(PathRequest.toStaticResources().atCommonLocations())
                 .requestMatchers("/favicon.ico")
-                .requestMatchers(toH2Console())
+//                .requestMatchers(toH2Console())
                 ;
     }
     @Bean

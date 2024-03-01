@@ -1,8 +1,7 @@
 package co.pickcake.reservedomain.searchcake.controller;
 
-import co.pickcake.aop.util.ErrorCode;
-import co.pickcake.reservedomain.searchcake.repository.CakeSearchRepository;
-import co.pickcake.reservedomain.searchcake.repository.CakeUserRepository;
+
+import co.pickcake.mapapi.service.MapSearchApiService;
 import co.pickcake.reservedomain.searchcake.service.CakeSearchService;
 
 import org.junit.jupiter.api.DisplayName;
@@ -35,9 +34,7 @@ class CakeSearchApiTest {
     @MockBean
     private CakeSearchService cakeSearchService;
     @MockBean
-    private  CakeUserRepository cakeUserRepository;
-    @MockBean
-    private  CakeSearchRepository cakeSearchRepository;
+    private MapSearchApiService mapSearchApiService;
 
     @Test
     @DisplayName("api 검증[success]: 전체 상품을 조회 테스트 ")

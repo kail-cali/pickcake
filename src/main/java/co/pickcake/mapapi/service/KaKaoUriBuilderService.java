@@ -1,6 +1,7 @@
 package co.pickcake.mapapi.service;
 
 import co.pickcake.common.entity.Address;
+import co.pickcake.mapapi.request.ShopType;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -25,14 +26,27 @@ public class KaKaoUriBuilderService implements BaseUriBuilder  {
         uriBuilder.queryParam("query", address.toSimpleString());
         return uriBuilder.build().encode().toUri();
     }
+
     @Override
     public URI builderUrlByKeyWord(Double longitude, Double latitude, Double radius, String keyword) {
+        return null;
+    }
+
+    public URI builderUrlByKeyWordAndType(Double longitude, Double latitude, Double radius, String keyword, ShopType type) {
         UriComponentsBuilder uriBuilder = UriComponentsBuilder.fromHttpUrl(KAKAO_LOCAL_KEYWORD_SEARCH_URL);
         uriBuilder.queryParam("query", keyword);
         uriBuilder.queryParam("x", longitude);
         uriBuilder.queryParam("y", latitude);
         uriBuilder.queryParam("radius", radius*1000);
         uriBuilder.queryParam("sort", "distance");
+        if (type.equals(ShopType.CAFE) ) {
+            uriBuilder.queryParam("category_group_code", "CE7");
+        } else if (type.equals(ShopType.HOTEL)) {
+            uriBuilder.queryParam("category_group_code", "AD5");
+        } else if (type.equals(ShopType.BAKERY)) {
+            uriBuilder.queryParam("category_group_code", "FD6");
+        }
+
 
         return uriBuilder.build().encode().toUri();
     }

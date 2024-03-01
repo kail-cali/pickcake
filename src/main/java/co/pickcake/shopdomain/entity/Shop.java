@@ -3,6 +3,7 @@ package co.pickcake.shopdomain.entity;
 import co.pickcake.aop.datetime.AuditOnTime;
 import co.pickcake.authdomain.entity.Member;
 import co.pickcake.common.entity.Address;
+import co.pickcake.common.entity.GeoCode;
 import co.pickcake.reservedomain.entity.ReserveInfo;
 import co.pickcake.reservedomain.entity.item.Cake;
 import co.pickcake.sns.entity.Instagram;
@@ -34,6 +35,9 @@ public class Shop extends AuditOnTime {
 
     @Embedded
     private Address address;
+    @Embedded // TODO 변경 감지가 되나 근대? .. 테스트 반드시 강화하기
+    private GeoCode geoCode;
+
     private String phoneNumber;
     private String siteUrl;
 
@@ -42,7 +46,7 @@ public class Shop extends AuditOnTime {
     private ReserveInfo reserveInfo;
 
     /* sns 는 OneToOne 으로 불러오도록 우선 수정
-//    * 조회 시 null 체크 필수 */
+     * 조회 시 null 체크 필수 */
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Naver naver;
 
@@ -71,6 +75,11 @@ public class Shop extends AuditOnTime {
 
     public void setAddress(Address address) {
         this.address = address;
+    }
+
+    public void setGeoCode(GeoCode geoCode) {
+        geoCode.setLatitude(geoCode.getLatitude());
+        geoCode.setLongitude(geoCode.getLongitude());
     }
 
     /* 연관 관계 편의 메서드 */

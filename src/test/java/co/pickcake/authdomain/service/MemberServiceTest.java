@@ -37,9 +37,11 @@ class MemberServiceTest {
         TestDataSize testDataSize = testInitDB.dbInitWithMember();
         //when
         List<Member> members = memberService.findMembers();
+        System.out.println("members = " + members);
         //then
         Assertions.assertThat(members.size()).isEqualTo(testDataSize.getSize());
 
+            // -> build test 때, 유저 두개로 잡히는데 디버깅 필요
     }
     @Test
     @DisplayName("데이터 검증[fail]: 중복 회원 예외 처리")

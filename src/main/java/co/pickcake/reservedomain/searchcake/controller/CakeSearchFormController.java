@@ -28,7 +28,6 @@ public class CakeSearchFormController {
         model.addAttribute("categoryFilter", "전체");
         return "index";
     }
-
     @GetMapping("/cakes/category")
     public String viewCategoryList(
             @Validated @ModelAttribute(value="categoryName") @NotEmpty String categoryName
@@ -39,7 +38,6 @@ public class CakeSearchFormController {
         return "item-list";
 
     }
-
     @GetMapping("/cakes/details")
     public String viewDetails(
             @Validated @ModelAttribute(value="itemId") Long itemId,
