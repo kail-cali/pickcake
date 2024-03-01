@@ -19,6 +19,8 @@ spring:
       hibernate:
         show_sql: true
         format_sql: true
+        id:
+          new_generator_mappings: false # 운영이라면 테이블 drop ddl 이 상시 일어나지도 않으며, test 에서 seq 관련 에러 해결까지임시조치
 
 logging:
   level:

@@ -3,7 +3,7 @@ package co.pickcake.util;
 import co.pickcake.authdomain.entity.Member;
 import co.pickcake.config.FileSystemConfig;
 import co.pickcake.config.WebSecurityConfig;
-import co.pickcake.imagedomain.entity.ImageFile;
+import co.pickcake.imagedomain.entity.ProfileImage;
 import co.pickcake.imagedomain.service.ImageStoreService;
 
 import co.pickcake.reservedomain.entity.item.Cake;
@@ -95,10 +95,10 @@ public class DBInitService implements TestInit{
 //        em.persist(cake1);
 
         // set cake profile
-        ImageFile imageFile1 = ImageFile.createImageFile("s_x1.png", fileSystemConfig.fileNamePolicy());
-        imageFile1.setProfileCakeImages(cake1.getCakeImages());
-//        em.persist(imageFile1);
-//        uploadDirect(imageFile1);
+        ProfileImage profileImage1 = ProfileImage.createImageFile("s_x1.png", fileSystemConfig.fileNamePolicy());
+        profileImage1.setProfileCakeImages(cake1.getCakeImages());
+//        em.persist(profileImage1);
+//        uploadDirect(profileImage1);
 
         Cake cake2 = Cake.createCakeWithImage("얼루어링 원터 케이크", "신라호텔",
                 "빨간 장미 케이크",
@@ -107,12 +107,12 @@ public class DBInitService implements TestInit{
                 cakeCategory6, cakeCategory3, cakeCategory4, cakeCategory5);
 //        em.persist(cake2);
         // set cake profile
-        ImageFile imageFile2 = ImageFile.createImageFile("s_x2.png", fileSystemConfig.fileNamePolicy());
+        ProfileImage profileImage2 = ProfileImage.createImageFile("s_x2.png", fileSystemConfig.fileNamePolicy());
 
 
-        imageFile2.setProfileCakeImages(cake2.getCakeImages());
-//        em.persist(imageFile2);
-//        uploadDirect(imageFile2);
+        profileImage2.setProfileCakeImages(cake2.getCakeImages());
+//        em.persist(profileImage2);
+//        uploadDirect(profileImage2);
 
         Cake cake3 = Cake.createCakeWithImage("레드 크리스마스 케이크", "포시즌스호텔",
                 "오렌지 무스 초코 케이크",
@@ -123,12 +123,12 @@ public class DBInitService implements TestInit{
 //        em.persist(cake3);
 
         // set cake profile
-        ImageFile imageFile3 = ImageFile.createImageFile("s_x3.png", fileSystemConfig.fileNamePolicy());
+        ProfileImage profileImage3 = ProfileImage.createImageFile("s_x3.png", fileSystemConfig.fileNamePolicy());
 
 
-        imageFile3.setProfileCakeImages(cake3.getCakeImages());
-//        em.persist(imageFile3);
-//        uploadDirect(imageFile3);
+        profileImage3.setProfileCakeImages(cake3.getCakeImages());
+//        em.persist(profileImage3);
+//        uploadDirect(profileImage3);
 
         Cake cake4 = Cake.createCakeWithImage("화이트 크리스마스 케이크", "포시즌스호텔",
                 "우유 생크림 케이크",
@@ -139,11 +139,11 @@ public class DBInitService implements TestInit{
 //        em.persist(cake4);
 
         // set cake profile
-        ImageFile imageFile4 = ImageFile.createImageFile("s_x4.png", fileSystemConfig.fileNamePolicy());
+        ProfileImage profileImage4 = ProfileImage.createImageFile("s_x4.png", fileSystemConfig.fileNamePolicy());
 
-        imageFile4.setProfileCakeImages(cake4.getCakeImages());
-//        em.persist(imageFile4);
-//        uploadDirect(imageFile4);
+        profileImage4.setProfileCakeImages(cake4.getCakeImages());
+//        em.persist(profileImage4);
+//        uploadDirect(profileImage4);
         shop1.addCake(cake1);
         shop1.addCake(cake2);
         shop2.addCake(cake3);
@@ -192,13 +192,13 @@ public class DBInitService implements TestInit{
 
 
         // set cake profile
-        ImageFile imageFile1 = ImageFile.createImageFile("s_x1.png", fileSystemConfig.fileNamePolicy());
+        ProfileImage profileImage1 = ProfileImage.createImageFile("s_x1.png", fileSystemConfig.fileNamePolicy());
 
-        imageFile1.setProfileCakeImages(cake1.getCakeImages());
+        profileImage1.setProfileCakeImages(cake1.getCakeImages());
 
-//        uploadDirect(imageFile1);
+//        uploadDirect(profileImage1);
         em.persist(cake1);
-        em.persist(imageFile1);
+        em.persist(profileImage1);
         shop1.addCake(cake1);
         em.persist(shop1);
 
@@ -211,11 +211,11 @@ public class DBInitService implements TestInit{
         return testDataItem;
     }
 
-    private void uploadDirect(ImageFile imageFile) {
-        File file = new File(root + imageFile.getUploadFileName());
+    private void uploadDirect(ProfileImage profileImage) {
+        File file = new File(root + profileImage.getUploadFileName());
         try {
             FileInputStream fileInputStream = new FileInputStream(file);
-            String fullPath = imageStoreService.getFullPath(imageFile.getStoreFileName());
+            String fullPath = imageStoreService.getFullPath(profileImage.getStoreFileName());
             fileInputStream.transferTo(new FileOutputStream(fullPath));
         } catch (IOException e) {
 

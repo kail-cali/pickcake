@@ -7,7 +7,7 @@ import co.pickcake.config.FileSystemConfig;
 import co.pickcake.imagedomain.dto.ImageSaveRequest;
 import co.pickcake.imagedomain.dto.ImageSaveResponse;
 import co.pickcake.imagedomain.entity.CakeImages;
-import co.pickcake.imagedomain.entity.ImageFile;
+import co.pickcake.imagedomain.entity.ProfileImage;
 import co.pickcake.imagedomain.repository.CakeImageRepository;
 import co.pickcake.imagedomain.repository.ImageFileRepository;
 import lombok.RequiredArgsConstructor;
@@ -44,11 +44,11 @@ public class ImageStoreService { // -> service 계층 ??
 
     }
     @Transactional
-    public void save(ImageFile imageFile) {
-        imageFileRepository.save(imageFile);
+    public void save(ProfileImage profileImage) {
+        imageFileRepository.save(profileImage);
     }
 
-    public ImageFile findById(Long id) {
+    public ProfileImage findById(Long id) {
         return imageFileRepository.findById(id);
     }
 
@@ -79,28 +79,28 @@ public class ImageStoreService { // -> service 계층 ??
             return null;
         }
         String originalFilename = multipartFile.getOriginalFilename();
-        ImageFile imageFile = ImageFile.createImageFile(originalFilename, fileSystemConfig.fileNamePolicy());
-        imageFileRepository.save(imageFile);
+        ProfileImage profileImage = ProfileImage.createImageFile(originalFilename, fileSystemConfig.fileNamePolicy());
+        imageFileRepository.save(profileImage);
 
         /* TODO 미리 아이디와 패스를 생성하고 실제 저장은  image server 에서 할 수 있도록 변경*/
-//        transferImageServer(multipartFile, imageFile); //  -> ImageStoreApi.upload api 호출
-        ImageSaveResponse imageSaveResponse = upload(multipartFile, imageFile.getStoreFileName());
+//        transferImageServer(multipartFile, profileImage); //  -> ImageStoreApi.upload api 호출
+        ImageSaveResponse imageSaveResponse = upload(multipartFile, profileImage.getStoreFileName());
 
-        return imageFile.getId();
+        return profileImage.getId();
     }
 
     @Transactional
     public void linkProfileFile(Long cakeImageId, Long imageFileId) throws IOException {
-        ImageFile imageFile = imageFileRepository.findById(imageFileId);
+        ProfileImage profileImage = imageFileRepository.findById(imageFileId);
         CakeImages cakeImages = cakeImageRepository.findById(cakeImageId);
-        imageFile.setProfileCakeImages(cakeImages);
+        profileImage.setProfileCakeImages(cakeImages);
     }
 
     @Transactional
     public void linkImageFiles(Long cakeImageId, Long imageFileId) throws IOException {
-        ImageFile imageFile = imageFileRepository.findById(imageFileId);
+        ProfileImage profileImage = imageFileRepository.findById(imageFileId);
         CakeImages cakeImages = cakeImageRepository.findById(cakeImageId);
-        imageFile.setProfileCakeImages(cakeImages);
+        profileImage.setProfileCakeImages(cakeImages);
     }
 
     public ImageSaveResponse upload(MultipartFile multipartFile, String storeName) {
@@ -142,8 +142,8 @@ public class ImageStoreService { // -> service 계층 ??
     }
 
 
-    private void transferImageServer(MultipartFile multipartFile, ImageFile imageFile) throws IOException {
-        multipartFile.transferTo(new File(getFullPath(imageFile.getStoreFileName())));
+    private void transferImageServer(MultipartFile multipartFile, ProfileImage profileImage) throws IOException {
+        multipartFile.transferTo(new File(getFullPath(profileImage.getStoreFileName())));
     }
 
 }

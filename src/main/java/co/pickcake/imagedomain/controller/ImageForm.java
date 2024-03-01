@@ -19,7 +19,7 @@ public class ImageForm {
 
     private List<MultipartFile> imageFiles;
 
-//    public ImageForm(ImageFile f) {
+//    public ImageForm(ProfileImage f) {
 //        id = f.getId();
 ////        itemName = f.getI
 ////        cakeId = f.getCakeId();
