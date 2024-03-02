@@ -16,7 +16,6 @@ import java.util.List;
 @SpringBootTest
 class CakeUserRepositoryTest {
 
-
     @Autowired
     CakeUserRepository cakeRepository;
 

@@ -4,8 +4,8 @@ import co.pickcake.policies.filename.policy.FileNamePolicy;
 import co.pickcake.reservedomain.entity.ReserveInfo;
 import co.pickcake.reservedomain.entity.item.Cake;
 import co.pickcake.reservedomain.searchcake.repository.CakeAdminRepository;
-import co.pickcake.policies.filename.policy.FileUuidGeneratePolicy;
 import co.pickcake.shopdomain.entity.Shop;
+import co.pickcake.test.container.AbstractIntegrationContainerTest;
 import co.pickcake.testconfig.TestDataItem;
 import co.pickcake.testconfig.TestDataSize;
 import co.pickcake.util.TestInitDB;
@@ -22,11 +22,10 @@ import java.time.LocalTime;
 import java.util.List;
 import java.util.Optional;
 
-
 import static org.assertj.core.api.Assertions.*;
 
 @SpringBootTest
-class ShopRepositoryTest {
+class ShopRepositoryTest extends AbstractIntegrationContainerTest {
     @Autowired
     private ShopRepository shopRepository;
     @Autowired
@@ -143,7 +142,7 @@ class ShopRepositoryTest {
     @Transactional
     public void addCakeItemsTest() {
         //given
-        Shop shop = Shop.createShop("신라 호텔", "http://shinrahotel.com", "02-302-1111","seoul", "중구", "01123");
+        Shop shop = Shop.createShop("신라 호텔", "http://shinrahotel.com", "02-302-1111","서울", "중구", "01123");
         Cake cake1 = Cake.createCakeWithImage("초코 케이크", "신라 호텔", "우유 생크림이 들어간 케이크",
                 150000, fileNamePolicy);
 //        cakeAdminRepository.save(cake1);
@@ -274,14 +273,4 @@ class ShopRepositoryTest {
         assertThat(reserveInfo.getNeedReservationBeforeDay()).isEqualTo(0);
     }
     /* 부하 테스트 */
-    @Test
-    @DisplayName("부하 테스트: 가게 통합 정보를 여러개 한번에 저장 시 부하 테스트")
-    public void saveHardTest(){
-
-    }
-    @Test
-    @DisplayName("부하 테스트: 가게 통합 정보를 한번에 여러번 조회 시 부하 테스트")
-    public void searchFullInfoTest(){
-
-    }
 }
