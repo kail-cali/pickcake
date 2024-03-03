@@ -20,7 +20,6 @@ public class Cake extends Item {
     @OneToOne(mappedBy = "cake", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private CakeImages cakeImages;
 
-    /* TODO SHOP API */
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="shop_id")
     private Shop shop;
@@ -51,18 +50,8 @@ public class Cake extends Item {
     public void setCakeImages(CakeImages cakeImages) {
         this.cakeImages = cakeImages;
     }
-    /* SEE `GENERATE-DEFAULT-IMAGE-NAME` */
-    /* 생성 메서드 */
-    public static Cake createCake(String name, String brand, String description,
-                                  int price, int stock) {
-        Cake cake = new Cake();
-        cake.setName(name);
-        cake.setPrice(price);
-        cake.setBrand(brand);
-        cake.setDescription(description);
-        return cake;
-    }
 
+    /* 생성 메서드 */
     public static Cake createCakeWithImage(String name, String brand, String description,
                                   int price, FileNamePolicy fileNamePolicy) {
         Cake cake = new Cake();

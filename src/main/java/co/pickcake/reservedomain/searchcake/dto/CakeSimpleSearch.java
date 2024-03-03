@@ -2,13 +2,13 @@ package co.pickcake.reservedomain.searchcake.dto;
 
 
 import co.pickcake.reservedomain.entity.item.Cake;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 /* 모든 계층에서 포괄적으로 사용하는 Dto 이기 때문에 수정 XX */
 @Getter @Setter
+@Builder
 @NoArgsConstructor
+@AllArgsConstructor
 public class CakeSimpleSearch {
 
     private Long itemId;

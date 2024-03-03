@@ -16,7 +16,7 @@ import java.util.List;
 
 @RequiredArgsConstructor
 public class TestMockSecurityContext implements WithSecurityContextFactory<TestMockUser> {
-
+    /* 정황 상 db 컨테이너 하나 추가로 더 생성하는 곳이 이것 때문인 것 같은데 시큐리티 관련된 테스트가 아니라면 크게 상관이 없어보임 */
     private final MemberRepository memberRepository;
     private final AuthService authService;
 
