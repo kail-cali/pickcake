@@ -2,9 +2,10 @@ package co.pickcake.reservedomain.searchcake.dto;
 
 import co.pickcake.imagedomain.entity.CakeImages;
 import lombok.Data;
-import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Data
+@NoArgsConstructor
 public class CakeProfileImageDto {
 
     private String storePath;

@@ -2,12 +2,9 @@ package co.pickcake.reservedomain.searchcake.repository;
 
 import co.pickcake.common.entity.QCategory;
 import co.pickcake.imagedomain.entity.QCakeImages;
-import co.pickcake.imagedomain.entity.QImageFile;
-import co.pickcake.reservedomain.entity.QReserveInfo;
 import co.pickcake.reservedomain.entity.item.Cake;
 import co.pickcake.reservedomain.entity.item.QCake;
 import co.pickcake.reservedomain.searchcake.dto.CakeSearch;
-import co.pickcake.shopdomain.entity.QShop;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
