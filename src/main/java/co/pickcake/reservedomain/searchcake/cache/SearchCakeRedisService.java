@@ -53,6 +53,9 @@ public class SearchCakeRedisService {
             log.error("[SearchCake Redis Save failed] {}", e.getMessage());
         }
     }
+    public void delete(Long id) {
+        hashOperations.delete(CACHE_KEY, String.valueOf(id));
+    }
 
     public List<CakeSimpleSearch> findAll() {
         try {
@@ -67,5 +70,6 @@ public class SearchCakeRedisService {
                 return Collections.emptyList();
         }
     }
+
 
 }

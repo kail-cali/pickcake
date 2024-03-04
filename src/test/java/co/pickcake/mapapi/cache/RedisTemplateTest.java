@@ -6,20 +6,52 @@ import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.context.TestConfiguration;
+import org.springframework.context.annotation.Bean;
+import org.springframework.data.redis.connection.RedisConnectionFactory;
+import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory;
 import org.springframework.data.redis.core.HashOperations;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.SetOperations;
 import org.springframework.data.redis.core.ValueOperations;
+import org.springframework.data.redis.serializer.StringRedisSerializer;
 
 
 import java.util.Map;
 
-@SpringBootTest
+
 public class RedisTemplateTest extends AbstractIntegrationContainerTest {
 
     public static final String TEST_KEY = "testHashKey";
     @Autowired private RedisTemplate redisTemplate;
+    /* FIXME */
+    @TestConfiguration
+    public static class TestRedisConfig {
+        /* test 용 config, redis 를 바꿔치기 해야하여 이렇게 별도로 생성함 */
+        @Value("${spring.data.test.redis.host}")
+        private String redisHost;
+
+        @Value("${spring.data.test.redis.port}")
+        private int redisPort;
+
+        @Bean
+        public RedisConnectionFactory redisConnectionFactory() {
+            return new LettuceConnectionFactory(redisHost, redisPort);
+        }
+        @Bean
+        public RedisTemplate<String, Object> redisTemplate() {
+            RedisTemplate<String, Object> redisTemplate = new RedisTemplate<>();
+            redisTemplate.setConnectionFactory(redisConnectionFactory());
+            redisTemplate.setKeySerializer(new StringRedisSerializer());
+            redisTemplate.setHashKeySerializer(new StringRedisSerializer());
+            redisTemplate.setHashValueSerializer(new StringRedisSerializer());
+            return redisTemplate;
+        }
+
+    }
+
 
     @Test
     @DisplayName("redis Template 검증[success] key, value 가 제대로 값이 들어가는 지 테스트")
