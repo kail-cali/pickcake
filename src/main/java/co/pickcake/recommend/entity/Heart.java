@@ -1,4 +1,4 @@
-package co.pickcake.recommand.entity;
+package co.pickcake.recommend.entity;
 
 import co.pickcake.authdomain.entity.Member;
 import co.pickcake.reservedomain.entity.item.Item;

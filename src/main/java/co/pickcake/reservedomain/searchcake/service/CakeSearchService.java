@@ -4,6 +4,7 @@ package co.pickcake.reservedomain.searchcake.service;
 import co.pickcake.aop.util.exception.NoDataException;
 import co.pickcake.reservedomain.entity.item.Cake;
 import co.pickcake.reservedomain.entity.item.EventCakeCategory;
+import co.pickcake.reservedomain.searchcake.cache.SearchCakeRedisService;
 import co.pickcake.reservedomain.searchcake.dto.CakeCategorySearch;
 import co.pickcake.reservedomain.searchcake.dto.CakeDetailSearch;
 import co.pickcake.reservedomain.searchcake.dto.CakeSimpleSearch;
@@ -26,6 +27,12 @@ public class CakeSearchService {
 
     private final CakeUserRepository cakeUserRepository;
     private final CakeSearchRepository cakeSearchRepository;
+    private final SearchCakeRedisService searchCakeRedisService;
+
+    private List<CakeSimpleSearch> redisPaging(List<CakeSimpleSearch> list, int offset, int limit) {
+        int end = Math.min(offset + limit, list.size());
+        return list.subList(offset, end);
+    }
 
     public CakeSimpleSearch findById(Long id) {
         Optional<Cake> byId = Optional.ofNullable(cakeUserRepository.findById(id));
@@ -36,10 +43,20 @@ public class CakeSearchService {
         return byId.map(CakeDetailSearch:: new).orElseThrow(NoDataException::new);
     }
     public List<CakeSimpleSearch> findAll(int offset, int limit) {
+        // using redis
+        List<CakeSimpleSearch> all = searchCakeRedisService.findAll();
+        if (!all.isEmpty()) {
+            log.info("[paging using redis]: search findAll ");
+            return redisPaging(all, offset, limit);
+        }
+        log.info("[paging using Dao]: search findAll ");
         List<Cake> cakeList = cakeUserRepository.findAll(offset, limit);
         List<CakeSimpleSearch> collect = cakeList.stream()
                 .map(CakeSimpleSearch::new)
                 .collect(Collectors.toList());
+
+        collect.forEach(searchCakeRedisService:: save);
+
         return collect;
     }
     /* TODO List 비었을 때 처리 고민 필요 */

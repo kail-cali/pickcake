@@ -1,30 +1,20 @@
 package co.pickcake;
 
+import co.pickcake.authdomain.api.MemberSearchApiController;
 import co.pickcake.authdomain.entity.Member;
 import co.pickcake.reservedomain.entity.ReserveInfo;
 import co.pickcake.reservedomain.entity.item.Cake;
 import co.pickcake.shopdomain.entity.Shop;
 import co.pickcake.sns.entity.SNS;
-import org.assertj.core.api.AbstractThrowableAssert;
-import org.assertj.core.api.Assertions;
+
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.transaction.annotation.Transactional;
-
 import java.time.LocalTime;
 
-import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+
 
 /* entity 에 대한 생성 편의 메서드 테스트 모음 */
-@SpringBootTest
-@AutoConfigureMockMvc
 public class StaticCreateEntityTest {
-
-    @Autowired private MockMvc mockMvc;
 
     /* test example */
     private Shop shop;

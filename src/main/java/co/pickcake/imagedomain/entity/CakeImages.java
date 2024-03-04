@@ -1,6 +1,5 @@
 package co.pickcake.imagedomain.entity;
 
-
 import co.pickcake.policies.filename.policy.FileNamePolicy;
 import co.pickcake.reservedomain.entity.item.Cake;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -16,32 +15,28 @@ import java.util.List;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class CakeImages {
 
-    /* 상품 이미지 메타 정보의 형상 역할을 하는 프록시 엔티티
-    *  TODO 상품 정보를 미리 등록하고 실제 이미지 저장은 이미지 서버에게 맡기는 지연 로딩 방식 구현 */
-
-    @Id @GeneratedValue
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "cake_images_id")
     private Long id;
 
     @JsonIgnore
-    @OneToOne(mappedBy = "cakeImages", fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "cake")
     private Cake cake;
 
     private String imageName;
 
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "image_file_id")
-    private ImageFile profileImage;
+    @JoinColumn(name = "profile_image_id")
+    private ProfileImage profileImage;
 
-    /*TODO 상세 설명 이미지들 @OneToMany List<ImageFile> details */
     @OneToMany(mappedBy = "cakeImages", cascade = CascadeType.ALL)
-    private List<ImageFile> details = new ArrayList<>();
-
+    private List<DetailImage> details = new ArrayList<>();
 
 
     /* 연관 관계 편의 메서드*/
     /*SEE CAKEIMAGE-INGEFILES*/
-    public void setProfileImage(ImageFile profileImage) {
+    public void setProfileImage(ProfileImage profileImage) {
         this.profileImage = profileImage;
     }
 
@@ -49,11 +44,6 @@ public class CakeImages {
     protected void setCake(Cake cake) {
         this.cake = cake;
         cake.setCakeImages(this);
-    }
-    /*CAKEIMAGE_IMAGEFILES*/ /* TODO 연관관계 생성 관련 수정 필요 */
-    public void addImageFile(ImageFile imageFile) {
-        details.add(imageFile);
-        imageFile.setDetailImages(this);
     }
 
     /* GENERATE-DEFAULT-IMAGE-NAME */
@@ -81,18 +71,15 @@ public class CakeImages {
     public static CakeImages createCakeImages(Cake cake, FileNamePolicy fileNamePolicy) {
         CakeImages cakeImages = new CakeImages();
         cakeImages.setCake(cake);
-
         /* 이미지 레이어 이름은 정책에 따라 생성*/
         cakeImages.setImageName(CakeImages.generateImageName(fileNamePolicy, cake.getBrand(), cake.getName()));
         return cakeImages;
     }
-
     /* 버전 호환성을 위해 남겨둠, 코드에서 네이밍 정책 인터페이스를 통하지 않으면 별도로 레이어 생성을 지양함 */
     public static CakeImages createCakeImages(String imageName) {
         CakeImages cakeImages = new CakeImages();
         cakeImages.setImageName(imageName);
         return cakeImages;
     }
-
 
 }

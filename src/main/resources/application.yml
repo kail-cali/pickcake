@@ -1,1 +1,1 @@
-spring:  profiles:    active: container    group:      local:        - common      dev:        - common      container:        - common      deploy:        - common
+# mainspring:  profiles:    active: container    group:      local:        - common      dev:        - common      container:        - common      deploy:        - common

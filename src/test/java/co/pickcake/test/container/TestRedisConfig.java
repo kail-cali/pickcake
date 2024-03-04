@@ -1,21 +1,20 @@
-package co.pickcake.config;
-
+package co.pickcake.test.container;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 
-@Configuration
-public class RedisConfig {
-    /* 운영 redis 설정 */
-    @Value("${spring.data.redis.host}")
+@TestConfiguration
+public class TestRedisConfig {
+    /* test 용 config, redis 를 바꿔치기 해야하여 이렇게 별도로 생성함 */
+    @Value("${spring.data.test.redis.host}")
     private String redisHost;
 
-    @Value("${spring.data.redis.port}")
+    @Value("${spring.data.test.redis.port}")
     private int redisPort;
 
     @Bean
@@ -31,4 +30,5 @@ public class RedisConfig {
         redisTemplate.setHashValueSerializer(new StringRedisSerializer());
         return redisTemplate;
     }
+
 }

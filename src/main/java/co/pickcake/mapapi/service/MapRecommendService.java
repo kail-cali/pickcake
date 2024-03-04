@@ -2,6 +2,7 @@ package co.pickcake.mapapi.service;
 
 import co.pickcake.aop.util.exception.AuthAccessDeniedException;
 import co.pickcake.aop.util.exception.NoDataException;
+import co.pickcake.mapapi.cache.RecommendRedisService;
 import co.pickcake.mapapi.distance.DistanceAlgorithm;
 import co.pickcake.mapapi.request.ShopRecommendRequest;
 import co.pickcake.mapapi.request.ShopType;
@@ -12,6 +13,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -25,6 +27,8 @@ public class MapRecommendService {
     private final DistanceAlgorithm distanceAlgorithm;
     private final MapSearchApiService mapSearchApiService;
     private final MapApiSearchKeywordService mapApiSearchKeywordService;
+    private final RecommendRedisService recommendRedisService;
+
     public List<ShopRecommendResponse> recommendNearShopOnKAKAO(ShopRecommendRequest request) {
         KaKaoMapApiResponse response = mapSearchApiService.searchGeoOnKAKAO(request.getUserCurrentaddress());
         if (response.getMetaResponse().getTotalCount() <= 0) {
@@ -43,5 +47,14 @@ public class MapRecommendService {
             throw new AuthAccessDeniedException(); // 케이스에 따라 처리할 내용들이 많아서 우선 하나씩 기능 개발 예정, 코드도 복잡해질 것 같아 리팩토링 고민
         }
     }
+    /* FIXME cache 값 제대로 내려줄 수 있도록 수정 */
+    public List<ShopRecommendResponse> findAll() {
+        List<ShopRecommendResponse> all = recommendRedisService.findAll();
+        if (!all.isEmpty()) {
+            return all;
+        }
+        return Collections.emptyList();
+    }
+
 
 }

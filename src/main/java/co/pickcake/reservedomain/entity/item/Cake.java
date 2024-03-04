@@ -5,7 +5,6 @@ import co.pickcake.policies.filename.policy.FileNamePolicy;
 import co.pickcake.shopdomain.entity.Shop;
 import jakarta.persistence.*;
 import lombok.Getter;
-import org.springframework.beans.factory.annotation.Value;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,13 +16,14 @@ public class Cake extends Item {
 
     private String brand;    // -> shop 정보랑 같아야 하며 shop 에서 이름만 미리 가져와서 디비에 저장하도록 함
     private String description;
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "cake_images_id")
+
+    @OneToOne(mappedBy = "cake", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private CakeImages cakeImages;
-    /* TODO SHOP API */
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="shop_id")
     private Shop shop;
+
     @OneToMany(mappedBy = "cake", cascade = CascadeType.ALL)
     private List<EventCakeCategory> cakeCategoryList = new ArrayList<>();
 
@@ -50,18 +50,8 @@ public class Cake extends Item {
     public void setCakeImages(CakeImages cakeImages) {
         this.cakeImages = cakeImages;
     }
-    /* SEE `GENERATE-DEFAULT-IMAGE-NAME` */
-    /* 생성 메서드 */
-    public static Cake createCake(String name, String brand, String description,
-                                  int price, int stock) {
-        Cake cake = new Cake();
-        cake.setName(name);
-        cake.setPrice(price);
-        cake.setBrand(brand);
-        cake.setDescription(description);
-        return cake;
-    }
 
+    /* 생성 메서드 */
     public static Cake createCakeWithImage(String name, String brand, String description,
                                   int price, FileNamePolicy fileNamePolicy) {
         Cake cake = new Cake();

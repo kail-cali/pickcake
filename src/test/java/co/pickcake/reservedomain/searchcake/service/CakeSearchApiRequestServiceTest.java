@@ -1,5 +1,6 @@
 package co.pickcake.reservedomain.searchcake.service;
 
+
 import co.pickcake.reservedomain.searchcake.response.PickCakeApiResponse;
 import co.pickcake.reservedomain.searchcake.response.PickCakeDocumentResponse;
 import co.pickcake.reservedomain.searchcake.response.PickCakeMetaResponse;
@@ -23,7 +24,6 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -32,12 +32,10 @@ import java.net.URI;
 import java.util.ArrayList;
 
 @SpringBootTest
-@WithMockUser(roles = "USER")
 @AutoConfigureMockMvc
 class CakeSearchApiRequestServiceTest {
 
     @Autowired private CakeSearchApiRequestService apiRequestService;
-    @Autowired private MockMvc mockMvc;
     @Autowired private ObjectMapper objectMapper;
 
     @MockBean
@@ -55,7 +53,6 @@ class CakeSearchApiRequestServiceTest {
         }
     }
     public static class MockWebResponseBuilder {
-
         public static PickCakeApiResponse create() {
             PickCakeMetaResponse metaExpected = PickCakeMetaResponse.create(2);
             PickCakeDocumentResponse document1 = new PickCakeDocumentResponse(100L, "생크림케이크", 100000);

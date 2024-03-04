@@ -16,7 +16,6 @@ import java.util.List;
 
 @RequiredArgsConstructor
 public class TestMockSecurityContext implements WithSecurityContextFactory<TestMockUser> {
-
     private final MemberRepository memberRepository;
     private final AuthService authService;
 

@@ -2,7 +2,7 @@ package co.pickcake.authdomain.entity;
 
 import co.pickcake.aop.datetime.AuditOnTime;
 import co.pickcake.common.entity.Address;
-import co.pickcake.recommand.entity.Heart;
+import co.pickcake.recommend.entity.Heart;
 import co.pickcake.shopdomain.entity.Shop;
 import jakarta.persistence.*;
 import lombok.Getter;
