@@ -1,7 +1,6 @@
 package co.pickcake.mapapi.service;
 
 import co.pickcake.apiutil.WebClientUtil;
-import co.pickcake.common.entity.Address;
 import co.pickcake.mapapi.request.ShopType;
 import co.pickcake.mapapi.response.KaKaoMapApiResponse;
 import lombok.RequiredArgsConstructor;

@@ -80,6 +80,10 @@ naver:
     api:
       id: ${NAVER.REST.API.ID}
       key: ${NAVER.REST.API.KEY}
+openapi:
+  api:
+    key: ${OPENAPI.API.KEY}
+
 
 file:
   dir: ${DEV.IMAGESERVER.FILE.DIR}

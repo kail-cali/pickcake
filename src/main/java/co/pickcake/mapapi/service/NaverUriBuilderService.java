@@ -21,7 +21,6 @@ public class NaverUriBuilderService implements BaseUriBuilder {
         URI uri = uriBuilder.build().encode().toUri();
         return uri;
     }
-
     @Override
     public URI builderUrlByKeyWord(Double longitude, Double latitude, Double radius, String keyword) {
         return null;
