@@ -24,8 +24,6 @@ import java.io.IOException;
 import java.net.URI;
 import java.util.ArrayList;
 
-/* FIXME test 시 session hang, 왜 인지 아직 모르겠음 ;;; */
-
 @SpringBootTest
 @AutoConfigureMockMvc
 public class MapSearchApiServiceRetryTest {
