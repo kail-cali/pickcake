@@ -4,7 +4,7 @@ import co.pickcake.chatGPT.query.event.RecommencementSpecific;
 import co.pickcake.chatGPT.query.event.RecommendEventType;
 import co.pickcake.chatGPT.query.event.SpecialEvent;
 import co.pickcake.chatGPT.query.item.RecommendItem;
-import co.pickcake.fake.MockWebController;
+import co.pickcake.fake.UnitTestMockWebController;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -12,7 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.test.web.servlet.MockMvc;
 
-@WebMvcTest(controllers = MockWebController.class)
+@WebMvcTest(controllers = UnitTestMockWebController.class)
 class RecommendQueryTest {
 
     @Autowired private MockMvc mockMvc;

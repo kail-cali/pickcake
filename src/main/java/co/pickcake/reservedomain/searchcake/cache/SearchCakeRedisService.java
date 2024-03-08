@@ -41,7 +41,7 @@ public class SearchCakeRedisService {
 
     public void save(CakeSimpleSearch search) {
         if (Objects.isNull(search) || Objects.isNull(search.getItemId())) {
-            log.info("[SearchCake Redis Saved Success]");
+            log.info("[SearchCake Redis Saved failed]");
             return;
         }
         try {

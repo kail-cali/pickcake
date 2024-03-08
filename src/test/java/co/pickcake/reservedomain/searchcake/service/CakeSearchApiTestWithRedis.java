@@ -4,7 +4,6 @@ import co.pickcake.reservedomain.searchcake.cache.SearchCakeRedisService;
 import co.pickcake.reservedomain.searchcake.dto.CakeProfileImageDto;
 import co.pickcake.reservedomain.searchcake.dto.CakeSimpleSearch;
 import co.pickcake.test.container.AbstractIntegrationContainerTest;
-import co.pickcake.test.container.TestRedisConfig;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;

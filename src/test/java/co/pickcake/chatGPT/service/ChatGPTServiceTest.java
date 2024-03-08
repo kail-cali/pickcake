@@ -18,12 +18,12 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 class ChatGPTServiceTest {
-
+    /* Redis 연결 없이 API CALL 테스트 */
     @Autowired
     private ChatGPTService chatGPTService;
 
     @Test
-    @DisplayName("v1 api[success]: llm query dsl로 요청 시 응답 확인")
+    @DisplayName("v1 api call [success]: llm query dsl로 openapi 에 요청 시 응답 확인")
     void v1ChatGPTRecommendTest() {
         //given
         RecommendType item = RecommendType.builder()
