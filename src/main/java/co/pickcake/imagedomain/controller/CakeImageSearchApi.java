@@ -24,6 +24,7 @@ public class CakeImageSearchApi {
     @ResponseBody
     @GetMapping("/images/{filename}")
     public Resource downloadImage(@PathVariable(name="filename") String filename) throws MalformedURLException {
+        log.info("[get image from local server] {}, {}", filename, imageServer.getFullPath(filename));
         return new UrlResource("file:"+ imageServer.getFullPath(filename));
     }
 
