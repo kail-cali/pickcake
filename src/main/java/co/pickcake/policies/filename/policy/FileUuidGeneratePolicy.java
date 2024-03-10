@@ -1,14 +1,12 @@
 package co.pickcake.policies.filename.policy;
 
-import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
 
 import java.util.UUID;
 
-@Component
 //@Primary
+@Component
 public class FileUuidGeneratePolicy implements FileNamePolicy{
-
 
     @Override
     public String generateDefaultName() {

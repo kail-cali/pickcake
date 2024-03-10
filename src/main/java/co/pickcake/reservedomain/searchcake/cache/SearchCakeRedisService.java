@@ -41,14 +41,14 @@ public class SearchCakeRedisService {
 
     public void save(CakeSimpleSearch search) {
         if (Objects.isNull(search) || Objects.isNull(search.getItemId())) {
-            log.info("[SearchCake Redis Saved Success]");
+            log.info("[SearchCake Redis Saved failed]");
             return;
         }
         try {
             hashOperations.put(CACHE_KEY,
                 getSubKey(search),
                 serializeRecommendResponse(search));
-            log.info("[SearchCake Redis Save success]");
+            log.error("[SearchCake Redis Save success] from {} to {}", search.getProfile().getStorePath(), serializeRecommendResponse(search));
         } catch (Exception e ) {
             log.error("[SearchCake Redis Save failed] {}", e.getMessage());
         }

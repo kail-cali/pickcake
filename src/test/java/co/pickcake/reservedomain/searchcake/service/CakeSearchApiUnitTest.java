@@ -1,6 +1,6 @@
 package co.pickcake.reservedomain.searchcake.service;
 
-import co.pickcake.fake.MockWebController;
+import co.pickcake.fake.UnitTestMockWebController;
 import co.pickcake.imagedomain.entity.ProfileImage;
 import co.pickcake.policies.filename.policy.FileNamePolicy;
 import co.pickcake.policies.filename.policy.FileUuidGeneratePolicy;
@@ -25,7 +25,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import java.util.ArrayList;
 import java.util.List;
 
-@WebMvcTest(MockWebController.class)
+@WebMvcTest(UnitTestMockWebController.class)
 @AutoConfigureMockMvc
 public class CakeSearchApiUnitTest {
 
