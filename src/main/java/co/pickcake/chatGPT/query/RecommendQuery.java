@@ -1,11 +1,10 @@
 package co.pickcake.chatGPT.query;
 
+import co.pickcake.chatGPT.query.event.GiftEvent;
 import co.pickcake.chatGPT.query.event.RecommendEventType;
 import co.pickcake.chatGPT.query.event.SpecialEvent;
 import co.pickcake.chatGPT.query.event.WeatherEvent;
 import co.pickcake.chatGPT.query.item.RecommendItem;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.*;
 
@@ -15,13 +14,10 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 public class RecommendQuery {
-
     /* AI as a SERVICE 를 위해 사전에 tune 내용을 바탕으로 미리 쿼리 조합을 생성함 */
-
     private Long queryId;
     @NotEmpty
     private RecommendType recommendType;
-
     private RecommendEvent recommendEvent;
     private RecommendTune recommendTune; // 추후에 기능 개선 건으로 추가
 
@@ -37,6 +33,8 @@ public class RecommendQuery {
             context += contextWithWeather();
         } else if (recommendEvent.getEventType() == RecommendEventType.SPECIAL) {
             context += contextWithSpecial();
+        } else if (recommendEvent.getEventType() == RecommendEventType.GIFT) {
+            context += contextWithGift();
         }
         return context;
     }
@@ -44,20 +42,33 @@ public class RecommendQuery {
         String contextSource = "";
         if (recommendEvent.getSpecific().getWeatherEvent() == WeatherEvent.CLOUDY) {
             contextSource += "구름이 잔뜩 낀 날씨에 어울리는 ";
-        } else if(recommendEvent.getSpecific().getWeatherEvent() == WeatherEvent.SNOWING) {
+        } else if (recommendEvent.getSpecific().getWeatherEvent() == WeatherEvent.SNOWING) {
             contextSource += "눈이 내리는 날씨에 어울리는 ";
+        } else if (recommendEvent.getSpecific().getWeatherEvent() == WeatherEvent.SUNNY) {
+            contextSource += "화창한 날씨에 어울리는 ";
         }
         return  contextSource;
     }
-
     public String contextWithSpecial() {
         String contextSource = "";
         if (recommendEvent.getSpecific().getSpecialEvent() == SpecialEvent.VALENTINE) {
             contextSource += "발렌타인 데이를 기념하는 ";
-        } else if(recommendEvent.getSpecific().getSpecialEvent() == SpecialEvent.CHRISTMAS) {
+        } else if (recommendEvent.getSpecific().getSpecialEvent() == SpecialEvent.CHRISTMAS) {
             contextSource += "크리스마스를 기념하는 ";
         }
         return  contextSource;
+    }
+
+    public String contextWithGift() {
+        String contextSource = "";
+        if (recommendEvent.getSpecific().getGiftEvent() == GiftEvent.FAMILY) {
+            contextSource += "가족들에게 선물할 ";
+        } else if (recommendEvent.getSpecific().getGiftEvent() == GiftEvent.LOVE) {
+            contextSource += "연인에게 선물할 ";
+        } else if (recommendEvent.getSpecific().getGiftEvent() == GiftEvent.FRIENDS) {
+            contextSource += "친구에게 선물할 ";
+        }
+        return contextSource;
     }
 
     public String addRecommendTarget() {

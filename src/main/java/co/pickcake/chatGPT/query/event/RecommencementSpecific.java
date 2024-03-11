@@ -9,4 +9,5 @@ public class RecommencementSpecific {
 
     private WeatherEvent weatherEvent;
     private SpecialEvent specialEvent;
+    private GiftEvent giftEvent;
 }
