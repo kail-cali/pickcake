@@ -4,5 +4,6 @@ public enum RecommendEventType {
     WEATHER,
     FEELING,
     SPECIAL,
+    GIFT,
 
 }
