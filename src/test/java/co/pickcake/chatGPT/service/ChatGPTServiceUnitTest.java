@@ -83,7 +83,7 @@ class ChatGPTServiceUnitTest {
                 .build();
 
         //when
-        Mockito.when(chatCPTRedisService.findByQuery(query)).thenReturn(Optional.of(responseExpected));
+        Mockito.when(chatCPTRedisService.findByQuery(query)).thenReturn(responseExpected);
         ChatRecommendResponse responseActual = chatGPTService.requestRecommendBart(query);
         //then
         assertThat(responseActual.getGivenId()).isEqualTo(responseExpected.getGivenId());

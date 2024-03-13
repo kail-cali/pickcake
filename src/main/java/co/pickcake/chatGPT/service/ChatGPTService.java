@@ -36,10 +36,10 @@ public class ChatGPTService implements GenerateQuestion  {
     )
     public ChatRecommendResponse requestRecommendBart(RecommendQuery query) {
 
-        Optional<ChatRecommendResponse> byQuery = chatCPTRedisService.findByQuery(query);
-        if (byQuery.isPresent()) {
+        ChatRecommendResponse byQuery = chatCPTRedisService.findByQuery(query);
+        if (byQuery.getGivenId() != null) {
             log.info("[Chat GPT recommend] get By Redis");
-            return byQuery.get();
+            return byQuery;
         }
         // use redis -> 추후에 mongo db 교체
         URI uri = chatGPTQueryBuilderService.builderByDefaultQuery(query);
