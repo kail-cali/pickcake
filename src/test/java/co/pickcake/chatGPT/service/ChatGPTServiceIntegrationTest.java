@@ -88,10 +88,10 @@ class ChatGPTServiceIntegrationTest extends AbstractIntegrationContainerTest {
 
         //when
         chatCPTRedisService.save(responseExpected, query);
-        Optional<ChatRecommendResponse> responseActual = chatCPTRedisService.findByQuery(query);
+        ChatRecommendResponse responseActual = chatCPTRedisService.findByQuery(query);
         //then
-        Assertions.assertThat(responseActual.isPresent()).isTrue();
-        Assertions.assertThat(responseActual.get().getChooses().getFirst().getContents()).isEqualTo("레드벨벳 케이크");
+        Assertions.assertThat(responseActual.getGivenId()).isNotNull();
+        Assertions.assertThat(responseActual.getChooses().getFirst().getContents()).isEqualTo("레드벨벳 케이크");
 
         //afterEach
         chatCPTRedisService.delete(query);

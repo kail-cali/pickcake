@@ -60,14 +60,14 @@ public class ChatCPTRedisService {
         hashOperations.delete(CACHE_KEY, getSubKey(query));
     }
 
-    public Optional<ChatRecommendResponse> findByQuery(RecommendQuery query) {
+    public ChatRecommendResponse findByQuery(RecommendQuery query) {
         try {
             String result = hashOperations.get(CACHE_KEY, getSubKey(query)); // 여기서 null 내려주면 아래 catch
             ChatRecommendResponse response = deserializeRecommendResponse(result);
-            return Optional.ofNullable(response);
+            return response;
         } catch (Exception e) {
             log.error("[] {}", e.getMessage());
-            return Optional.empty();
+            return new ChatRecommendResponse();
         }
     }
 }

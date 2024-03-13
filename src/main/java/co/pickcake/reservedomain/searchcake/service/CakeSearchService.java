@@ -59,7 +59,6 @@ public class CakeSearchService {
 
         return collect;
     }
-    /* TODO List 비었을 때 처리 고민 필요 */
     public List<CakeSimpleSearch> findByBrand(int offset, int limit, String brand) {
         Optional<List<Cake>> cakes = Optional.ofNullable(cakeUserRepository.findByBrand(offset, limit, brand));
 
