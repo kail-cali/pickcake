@@ -34,7 +34,7 @@ public class RuntimeDBInitService implements RuntimeInit{
     /*
     * custom class for Test
     * */
-    @Value("${file.from}")  // application.yml 에서 파일 설정 필요
+    @Value("${file.from}")
     private String root;
 
     @Value("${deploy.service.active}")

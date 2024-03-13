@@ -16,14 +16,11 @@ import java.util.List;
 @RequiredArgsConstructor
 public class CakeUserRepository {
     /*
-    *  CAKE USER REPO 스펙 및 제공 API -- TODO
+    *  CAKE USER REPO 스펙 및 제공 API
     * - 전체 케이크 상품 조회
     * - 브랜드별 상품 조회
-    * - (NEEDTOFIX) 시즌카테고리별 상품 조회
-    *
-    * - TODO 랭킹 상품 조회 -> service layer
-    *
-    * - TODO 해쉬태그 상품 조회 -> service layer
+    * - 카테고리별 상품 조회
+    * - 아이템 상세 조회
     * */
 
     private final EntityManager em;
@@ -71,7 +68,7 @@ public class CakeUserRepository {
                 .setMaxResults(limit)
                 .getResultList();
     }
-    /* NEEDLEPOINT & TODO
+    /* TODO
     * entity 조회이긴 한데 화면 종속적인 파라미터 서치가 있어서 refactoring 추후 필요 */
     public List<Cake> findByCategory(CakeSearch cakeSearch) {
         QCake cake = QCake.cake;
