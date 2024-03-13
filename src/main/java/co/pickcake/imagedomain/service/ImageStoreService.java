@@ -30,12 +30,12 @@ import java.util.List;
 @Service
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
-public class ImageStoreService { // -> service 계층 ??
+public class ImageStoreService {
 
     @Value("${file.dir}")
     private String fileDir;
     private final FileSystemConfig fileSystemConfig;
-    private final CakeImageRepository cakeImageRepository; /* NEEDEDTOFIX  Cake 생성 시 미리 만들기*/
+    private final CakeImageRepository cakeImageRepository;
     private final ImageFileRepository imageFileRepository;
     private final ApiGatewayConfig apiGatewayConfig;
     @Transactional
@@ -67,8 +67,6 @@ public class ImageStoreService { // -> service 계층 ??
         }
         return storeFileResult;
     }
-
-
     public String getFullPath(String filename) {
         return fileDir + filename;
     }
@@ -88,14 +86,12 @@ public class ImageStoreService { // -> service 계층 ??
 
         return profileImage.getId();
     }
-
     @Transactional
     public void linkProfileFile(Long cakeImageId, Long imageFileId) throws IOException {
         ProfileImage profileImage = imageFileRepository.findById(imageFileId);
         CakeImages cakeImages = cakeImageRepository.findById(cakeImageId);
         profileImage.setProfileCakeImages(cakeImages);
     }
-
     @Transactional
     public void linkImageFiles(Long cakeImageId, Long imageFileId) throws IOException {
         ProfileImage profileImage = imageFileRepository.findById(imageFileId);

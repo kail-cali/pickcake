@@ -22,6 +22,7 @@ class MapSearchApiServiceTest {
     @Test
     @DisplayName("")
     void api별성능테스트() {
+
     }
 
     @Test
