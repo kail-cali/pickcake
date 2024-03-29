@@ -12,12 +12,15 @@ import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
+
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@ToString(of = {"id", "shopName", "siteUrl", "address" })
 public class Shop extends AuditOnTime {
 
     @Id @GeneratedValue
