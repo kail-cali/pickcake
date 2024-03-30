@@ -58,7 +58,7 @@ public class CakeUserRepository {
                 .setParameter("brand", brand)
                 .getResultList();
     }
-    public List<Cake> findByBrand(int offset,int limit, String brand) {
+    public List<Cake> findByBrand(int offset, int limit, String brand) {
         return em.createQuery(
                      "select c from Cake c " +
                         " join fetch c.cakeImages ci" +
