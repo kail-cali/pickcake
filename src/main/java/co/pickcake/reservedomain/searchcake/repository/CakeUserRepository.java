@@ -68,8 +68,7 @@ public class CakeUserRepository {
                 .setMaxResults(limit)
                 .getResultList();
     }
-    /* TODO
-    * entity 조회이긴 한데 화면 종속적인 파라미터 서치가 있어서 refactoring 추후 필요 */
+
     public List<Cake> findByCategory(CakeSearch cakeSearch) {
         QCake cake = QCake.cake;
         QCategory qCategory = QCategory.category;
