@@ -13,14 +13,11 @@ import java.util.Optional;
 
 public interface ShopJpaRepository extends JpaRepository<Shop, Long> {
 
-
-//    @Query("select s from Shop s" +
-//            " join fetch s.naver sni" +
-//            " where s.id = :ShopId")
-//    Optional<Shop> findByIdWithDetail(@Param("shopId") Long id);
-
-    List<Shop> findByName(String shopName);
-
+    @Query("select s from Shop s" +
+            " join fetch s.reserveInfo sr" +
+            " join fetch s.naver ni" +
+            " where s.id = :shopId")
+    Shop findByIdWithDetails(@Param("shopId") Long shopId);
 
 
 
