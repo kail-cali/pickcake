@@ -1,11 +1,12 @@
 package co.pickcake.reservedomain.searchcake.dto;
 
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
-/* XXX 파라미터 서치 필터로 나둔 건데 추후 삭제 예정 */
 @Getter @Setter
+@Builder
 public class CakeSearch {
 
     private String cakeName;
