@@ -1,10 +1,9 @@
-package co.pickcake.chatGPT.service;
+package co.pickcake.recommend.service;
 
-import co.pickcake.chatGPT.cache.ChatCPTRedisService;
-import co.pickcake.chatGPT.query.RecommendQuery;
-import co.pickcake.chatGPT.request.ChatGptV1Request;
-import co.pickcake.chatGPT.response.ChatRecommendResponse;
-import co.pickcake.recommend.service.GenerateQuestion;
+import co.pickcake.recommend.cache.ChatCPTRedisService;
+import co.pickcake.recommend.chatGPT.query.RecommendQuery;
+import co.pickcake.recommend.request.ChatGptV1Request;
+import co.pickcake.recommend.response.ChatRecommendResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -15,7 +14,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import java.net.URI;
-import java.util.Optional;
 
 @Slf4j
 @Service
@@ -41,7 +39,6 @@ public class ChatGPTService implements GenerateQuestion  {
             log.info("[Chat GPT recommend] get By Redis");
             return byQuery;
         }
-        // use redis -> 추후에 mongo db 교체
         URI uri = chatGPTQueryBuilderService.builderByDefaultQuery(query);
 
         restTemplate.getInterceptors().add((request, body, execution) -> {

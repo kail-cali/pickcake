@@ -1,4 +1,4 @@
-package co.pickcake.chatGPT.request;
+package co.pickcake.recommend.request;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Builder;

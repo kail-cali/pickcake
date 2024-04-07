@@ -1,4 +1,4 @@
-package co.pickcake.chatGPT.query;
+package co.pickcake.recommend.chatGPT.query;
 
 import lombok.Builder;
 import lombok.Data;

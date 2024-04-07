@@ -1,15 +1,15 @@
 package co.pickcake.chatGPT.service;
 
-import co.pickcake.chatGPT.cache.ChatCPTRedisService;
-import co.pickcake.chatGPT.query.RecommendEvent;
-import co.pickcake.chatGPT.query.RecommendQuery;
-import co.pickcake.chatGPT.query.RecommendType;
-import co.pickcake.chatGPT.query.event.RecommencementSpecific;
-import co.pickcake.chatGPT.query.event.RecommendEventType;
-import co.pickcake.chatGPT.query.event.SpecialEvent;
-import co.pickcake.chatGPT.query.item.RecommendItem;
-import co.pickcake.chatGPT.response.ChatRecommendResponse;
-import co.pickcake.chatGPT.response.Chooses;
+import co.pickcake.recommend.cache.ChatCPTRedisService;
+import co.pickcake.recommend.chatGPT.query.RecommendEvent;
+import co.pickcake.recommend.chatGPT.query.RecommendQuery;
+import co.pickcake.recommend.chatGPT.query.RecommendType;
+import co.pickcake.recommend.chatGPT.query.event.RecommencementSpecific;
+import co.pickcake.recommend.chatGPT.query.event.RecommendEventType;
+import co.pickcake.recommend.chatGPT.query.event.SpecialEvent;
+import co.pickcake.recommend.chatGPT.query.item.RecommendItem;
+import co.pickcake.recommend.response.ChatRecommendResponse;
+import co.pickcake.recommend.response.Chooses;
 import co.pickcake.test.container.AbstractIntegrationContainerTest;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
@@ -25,7 +25,6 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 
 import java.util.ArrayList;
-import java.util.Optional;
 
 @AutoConfigureMockMvc
 class ChatGPTServiceIntegrationTest extends AbstractIntegrationContainerTest {

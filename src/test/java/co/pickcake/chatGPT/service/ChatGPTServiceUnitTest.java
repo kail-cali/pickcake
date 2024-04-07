@@ -1,17 +1,19 @@
 package co.pickcake.chatGPT.service;
 
-import co.pickcake.chatGPT.cache.ChatCPTRedisService;
-import co.pickcake.chatGPT.query.RecommendEvent;
-import co.pickcake.chatGPT.query.RecommendQuery;
-import co.pickcake.chatGPT.query.RecommendType;
-import co.pickcake.chatGPT.query.event.RecommencementSpecific;
-import co.pickcake.chatGPT.query.event.RecommendEventType;
-import co.pickcake.chatGPT.query.event.SpecialEvent;
-import co.pickcake.chatGPT.query.item.RecommendItem;
-import co.pickcake.chatGPT.response.ChatRecommendResponse;
-import co.pickcake.chatGPT.response.Chooses;
+import co.pickcake.recommend.cache.ChatCPTRedisService;
+import co.pickcake.recommend.chatGPT.query.RecommendEvent;
+import co.pickcake.recommend.chatGPT.query.RecommendQuery;
+import co.pickcake.recommend.chatGPT.query.RecommendType;
+import co.pickcake.recommend.chatGPT.query.event.RecommencementSpecific;
+import co.pickcake.recommend.chatGPT.query.event.RecommendEventType;
+import co.pickcake.recommend.chatGPT.query.event.SpecialEvent;
+import co.pickcake.recommend.chatGPT.query.item.RecommendItem;
+import co.pickcake.recommend.response.ChatRecommendResponse;
+import co.pickcake.recommend.response.Chooses;
 import co.pickcake.fake.UnitTestMockWebController;
 
+import co.pickcake.recommend.service.ChatGPTQueryBuilderService;
+import co.pickcake.recommend.service.ChatGPTService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -25,10 +27,8 @@ import org.springframework.web.client.RestTemplate;
 
 
 import java.util.ArrayList;
-import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.*;
 
 @WebMvcTest(UnitTestMockWebController.class)
 @AutoConfigureMockMvc

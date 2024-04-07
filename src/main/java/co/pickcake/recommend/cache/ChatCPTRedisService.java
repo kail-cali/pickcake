@@ -1,7 +1,7 @@
-package co.pickcake.chatGPT.cache;
+package co.pickcake.recommend.cache;
 
-import co.pickcake.chatGPT.query.RecommendQuery;
-import co.pickcake.chatGPT.response.ChatRecommendResponse;
+import co.pickcake.recommend.chatGPT.query.RecommendQuery;
+import co.pickcake.recommend.response.ChatRecommendResponse;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.annotation.PostConstruct;
@@ -12,7 +12,6 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.Objects;
-import java.util.Optional;
 
 @Slf4j
 @Service
