@@ -1,4 +1,4 @@
-package co.pickcake.chatGPT.response;
+package co.pickcake.recommend.response;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
@@ -21,5 +21,4 @@ public class Chooses {
     @JsonProperty("finish_reason")
     private String reason;
 
-    /* logprobs */
 }

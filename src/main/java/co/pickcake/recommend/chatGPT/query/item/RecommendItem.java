@@ -1,4 +1,4 @@
-package co.pickcake.chatGPT.query.item;
+package co.pickcake.recommend.chatGPT.query.item;
 
 
 

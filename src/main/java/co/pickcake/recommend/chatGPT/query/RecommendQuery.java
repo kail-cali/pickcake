@@ -1,10 +1,10 @@
-package co.pickcake.chatGPT.query;
+package co.pickcake.recommend.chatGPT.query;
 
-import co.pickcake.chatGPT.query.event.GiftEvent;
-import co.pickcake.chatGPT.query.event.RecommendEventType;
-import co.pickcake.chatGPT.query.event.SpecialEvent;
-import co.pickcake.chatGPT.query.event.WeatherEvent;
-import co.pickcake.chatGPT.query.item.RecommendItem;
+import co.pickcake.recommend.chatGPT.query.event.GiftEvent;
+import co.pickcake.recommend.chatGPT.query.event.RecommendEventType;
+import co.pickcake.recommend.chatGPT.query.event.SpecialEvent;
+import co.pickcake.recommend.chatGPT.query.event.WeatherEvent;
+import co.pickcake.recommend.chatGPT.query.item.RecommendItem;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.*;
 

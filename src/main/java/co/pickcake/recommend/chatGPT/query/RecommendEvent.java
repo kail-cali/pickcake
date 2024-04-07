@@ -1,8 +1,7 @@
-package co.pickcake.chatGPT.query;
+package co.pickcake.recommend.chatGPT.query;
 
-import co.pickcake.chatGPT.query.event.RecommencementSpecific;
-import co.pickcake.chatGPT.query.event.RecommendEventType;
-import jakarta.validation.constraints.NotEmpty;
+import co.pickcake.recommend.chatGPT.query.event.RecommencementSpecific;
+import co.pickcake.recommend.chatGPT.query.event.RecommendEventType;
 import lombok.Builder;
 import lombok.Data;
 

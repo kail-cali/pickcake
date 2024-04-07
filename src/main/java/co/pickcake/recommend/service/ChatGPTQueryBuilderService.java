@@ -1,7 +1,7 @@
-package co.pickcake.chatGPT.service;
+package co.pickcake.recommend.service;
 
-import co.pickcake.chatGPT.query.RecommendQuery;
-import co.pickcake.chatGPT.request.ChatGptV1Request;
+import co.pickcake.recommend.chatGPT.query.RecommendQuery;
+import co.pickcake.recommend.request.ChatGptV1Request;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

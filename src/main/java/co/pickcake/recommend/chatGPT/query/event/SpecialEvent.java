@@ -1,4 +1,4 @@
-package co.pickcake.chatGPT.query.event;
+package co.pickcake.recommend.chatGPT.query.event;
 
 public enum SpecialEvent {
     VALENTINE,

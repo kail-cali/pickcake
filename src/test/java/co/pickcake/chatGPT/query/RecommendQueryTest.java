@@ -1,9 +1,12 @@
 package co.pickcake.chatGPT.query;
 
-import co.pickcake.chatGPT.query.event.RecommencementSpecific;
-import co.pickcake.chatGPT.query.event.RecommendEventType;
-import co.pickcake.chatGPT.query.event.SpecialEvent;
-import co.pickcake.chatGPT.query.item.RecommendItem;
+import co.pickcake.recommend.chatGPT.query.RecommendEvent;
+import co.pickcake.recommend.chatGPT.query.RecommendQuery;
+import co.pickcake.recommend.chatGPT.query.RecommendType;
+import co.pickcake.recommend.chatGPT.query.event.RecommencementSpecific;
+import co.pickcake.recommend.chatGPT.query.event.RecommendEventType;
+import co.pickcake.recommend.chatGPT.query.event.SpecialEvent;
+import co.pickcake.recommend.chatGPT.query.item.RecommendItem;
 import co.pickcake.fake.UnitTestMockWebController;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;

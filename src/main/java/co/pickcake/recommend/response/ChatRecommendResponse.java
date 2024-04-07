@@ -1,4 +1,4 @@
-package co.pickcake.chatGPT.response;
+package co.pickcake.recommend.response;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
@@ -23,8 +23,5 @@ public class ChatRecommendResponse {
 
     @JsonProperty("choices")
     private List<Chooses> chooses;
-
-//    @JsonProperty("usage")
-//    private ChatGptUsages usages;
 
 }
