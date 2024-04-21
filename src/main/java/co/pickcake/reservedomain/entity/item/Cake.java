@@ -14,7 +14,7 @@ import java.util.List;
 @DiscriminatorColumn(name="cake")
 public class Cake extends Item {
 
-    private String brand;    // -> shop 정보랑 같아야 하며 shop 에서 이름만 미리 가져와서 디비에 저장하도록 함
+    private String brand;
     private String description;
 
     @OneToOne(mappedBy = "cake", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
@@ -28,20 +28,21 @@ public class Cake extends Item {
     private List<EventCakeCategory> cakeCategoryList = new ArrayList<>();
 
     /* 수정 메서드 */
-    public void setBrand(String brand) {
-        this.brand = brand;
-    }
-
     public void setDescription(String description) {
         this.description = description;
     }
 
+    /* 연관관계 편의 메서드 */
+
+    /* SEE SHOP-BRAND */
+    public void setBrand(String brand) {
+        this.brand = brand;
+    }
     /* SEE SHOP-CAKES */
     public void setShop(Shop shop) {
         this.shop = shop;
     }
 
-    /* 연관관계 편의 메서드 */
     public void addCakeCategory(EventCakeCategory eventCakeCategory) {
         cakeCategoryList.add(eventCakeCategory);
         eventCakeCategory.setCake(this);

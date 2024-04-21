@@ -38,7 +38,7 @@ public class Shop extends AuditOnTime {
 
     @Embedded
     private Address address;
-    @Embedded // TODO 변경 감지가 되나 근대? .. 테스트 반드시 강화하기
+    @Embedded
     private GeoCode geoCode;
 
     private String phoneNumber;
@@ -55,8 +55,6 @@ public class Shop extends AuditOnTime {
 
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Instagram instagram;
-
-
 
 
     /* 수정 메서드 */
@@ -91,6 +89,14 @@ public class Shop extends AuditOnTime {
         this.cakeList.add(cake);
         cake.setShop(this);
     }
+
+    /* SHOP-BRAND
+    * dml */
+    public void changeBrandName(String newBrandName, String newShopName) {
+        this.shopName = newShopName;
+        for (Cake cake: this.cakeList) cake.setBrand(newBrandName);
+    }
+
     /* 생성 편의 메서드 */
     /* 최소 정보 입력 조건으로 가게 생성 */
     public static Shop createShop(String shopName, String siteUrl, String phoneNumber, String city, String street, String zipCode) {
