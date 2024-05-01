@@ -12,15 +12,13 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+
+@Deprecated
 @Repository
 @RequiredArgsConstructor
 public class CakeUserRepository {
     /*
-    *  CAKE USER REPO 스펙 및 제공 API
-    * - 전체 케이크 상품 조회
-    * - 브랜드별 상품 조회
-    * - 카테고리별 상품 조회
-    * - 아이템 상세 조회
+    Depreciate
     * */
 
     private final EntityManager em;

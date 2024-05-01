@@ -8,6 +8,7 @@ import co.pickcake.reservedomain.entity.item.Cake;
 import co.pickcake.reservedomain.searchcake.cache.SearchCakeRedisService;
 import co.pickcake.reservedomain.searchcake.dto.CakeProfileImageDto;
 import co.pickcake.reservedomain.searchcake.dto.CakeSimpleSearch;
+import co.pickcake.reservedomain.searchcake.repository.CakeRepository;
 import co.pickcake.reservedomain.searchcake.repository.CakeSearchRepository;
 import co.pickcake.reservedomain.searchcake.repository.CakeUserRepository;
 import org.apache.commons.compress.utils.Lists;
@@ -20,6 +21,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.ArrayList;
@@ -39,7 +42,7 @@ public class CakeSearchApiUnitTest {
     private CakeSearchService cakeSearchService;
 
     @MockBean
-    private CakeUserRepository cakeUserRepository;   // DAO
+    private CakeRepository cakeUserRepository;   // DAO
     @MockBean
     private CakeSearchRepository cakeSearchRepository;  //DAO
     @MockBean
@@ -84,7 +87,7 @@ public class CakeSearchApiUnitTest {
 
         //when
         Mockito.when(searchCakeRedisService.findAll()).thenReturn(responseExpected);
-        Mockito.when(cakeUserRepository.findAll(0, 10)).thenReturn(Lists.newArrayList());
+        Mockito.when(cakeUserRepository.findAll()).thenReturn(Lists.newArrayList());
         List<CakeSimpleSearch> responseActual = cakeSearchService.findAll(0, 10);
         // then
         Assertions.assertThat(responseActual.size()).isEqualTo(2);
@@ -95,7 +98,7 @@ public class CakeSearchApiUnitTest {
         //given
         //when
         Mockito.when(searchCakeRedisService.findAll()).thenReturn(Lists.newArrayList());
-        Mockito.when(cakeUserRepository.findAll(0, 10)).thenReturn(Lists.newArrayList());
+        Mockito.when(cakeUserRepository.findAll()).thenReturn(Lists.newArrayList());
         List<CakeSimpleSearch> responseActual = cakeSearchService.findAll(0, 10);
         //then
         Assertions.assertThat(responseActual.size()).isEqualTo(0);
@@ -113,7 +116,7 @@ public class CakeSearchApiUnitTest {
         responseExpected.add(cake1);
         //when
         Mockito.when(searchCakeRedisService.findAll()).thenReturn(Lists.newArrayList());
-        Mockito.when(cakeUserRepository.findAll(0, 10)).thenReturn(responseExpected);
+        Mockito.when(cakeUserRepository.findAll()).thenReturn(responseExpected);
         List<CakeSimpleSearch> responseActual = cakeSearchService.findAll(0, 10);
         //then
         Assertions.assertThat(responseActual.size()).isEqualTo(1);
@@ -149,7 +152,7 @@ public class CakeSearchApiUnitTest {
 
         //when
         Mockito.when(searchCakeRedisService.findAll()).thenReturn(responseExpected);
-        Mockito.when(cakeUserRepository.findAll(0, 20)).thenReturn(Lists.newArrayList());
+        Mockito.when(cakeUserRepository.findAll()).thenReturn(Lists.newArrayList());
         List<CakeSimpleSearch> responseActual1 = cakeSearchService.findAll(0, 1);
         // then
         Assertions.assertThat(responseActual1.size()).isEqualTo(1);
