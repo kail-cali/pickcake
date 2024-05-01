@@ -23,6 +23,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.time.LocalTime;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
@@ -151,6 +152,8 @@ public class DBInitService implements TestInit{
         em.persist(shop1);
         em.persist(shop2);
 
+        HashMap<String, Object> items = new HashMap<>();
+        System.out.println("items.get(\"cake\") = " + items.get("cake"));
         TestDataSize testDataSize = new TestDataSize(4,4,1L,1L);
         return testDataSize;
     }

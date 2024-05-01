@@ -45,15 +45,15 @@ public class CakeSearchApi {
             @Validated @RequestParam(value = "categoryName", defaultValue = "all") @NotBlank String categoryName) {
         return cakeSearchService.findBySingleCategory(offset,limit,categoryName);
     }
-    /* like 로 아이템 이름 조회 */
-    @GetMapping("/api/cake/name")
-    public List<CakeSimpleSearch> searchByName(
-            @Validated @RequestParam(value = "offset", defaultValue = "0") @PositiveOrZero int offset,
-            @Validated @RequestParam(value = "limit", defaultValue = "10") @Range(min=1, max=20) int limit,
-            @Validated @RequestParam(value = "cakeName", defaultValue = "케이크") @NotBlank String cakeName) {
-        return cakeSearchService.findByNameOnLike(offset, limit, cakeName);
-    }
-    /* 캐스팅 및 변환이 필요한 경우 requestParam 은 검증이 제대로 동작하지 않는 문제가 있음 */
+//    /* like 로 아이템 이름 조회 */
+//    @GetMapping("/api/cake/name")
+//    public List<CakeSimpleSearch> searchByName(
+//            @Validated @RequestParam(value = "offset", defaultValue = "0") @PositiveOrZero int offset,
+//            @Validated @RequestParam(value = "limit", defaultValue = "10") @Range(min=1, max=20) int limit,
+//            @Validated @RequestParam(value = "cakeName", defaultValue = "케이크") @NotBlank String cakeName) {
+//        return cakeSearchService.findByNameOnLike(offset, limit, cakeName);
+//    }
+
     @GetMapping("/api/cake/details")
     public CakeDetailSearch searchByItemDetails(
             @Validated @RequestParam(value= "itemId") @NotEmpty String itemId) {
@@ -66,7 +66,6 @@ public class CakeSearchApi {
 
         CakeDetailSearch reselt = cakeSearchService.findBySingleDetail(Long.valueOf(itemId));
 
-        // get 3rd party api call
         KaKaoMapApiResponse response = mapSearchApiService.searchGeoWithWebClientAddOnKAKAO(reselt.getShop().getAddress());
 
         return null;

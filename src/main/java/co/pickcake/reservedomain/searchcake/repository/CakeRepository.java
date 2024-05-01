@@ -10,6 +10,13 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 public interface CakeRepository extends JpaRepository<Cake, Long> {
+    /*
+     *  CAKE USER REPO 스펙 및 제공 API
+     * - 전체 케이크 상품 조회
+     * - 브랜드별 상품 조회
+     * - 카테고리별 상품 조회
+     * - 아이템 상세 조회
+     * */
 
     @Query("select c from Cake c" +
             " join fetch c.cakeImages ci" +
@@ -20,8 +27,6 @@ public interface CakeRepository extends JpaRepository<Cake, Long> {
             " join fetch s.instagram sii" +
             " where c.id = :itemId")
     Cake findByIdDetails(@Param("itemId") Long id);
-
-
 
     @Query("select c from Cake c" +
             " join fetch c.cakeImages ci" +
@@ -36,6 +41,8 @@ public interface CakeRepository extends JpaRepository<Cake, Long> {
     @Query("select c from Cake c" +
             " join fetch c.cakeImages ci")
     Page<Cake> findAllByPaging(Pageable pageable);
+
+
 
 
 }

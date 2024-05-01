@@ -6,6 +6,7 @@ import co.pickcake.mapapi.response.KaKaoDocumentResponse;
 import co.pickcake.mapapi.response.KaKaoMapApiResponse;
 import co.pickcake.mapapi.service.MapSearchApiService;
 import co.pickcake.reservedomain.entity.item.Cake;
+import co.pickcake.reservedomain.searchcake.repository.CakeRepository;
 import co.pickcake.reservedomain.searchcake.repository.CakeUserRepository;
 import co.pickcake.reservedomain.searchcake.response.CakeDetailSearchWithFeature;
 import co.pickcake.shopdomain.entity.Shop;
@@ -19,7 +20,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class CakeSearchDetailService {
 
-    private final CakeUserRepository cakeUserRepository;
+    private final CakeRepository cakeUserRepository;
     private final MapSearchApiService mapSearchApiService;
     private final ShopJpaRepository shopRepository;
 

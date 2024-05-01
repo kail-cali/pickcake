@@ -45,7 +45,7 @@ class CakeImageStoreApiTest {
         String fileName = "s_x1";
         String ext = "png";
         String filePath = "/Users/george/dev/raw_images/s_x1.png";
-        String storeName = "new.png";
+        String storeName = "test-new.png";
 
         FileInputStream fileInputStream = new FileInputStream(filePath);
 

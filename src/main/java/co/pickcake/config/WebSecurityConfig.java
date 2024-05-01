@@ -38,7 +38,7 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
 import org.springframework.session.security.web.authentication.SpringSessionRememberMeServices;
-//import static org.springframework.boot.autoconfigure.security.servlet.PathRequest.toH2Console;
+
 
 @Slf4j
 @Configuration
@@ -51,9 +51,7 @@ public class WebSecurityConfig {
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer() {
         return web -> web.ignoring()
-//                .requestMatchers(PathRequest.toStaticResources().atCommonLocations())
                 .requestMatchers("/favicon.ico")
-//                .requestMatchers(toH2Console())
                 ;
     }
     @Bean
@@ -63,21 +61,6 @@ public class WebSecurityConfig {
                         .anyRequest().permitAll()
                 )
                 .addFilterBefore(usernamePasswordAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class)
-
-//                .formLogin((form) -> form
-//                        .loginPage("/auth/signin")
-//                        .loginProcessingUrl("/auth/signin")
-//                        .usernameParameter("username")
-//                        .passwordParameter("password")
-//                        .defaultSuccessUrl("/", true)
-//                        .failureHandler(new AuthFailHandler(objectMapper))
-//                        .successHandler(new AuthSuccessHandler(objectMapper))
-//                        .permitAll()
-//                )
-//                .rememberMe(m -> m.rememberMeParameter("remember-me")
-//                        .alwaysRemember(false)
-//                        .tokenValiditySeconds(86400)
-//                )
                 .exceptionHandling(e -> {
                     e.accessDeniedHandler(new Http403Handler(objectMapper));
                     e.authenticationEntryPoint(new Http401Handler(objectMapper));
