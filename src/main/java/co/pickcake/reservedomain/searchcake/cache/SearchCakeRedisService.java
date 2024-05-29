@@ -48,11 +48,25 @@ public class SearchCakeRedisService {
             hashOperations.put(CACHE_KEY,
                 getSubKey(search),
                 serializeRecommendResponse(search));
-            log.error("[SearchCake Redis Save success] from {} to {}", search.getProfile().getStorePath(), serializeRecommendResponse(search));
+            log.info("[SearchCake Redis Save success] from {} to {}", search.getProfile().getStorePath(), serializeRecommendResponse(search));
         } catch (Exception e ) {
             log.error("[SearchCake Redis Save failed] {}", e.getMessage());
         }
     }
+
+    public void update(CakeSimpleSearch search) {
+        try {
+            hashOperations.put(CACHE_KEY,
+                    getSubKey(search),
+                    serializeRecommendResponse(search)
+                    );
+            log.info("[SearchCake Redis Update success]");
+
+        } catch (Exception e) {
+            log.error("[SearchCake Redis Update failed] {}", e.getMessage());
+        }
+    }
+
     public void delete(Long id) {
         hashOperations.delete(CACHE_KEY, String.valueOf(id));
     }

@@ -6,6 +6,7 @@ import co.pickcake.shopdomain.entity.Shop;
 import co.pickcake.testconfig.TestDataItem;
 import co.pickcake.testconfig.TestDataSize;
 import co.pickcake.util.TestInitDB;
+import jakarta.persistence.EntityManager;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -22,12 +23,13 @@ import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest
 class CakeRepositoryJPATest {
 
+    @Autowired private CakeRepository cakeRepository;
 
-    @Autowired
-    private CakeRepository cakeRepository;
+    @Autowired private TestInitDB testInitDB;
 
-    @Autowired
-    private TestInitDB testInitDB;
+    @Autowired private EntityManager em;
+
+
 
     @Test
     @DisplayName("데이터 검증[success] 아이템 ID 상세페이지  데이터 조회했을 때 결과  ")
@@ -78,6 +80,31 @@ class CakeRepositoryJPATest {
 
         Assertions.assertThat(byBrandAndPaging.getTotalPages()).isEqualTo(1);
         Assertions.assertThat(byBrandAndPaging.getTotalElements()).isEqualTo(2);
+    }
+
+    @Test
+    @DisplayName("readonly ")
+    @Transactional
+    void findReadonly() {
+        //given
+        TestDataItem testDataItem = testInitDB.dbInitWithSingleItem();
+        Cake cake1 = (Cake) testDataItem.getItems().get("cake1");
+        Member member1 = (Member) testDataItem.getItems().get("member1");
+        Shop shop = (Shop) testDataItem.getItems().get("shop1");
+        Long toFind = cake1.getId();
+        em.flush();
+        em.clear();
+        //when
+
+        Cake found = cakeRepository.findReadOnlyByName("화이트 홀리데이 케이크");
+        found.setName("new.cakeName");
+        em.flush();
+        //then
+        Cake foundNext = cakeRepository.findReadOnlyByName("화이트 홀리데이 케이크");
+        Cake foundChanged = cakeRepository.findReadOnlyByName("new.cakeName");
+        Assertions.assertThat(foundNext).isNotNull();
+        Assertions.assertThat(foundChanged).isNull();
+
     }
 
 }

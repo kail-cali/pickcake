@@ -1,10 +1,12 @@
 package co.pickcake.reservedomain.searchcake.repository;
 
 import co.pickcake.reservedomain.entity.item.Cake;
+import jakarta.persistence.QueryHint;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.jpa.repository.QueryHints;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
@@ -42,6 +44,8 @@ public interface CakeRepository extends JpaRepository<Cake, Long> {
             " join fetch c.cakeImages ci")
     Page<Cake> findAllByPaging(Pageable pageable);
 
+    @QueryHints(value= @QueryHint(name = "org.hibernate.readOnly", value = "true" ))
+    Cake findReadOnlyByName(String name);
 
 
 
