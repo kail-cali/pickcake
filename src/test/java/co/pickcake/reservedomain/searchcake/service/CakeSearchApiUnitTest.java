@@ -21,6 +21,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.test.web.servlet.MockMvc;
@@ -93,12 +95,13 @@ public class CakeSearchApiUnitTest {
         Assertions.assertThat(responseActual.size()).isEqualTo(2);
     }
     @Test
-    @DisplayName("redis unit test[success]: 상품 조회 시, 정보가 없다면 빈 리스트를 내려줄 수 있어야 한다. ")
+    @DisplayName("redis unit test[success]: redis 에서 상품 조회 시, 정보가 없다면 빈 리스트를 내려줄 수 있어야 한다. ")
     void getFromDaoNoData() {
         //given
         //when
+        PageRequest request = PageRequest.of(0, 10, Sort.by(Sort.Direction.DESC, "brand"));
         Mockito.when(searchCakeRedisService.findAll()).thenReturn(Lists.newArrayList());
-        Mockito.when(cakeUserRepository.findAll()).thenReturn(Lists.newArrayList());
+        Mockito.when(cakeUserRepository.findAllByPaging(request)).thenReturn(Page.empty());
         List<CakeSimpleSearch> responseActual = cakeSearchService.findAll(0, 10);
         //then
         Assertions.assertThat(responseActual.size()).isEqualTo(0);
@@ -112,11 +115,18 @@ public class CakeSearchApiUnitTest {
                 150000, fileNamePolicy);
         ProfileImage profileImage1 = ProfileImage.createImageFile("s_x1.png", fileNamePolicy);
         cake1.getCakeImages().setProfileImage(profileImage1);
+
         List<Cake> responseExpected = new ArrayList<>();
         responseExpected.add(cake1);
+        PageRequest request = PageRequest.of(0, 10, Sort.by(Sort.Direction.DESC, "brand"));
+        int start = (int) request.getOffset();
+        int end = Math.min(start + request.getPageSize(), responseExpected.size());
+        PageImpl<Cake> page = new PageImpl<>(responseExpected.subList(start, end), request, responseExpected.size());
+
         //when
         Mockito.when(searchCakeRedisService.findAll()).thenReturn(Lists.newArrayList());
-        Mockito.when(cakeUserRepository.findAll()).thenReturn(responseExpected);
+        Mockito.when(cakeUserRepository.findAllByPaging(request)).thenReturn(page);
+
         List<CakeSimpleSearch> responseActual = cakeSearchService.findAll(0, 10);
         //then
         Assertions.assertThat(responseActual.size()).isEqualTo(1);
