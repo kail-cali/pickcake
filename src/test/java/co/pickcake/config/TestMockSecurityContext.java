@@ -1,9 +1,9 @@
 package co.pickcake.config;
 
 
-import co.pickcake.authdomain.entity.Member;
-import co.pickcake.authdomain.repository.MemberRepository;
-import co.pickcake.authdomain.service.AuthService;
+import co.pickcake.auth.domain.Member;
+import co.pickcake.auth.repository.MemberRepository;
+import co.pickcake.auth.service.AuthService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

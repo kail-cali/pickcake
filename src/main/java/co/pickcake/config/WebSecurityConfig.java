@@ -2,12 +2,12 @@ package co.pickcake.config;
 
 
 
-import co.pickcake.authdomain.handler.AuthSuccessHandler;
-import co.pickcake.authdomain.handler.Http401Handler;
-import co.pickcake.authdomain.handler.Http403Handler;
-import co.pickcake.authdomain.handler.AuthFailHandler;
-import co.pickcake.authdomain.repository.MemberRepository;
-import co.pickcake.authdomain.service.AuthDetailsService;
+import co.pickcake.auth.handler.AuthSuccessHandler;
+import co.pickcake.auth.handler.Http401Handler;
+import co.pickcake.auth.handler.Http403Handler;
+import co.pickcake.auth.handler.AuthFailHandler;
+import co.pickcake.auth.repository.MemberRepository;
+import co.pickcake.auth.service.AuthDetailsService;
 
 import co.pickcake.config.filter.EmailPasswordAuthenticationFilter;
 import com.fasterxml.jackson.databind.ObjectMapper;

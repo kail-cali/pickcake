@@ -1,6 +1,6 @@
 package co.pickcake.config;
 
-import co.pickcake.authdomain.entity.Member;
+import co.pickcake.auth.domain.Member;
 
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;

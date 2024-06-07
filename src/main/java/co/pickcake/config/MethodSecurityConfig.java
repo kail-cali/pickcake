@@ -1,6 +1,6 @@
 package co.pickcake.config;
 
-import co.pickcake.authdomain.repository.MemberRepository;
+import co.pickcake.auth.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

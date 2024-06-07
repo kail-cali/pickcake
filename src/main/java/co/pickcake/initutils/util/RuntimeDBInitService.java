@@ -1,15 +1,15 @@
 package co.pickcake.initutils.util;
 
-import co.pickcake.authdomain.entity.Member;
+import co.pickcake.auth.domain.Member;
 import co.pickcake.config.FileSystemConfig;
 import co.pickcake.config.WebSecurityConfig;
-import co.pickcake.imagedomain.entity.ProfileImage;
-import co.pickcake.imagedomain.service.ImageStoreService;
+import co.pickcake.image.domain.ProfileImage;
+import co.pickcake.image.service.ImageStoreService;
 
-import co.pickcake.reservedomain.entity.item.Cake;
-import co.pickcake.reservedomain.entity.item.CakeCategory;
-import co.pickcake.reservedomain.entity.item.EventCakeCategory;
-import co.pickcake.shopdomain.entity.Shop;
+import co.pickcake.reservation.domain.item.Cake;
+import co.pickcake.reservation.domain.item.CakeCategory;
+import co.pickcake.reservation.domain.item.EventCakeCategory;
+import co.pickcake.shop.domain.Shop;
 import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;

@@ -1,8 +1,8 @@
 package co.pickcake.home.controller;
 
 
-import co.pickcake.reservedomain.searchcake.dto.CakeSimpleSearch;
-import co.pickcake.reservedomain.searchcake.service.CakeSearchService;
+import co.pickcake.reservation.searchcake.dto.CakeSimpleSearch;
+import co.pickcake.reservation.searchcake.service.CakeSearchService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;

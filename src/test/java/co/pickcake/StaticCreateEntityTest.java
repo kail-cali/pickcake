@@ -1,11 +1,10 @@
 package co.pickcake;
 
-import co.pickcake.authdomain.api.MemberSearchApiController;
-import co.pickcake.authdomain.entity.Member;
-import co.pickcake.reservedomain.entity.ReserveInfo;
-import co.pickcake.reservedomain.entity.item.Cake;
-import co.pickcake.shopdomain.entity.Shop;
-import co.pickcake.sns.entity.SNS;
+import co.pickcake.auth.domain.Member;
+import co.pickcake.reservation.domain.ReserveInfo;
+import co.pickcake.reservation.domain.item.Cake;
+import co.pickcake.shop.domain.Shop;
+import co.pickcake.sns.domain.SNS;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

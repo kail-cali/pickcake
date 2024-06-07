@@ -2,7 +2,7 @@ package co.pickcake.config;
 
 
 import co.pickcake.aop.util.exception.AuthAccessDeniedException;
-import co.pickcake.authdomain.repository.MemberRepository;
+import co.pickcake.auth.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.access.PermissionEvaluator;
