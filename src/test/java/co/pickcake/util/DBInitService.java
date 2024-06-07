@@ -1,15 +1,15 @@
 package co.pickcake.util;
 
-import co.pickcake.authdomain.entity.Member;
+import co.pickcake.auth.domain.Member;
 import co.pickcake.config.FileSystemConfig;
 import co.pickcake.config.WebSecurityConfig;
-import co.pickcake.imagedomain.entity.ProfileImage;
-import co.pickcake.imagedomain.service.ImageStoreService;
+import co.pickcake.image.domain.ProfileImage;
+import co.pickcake.image.service.ImageStoreService;
 
-import co.pickcake.reservedomain.entity.item.Cake;
-import co.pickcake.reservedomain.entity.item.CakeCategory;
-import co.pickcake.reservedomain.entity.item.EventCakeCategory;
-import co.pickcake.shopdomain.entity.Shop;
+import co.pickcake.reservation.domain.item.Cake;
+import co.pickcake.reservation.domain.item.CakeCategory;
+import co.pickcake.reservation.domain.item.EventCakeCategory;
+import co.pickcake.shop.domain.Shop;
 import co.pickcake.testconfig.InitCreate;
 import co.pickcake.testconfig.TestDataItem;
 import co.pickcake.testconfig.TestDataSize;
@@ -23,7 +23,6 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.time.LocalTime;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 

@@ -1,6 +1,6 @@
 package co.pickcake.sns.dto;
 
-import co.pickcake.sns.entity.SNS;
+import co.pickcake.sns.domain.SNS;
 import lombok.Data;
 
 @Data

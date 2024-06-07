@@ -21,6 +21,7 @@ class ChatGPTServiceTest {
     @Autowired
     private ChatGPTService chatGPTService;
 
+    /* TODO 현 버전 openai 코드 만료, 추후 프로젝트 위해 연장 필요 */
     @Test
     @DisplayName("v1 api call [success]: llm query dsl로 openapi 에 요청 시 응답 확인")
     void v1ChatGPTRecommendTest() {
